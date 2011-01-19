@@ -29,8 +29,13 @@ public class HomeScreen extends Activity {
     	TextView txtResult = (TextView)findViewById(R.id.txt_result);
     	if (requestCode == 0) {
             if (resultCode == RESULT_OK && intent.getStringExtra("SCAN_RESULT_FORMAT").equals("QR_CODE")) {
-                String contents = intent.getStringExtra("SCAN_RESULT");
-                
+                QRCode item = new QRCode(intent.getStringExtra("SCAN_RESULT"));
+                StringBuilder builder = new StringBuilder();
+                while(item.hasNext()) {
+                	String key = item.nextKey();
+                	builder.append(key + ": " + item.get(key) + "\n");
+                }
+                txtResult.setText(builder.toString());
             } else {
             	txtResult.setText("FAILURE");
             }
