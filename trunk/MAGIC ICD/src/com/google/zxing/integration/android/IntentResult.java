@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package coms.google.zxing.integration.android;
+package com.google.zxing.integration.android;
 
 /**
  * <p>Encapsulates the result of a barcode scan invoked through {@link IntentIntegrator}.</p>
