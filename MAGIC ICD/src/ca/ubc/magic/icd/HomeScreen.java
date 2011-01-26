@@ -14,30 +14,10 @@ public class HomeScreen extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-       
-        Button btnScan = (Button)findViewById(R.id.btn_scan);
-        Button btnLogin = (Button)findViewById(R.id.btn_login);
-        Button btnClear = (Button)findViewById(R.id.btn_clear);
+        setContentView(R.layout.home);
         
-        btnClear.setOnClickListener(new OnClickListener() {
-    		EditText userName = (EditText) findViewById(R.id.userName);
-    		EditText password = (EditText) findViewById(R.id.password);
-        	public void onClick(View view) {
-        		password.setText("");
-        		userName.setText("");
-        	}
-        });
+        Button btnScan = (Button)findViewById(R.id.home_btnScan);
         
-        btnLogin.setOnClickListener(new OnClickListener() {
-        	TextView txtResult = (TextView) findViewById(R.id.txt_result);
-        	EditText userName = (EditText) findViewById(R.id.userName);
-    		EditText password = (EditText) findViewById(R.id.password);
-        	public void onClick(View view) {
-        		txtResult.setText("UserName was : " + userName.getText() + " Password : " + password.getText());
-        	}
-        });
-
         btnScan.setOnClickListener(new OnClickListener() {
         	public void onClick(View view) {
         		Intent intent = new Intent("com.google.zxing.client.android.SCAN");
@@ -48,7 +28,7 @@ public class HomeScreen extends Activity {
     }
     
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-    	TextView txtResult = (TextView)findViewById(R.id.txt_result);
+    	TextView txtResult = (TextView)findViewById(R.id.home_btnScan);
     	if (requestCode == 0) {
             if (resultCode == RESULT_OK && intent.getStringExtra("SCAN_RESULT_FORMAT").equals("QR_CODE")) {
                 QRItem item = new QRItem(intent.getStringExtra("SCAN_RESULT"));

@@ -14,7 +14,7 @@ public class EncodeScreen extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.encoder);
        
         Spinner spinner = (Spinner) findViewById(R.id.encoder_typeSpinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
