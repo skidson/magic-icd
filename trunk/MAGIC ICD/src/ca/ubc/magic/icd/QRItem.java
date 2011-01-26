@@ -14,12 +14,11 @@ public class QRItem {
 	
 	private Map<String, Object> tags;
 	private String code;
-	private Iterator iterator;
+	private Iterator<Map.Entry<String, Object>> iterator;
 	
 	public QRItem(String code) {
 		this.code = code;
 		tags = this.parse(code);
-		iterator = tags.entrySet().iterator();
 	}
 	
 	/**
@@ -36,7 +35,8 @@ public class QRItem {
 			// Remove id tag from start
 			lines[0] = lines[0].replace(type + ":", "");
 			tags = this.parseFormatA(lines);
-		}
+		} else
+			return null;
 		return tags;
 	}
 	
@@ -64,11 +64,31 @@ public class QRItem {
 	}
 	
 	public String nextKey() {
-		return (String)((Map.Entry)iterator.next()).getKey();
+		if (iterator == null)
+			goToStart();
+		return (String)((Map.Entry<String, Object>)iterator.next()).getKey();
 	}
 	
 	public boolean hasNext() {
+		if (iterator == null)
+			return false;
 		return iterator.hasNext();
+	}
+	
+	public String toString() {
+		// If no recognized format could be found, return raw code instead
+		if (tags == null)
+			return code;
+		
+		Iterator<Map.Entry<String, Object>> temp = this.iterator;
+		StringBuilder builder = new StringBuilder();
+		
+		goToStart();
+		while (this.hasNext()) {
+			String key = this.nextKey();
+			builder.append(key + ": " + this.get(key) + "\n");
+		}
+		return builder.toString();
 	}
 
 }
