@@ -2,6 +2,14 @@
 <resources>
     <string name="app_name">ICD</string>
     <string name="btn_scan">SCAN</string>
+    
+    <string name="encoder_typePrompt">Content Type:</string>
+    <string-array name="encoder_typeArray">
+    	<item>Contact Information</item>
+    	<item>Magic Item</item>
+    </string-array>
+
     <string name="btn_login">Login</string>
     <string name="btn_clear">Clear</string>
+
 </resources>
