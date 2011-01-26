@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    
+    <TextView
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_margin="10dip"
+    	android:text="@string/encoder_typePrompt"/>
+    	
+    <Spinner android:id="@+id/encoder_typeSpinner"
+    	android:layout_height="wrap_content"
+    	android:layout_width="wrap_content"
+    	android:prompt="@string/encoder_typePrompt"/>
+    
+    <Button android:id="@+id/btn_scan"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:text="@string/btn_scan"/>
+    	
+   	<TextView android:id='@+id/txt_result'
+   		android:layout_width="fill_parent"
+   		android:layout_height="wrap_content"
+   		android:textSize="22px"/>
+	    
+</RelativeLayout>
