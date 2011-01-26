@@ -2,7 +2,10 @@
 <resources>
     <string name="app_name">ICD</string>
     
-    <string name="home_btnScan">SCAN</string>
+    <string name="home_btnScan">Scan</string>
+    <string name="home_btnLogin">Login</string>
+    <string name="home_btnEncode">Encode</string>
+    
 	<string name="login_lblUsername">Username:</string>
     <string name="login_lblPassword">Password:</string>
     <string name="login_btnLogin">Login</string>
