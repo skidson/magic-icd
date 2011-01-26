@@ -8,9 +8,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import com.google.zxing.qrcode.encoder.Encoder;
-import com.google.zxing.qrcode.encoder.QRCode;
-
 public class QRItem {
 	private static final String CONTACT_INFO = "MECARD";
 	private static final String MAGIC_ITEM = "MAGIC";
@@ -25,6 +22,12 @@ public class QRItem {
 		iterator = tags.entrySet().iterator();
 	}
 	
+	/**
+	 * Parses all recognized tags into a backing hashmap. Fields should be seperated with semicolons and
+	 * with key-value pairs seperated by colons. An example input would be Name:Bob;Phone:555-5555.
+	 * @param code
+	 * @return
+	 */
 	private Map<String, Object> parse(String code) {
 		String[] lines = code.split(";");
 		String type = lines[0].split(":")[0];
