@@ -1,5 +1,10 @@
 package ca.ubc.magic.icd;
 
+/**
+ * Interface to be extended for customizing responses to detected gestures.
+ * @author skidson
+ *
+ */
 public interface GestureHandler {
 	public void onFlingRight();
 	public void onFlingLeft();

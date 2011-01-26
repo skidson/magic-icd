@@ -48,6 +48,9 @@ public class HomeScreen extends Activity {
 //        });
     }
     
+    /**
+     * Called when an activity launched from this one has completed.
+     */
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
     	TextView txtResult = (TextView)findViewById(R.id.home_txtResult);
     	if (requestCode == 0) {
@@ -59,7 +62,13 @@ public class HomeScreen extends Activity {
         }
     }
     
-    private class HomeGestureHandler implements GestureHandler {
+    /**
+     * Custom collection of methods to be executed when the owning GestureListener
+     * identifies an onFling() event.
+     * @author skidson
+     *
+     */
+	private class HomeGestureHandler implements GestureHandler {
 		public void onFlingRight() {
 			viewFlipper.showNext();
 		}
