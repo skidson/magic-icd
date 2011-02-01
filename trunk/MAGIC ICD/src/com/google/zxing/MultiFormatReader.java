@@ -17,8 +17,6 @@
 package com.google.zxing;
 
 import com.google.zxing.datamatrix.DataMatrixReader;
-import com.google.zxing.oned.MultiFormatOneDReader;
-import com.google.zxing.pdf417.PDF417Reader;
 import com.google.zxing.qrcode.QRCodeReader;
 
 import java.util.Hashtable;
@@ -107,27 +105,18 @@ public final class MultiFormatReader implements Reader {
               formats.contains(BarcodeFormat.RSS14) ||
               formats.contains(BarcodeFormat.RSS_EXPANDED);
       // Put 1D readers upfront in "normal" mode
-      if (addOneDReader && !tryHarder) {
-        readers.addElement(new MultiFormatOneDReader(hints));
-      }
+     
       if (formats.contains(BarcodeFormat.QR_CODE)) {
         readers.addElement(new QRCodeReader());
       }
       if (formats.contains(BarcodeFormat.DATA_MATRIX)) {
         readers.addElement(new DataMatrixReader());
       }
-      if (formats.contains(BarcodeFormat.PDF417)) {
-         readers.addElement(new PDF417Reader());
-       }
       // At end in "try harder" mode
-      if (addOneDReader && tryHarder) {
-        readers.addElement(new MultiFormatOneDReader(hints));
-      }
+      
     }
     if (readers.isEmpty()) {
-      if (!tryHarder) {
-        readers.addElement(new MultiFormatOneDReader(hints));
-      }
+      
       readers.addElement(new QRCodeReader());
 
       readers.addElement(new DataMatrixReader());
@@ -135,9 +124,6 @@ public final class MultiFormatReader implements Reader {
       // TODO: Enable once PDF417 has passed QA
       //readers.addElement(new PDF417Reader());
 
-      if (tryHarder) {
-        readers.addElement(new MultiFormatOneDReader(hints));
-      }
     }
   }
 
