@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:orientation="vertical"
+	    android:gravity="top"
+	    android:background="#819b9b">
+	    
+	<ImageView
+	    	android:layout_height="wrap_content"
+	    	android:layout_width="wrap_content"
+	    	android:scaleType="centerCrop"
+	    	android:src="@drawable/img_header"/>
+	    	
+	<LinearLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:orientation="vertical"
+	    android:gravity="bottom">
+	    
+	    <ViewFlipper android:id="@+id/home_viewFlipper"
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="wrap_content"
+	    	android:layout_margin="10sp">
+	    	
+	    	<!-- View #1 -->
+	    	<TextView android:id="@+id/home_txtResult"
+		    	android:layout_width="wrap_content"
+		    	android:layout_height="wrap_content"
+		    	android:layout_margin="10sp"
+		    	android:textColor="#EEEEEE"
+		    	android:textSize="18px" />
+		
+			<!-- View #2 -->
+			<RelativeLayout 
+			    android:layout_width="fill_parent"
+			    android:layout_height="fill_parent"
+			    android:gravity="center">
+			
+				<TextView android:id="@+id/login_lblUsername"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:textSize="18px"
+			        android:text="@string/login_lblUsername"/>
+			        
+			    <EditText android:id="@+id/login_txtUsername"
+			        android:layout_width="fill_parent"
+			        android:layout_height="30dip"
+			        android:background="@android:drawable/editbox_background"
+			        android:layout_toRightOf="@id/login_lblUsername"
+			        android:layout_alignTop="@id/login_lblUsername"/>
+			        
+			    <TextView android:id="@+id/login_lblPassword"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:layout_below="@id/login_lblUsername"
+				    android:layout_marginTop="20dip"
+				    android:textSize="18px"
+				    android:text="@string/login_lblPassword"/>
+				    
+			    <EditText android:id="@+id/login_txtPassword"
+			        android:layout_width="fill_parent"
+			        android:layout_height="30dip"
+			        android:background="@android:drawable/editbox_background"
+			        android:layout_below="@id/login_txtUsername"
+			        android:layout_toRightOf="@id/login_lblPassword"
+			        android:layout_alignTop="@id/login_lblPassword"/>
+			        
+			    <Button android:id="@+id/login_btnLogin"
+			        android:layout_width="100dip"
+			        android:layout_height="45dip"
+			        android:layout_marginTop="20dip"
+			        android:layout_below="@id/login_lblPassword"
+			        android:layout_alignParentLeft="true"
+			        android:text="@string/login_btnLogin" />
+			        
+			    <Button android:id="@+id/login_btnClear"
+			        android:layout_width="100dip"
+			        android:layout_height="45dip"
+			        android:layout_toRightOf="@id/login_btnLogin"
+			        android:layout_alignTop="@id/login_btnLogin"
+			        android:text="@string/login_btnClear" />
+			
+			</RelativeLayout>
+	    	
+	    	<!-- View #3 -->
+	    	<RelativeLayout
+			    android:layout_width="fill_parent"
+			    android:layout_height="fill_parent">
+			        
+			    <TextView
+			    	android:layout_width="wrap_content"
+			    	android:layout_height="wrap_content"
+			    	android:layout_marginTop="10dip"
+			    	android:text="@string/encoder_typePrompt"/>
+			    	
+			    <Spinner android:id="@+id/encoder_typeSpinner"
+			    	android:layout_height="wrap_content"
+			    	android:layout_width="wrap_content"
+			    	android:prompt="@string/encoder_typePrompt"/>
+	    
+			</RelativeLayout>
+			
+    	</ViewFlipper>
+	    	
+	    <RelativeLayout
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="wrap_content"
+	    	android:layout_marginBottom="10sp">
+	    	
+		    <Button android:id="@+id/home_btnLogin"
+		    	android:layout_width="wrap_content"
+		    	android:layout_height="wrap_content"
+		    	android:layout_margin="5sp"
+		    	android:layout_centerHorizontal="true"
+		    	android:drawableTop="@drawable/ic_menu_agenda"
+		    	android:background="@drawable/btn_selector"
+		    	android:textColor="#EEEEEE"
+		    	android:text="@string/home_btnLogin"/>
+		    	
+		    <Button android:id="@+id/home_btnScan"
+		    	android:layout_width="wrap_content"
+		    	android:layout_height="wrap_content"
+		    	android:layout_margin="5sp"
+		    	android:drawableTop="@drawable/ic_menu_view"
+		    	android:background="@drawable/btn_selector"
+		    	android:layout_toLeftOf="@id/home_btnLogin"
+		    	android:textColor="#EEEEEE"
+		    	android:text="@string/home_btnScan"/>
+		    	
+		    <Button android:id="@+id/home_btnEncode"
+		    	android:layout_width="wrap_content"
+		    	android:layout_height="wrap_content"
+		    	android:layout_margin="5sp"
+		    	android:drawableTop="@drawable/ic_menu_slideshow"
+		    	android:background="@drawable/btn_selector"
+		    	android:layout_toRightOf="@id/home_btnLogin"
+		    	android:textColor="#EEEEEE"
+		    	android:text="@string/home_btnEncode"/>
+		    	
+	    </RelativeLayout>
+	
+	</LinearLayout>	
+</LinearLayout>
