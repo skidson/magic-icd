@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
@@ -54,6 +56,12 @@ public class HomeScreen extends Activity {
         		startActivity(intent);*/
         	}
         });
+        
+        Spinner spinner = (Spinner) findViewById(R.id.encoder_typeSpinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this, R.array.encoder_typeArray, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
         
 //        this.viewFlipper = (ViewFlipper)findViewById(R.id.home_viewFlipper);
 //        findViewById(R.layout.home).setOnTouchListener(new OnTouchListener() {
