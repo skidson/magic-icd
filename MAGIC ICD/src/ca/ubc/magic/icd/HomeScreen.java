@@ -3,11 +3,8 @@ package ca.ubc.magic.icd;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
@@ -37,8 +34,8 @@ public class HomeScreen extends Activity {
         Button btnLogin = (Button)findViewById(R.id.home_btnLogin);
         btnLogin.setOnClickListener(new OnClickListener() {
         	public void onClick(View view) {
-        		
-        		viewFlipper.setAnimation(AnimationUtils.loadAnimation(view.getContext(), R.anim.push_left_in));
+        		viewFlipper.setOutAnimation(AnimationUtils.loadAnimation(view.getContext(), R.anim.push_left_out));
+        		viewFlipper.setInAnimation(AnimationUtils.loadAnimation(view.getContext(), R.anim.push_left_in));
         		viewFlipper.showNext();
         		
         		/*Intent intent = new Intent(HomeScreen.this, LoginScreen.class);
@@ -49,9 +46,9 @@ public class HomeScreen extends Activity {
         Button btnEncode = (Button)findViewById(R.id.home_btnEncode);
         btnEncode.setOnClickListener(new OnClickListener() {
         	public void onClick(View view) {
-        		
-        		viewFlipper.setAnimation(AnimationUtils.loadAnimation(view.getContext(), R.anim.push_left_out));
-        		viewFlipper.showPrevious();
+        		viewFlipper.setOutAnimation(AnimationUtils.loadAnimation(view.getContext(), R.anim.push_right_out));
+    			viewFlipper.setInAnimation(AnimationUtils.loadAnimation(view.getContext(), R.anim.push_right_in));
+    			viewFlipper.showNext();
         		
         		/*Intent intent = new Intent(HomeScreen.this, EncodeScreen.class);
         		startActivity(intent);*/

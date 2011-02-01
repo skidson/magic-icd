@@ -7,10 +7,10 @@
 	    android:background="#819b9b">
 	    
 	<ImageView
-	    	android:layout_height="wrap_content"
-	    	android:layout_width="wrap_content"
-	    	android:scaleType="centerCrop"
-	    	android:src="@drawable/img_header"/>
+    	android:layout_height="wrap_content"
+    	android:layout_width="wrap_content"
+    	android:scaleType="centerCrop"
+    	android:src="@drawable/img_header"/>
 	    	
 	<LinearLayout
 	    android:layout_width="fill_parent"

@@ -1,11 +1,5 @@
 package ca.ubc.magic.icd;
 
-import java.io.BufferedInputStream;
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -13,8 +7,6 @@ import java.util.Map;
 import android.content.Context;
 import android.net.Uri;
 import android.widget.ImageView;
-
-import com.google.zxing.WriterException;
 
 /**
  * Parses and stores information from various popular QR-Code formats into
@@ -65,7 +57,6 @@ public class QRItem {
 	}
 	
 	/* *********************** Helper Methods *********************** */
-	
 	private Map<String, String> parseMagic(String[] lines) {
 		Map<String, String> temp = new HashMap<String, String>();
 		String firstLine = "";
@@ -146,6 +137,7 @@ public class QRItem {
 			String key = this.nextKey();
 			builder.append(key + ": " + this.get(key) + "\n");
 		}
+		this.iterator = temp;
 		return builder.toString();
 	}
 	
