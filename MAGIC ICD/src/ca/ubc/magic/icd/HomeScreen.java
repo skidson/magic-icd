@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
@@ -20,7 +21,9 @@ public class HomeScreen extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home);
+        setContentView(R.layout.main);
+        
+        viewFlipper = (ViewFlipper)findViewById(R.id.home_viewFlipper);
         
         Button btnScan = (Button)findViewById(R.id.home_btnScan);
         btnScan.setOnClickListener(new OnClickListener() {
@@ -34,8 +37,24 @@ public class HomeScreen extends Activity {
         Button btnLogin = (Button)findViewById(R.id.home_btnLogin);
         btnLogin.setOnClickListener(new OnClickListener() {
         	public void onClick(View view) {
-        		Intent intent = new Intent(HomeScreen.this, LoginScreen.class);
-        		startActivity(intent);
+        		
+        		viewFlipper.setAnimation(AnimationUtils.loadAnimation(view.getContext(), R.anim.push_left_in));
+        		viewFlipper.showNext();
+        		
+        		/*Intent intent = new Intent(HomeScreen.this, LoginScreen.class);
+        		startActivity(intent);*/
+        	}
+        });
+        
+        Button btnEncode = (Button)findViewById(R.id.home_btnEncode);
+        btnEncode.setOnClickListener(new OnClickListener() {
+        	public void onClick(View view) {
+        		
+        		viewFlipper.setAnimation(AnimationUtils.loadAnimation(view.getContext(), R.anim.push_left_out));
+        		viewFlipper.showPrevious();
+        		
+        		/*Intent intent = new Intent(HomeScreen.this, EncodeScreen.class);
+        		startActivity(intent);*/
         	}
         });
         
