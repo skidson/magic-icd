@@ -11,98 +11,196 @@
     	android:layout_width="wrap_content"
     	android:scaleType="centerCrop"
     	android:src="@drawable/img_header"/>
-	    	
+    	
 	<LinearLayout
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent"
-	    android:orientation="vertical"
-	    android:gravity="bottom">
-	    
-	    <ViewFlipper android:id="@+id/home_viewFlipper"
+	    android:orientation="vertical">
+    
+	    <ScrollView
 	    	android:layout_width="fill_parent"
-	    	android:layout_height="wrap_content"
-	    	android:layout_margin="10sp">
-	    	
-	    	<!-- View #1 -->
-	    	<TextView android:id="@+id/home_txtResult"
-		    	android:layout_width="wrap_content"
-		    	android:layout_height="wrap_content"
-		    	android:layout_margin="10sp"
-		    	android:textColor="#EEEEEE"
-		    	android:textSize="18px" />
-		
-			<!-- View #2 -->
-			<RelativeLayout 
-			    android:layout_width="fill_parent"
-			    android:layout_height="fill_parent"
-			    android:gravity="center">
-			
-				<TextView android:id="@+id/login_lblUsername"
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:textSize="18px"
-			        android:text="@string/login_lblUsername"/>
-			        
-			    <EditText android:id="@+id/login_txtUsername"
-			        android:layout_width="fill_parent"
-			        android:layout_height="30dip"
-			        android:background="@android:drawable/editbox_background"
-			        android:layout_toRightOf="@id/login_lblUsername"
-			        android:layout_alignTop="@id/login_lblUsername"/>
-			        
-			    <TextView android:id="@+id/login_lblPassword"
-				    android:layout_width="wrap_content"
-				    android:layout_height="wrap_content"
-				    android:layout_below="@id/login_lblUsername"
-				    android:layout_marginTop="20dip"
-				    android:textSize="18px"
-				    android:text="@string/login_lblPassword"/>
-				    
-			    <EditText android:id="@+id/login_txtPassword"
-			        android:layout_width="fill_parent"
-			        android:layout_height="30dip"
-			        android:background="@android:drawable/editbox_background"
-			        android:layout_below="@id/login_txtUsername"
-			        android:layout_toRightOf="@id/login_lblPassword"
-			        android:layout_alignTop="@id/login_lblPassword"/>
-			        
-			    <Button android:id="@+id/login_btnLogin"
-			        android:layout_width="100dip"
-			        android:layout_height="45dip"
-			        android:layout_marginTop="20dip"
-			        android:layout_below="@id/login_lblPassword"
-			        android:layout_alignParentLeft="true"
-			        android:text="@string/login_btnLogin" />
-			        
-			    <Button android:id="@+id/login_btnClear"
-			        android:layout_width="100dip"
-			        android:layout_height="45dip"
-			        android:layout_toRightOf="@id/login_btnLogin"
-			        android:layout_alignTop="@id/login_btnLogin"
-			        android:text="@string/login_btnClear" />
-			
-			</RelativeLayout>
-	    	
-	    	<!-- View #3 -->
-	    	<RelativeLayout
-			    android:layout_width="fill_parent"
-			    android:layout_height="fill_parent">
-			        
-			    <TextView
-			    	android:layout_width="wrap_content"
-			    	android:layout_height="wrap_content"
-			    	android:layout_marginTop="10dip"
-			    	android:text="@string/encoder_typePrompt"/>
-			    	
-			    <Spinner android:id="@+id/encoder_typeSpinner"
-			    	android:layout_height="wrap_content"
-			    	android:layout_width="wrap_content"
-			    	android:prompt="@string/encoder_typePrompt"/>
+	    	android:layout_height="300sp">
 	    
-			</RelativeLayout>
-			
-    	</ViewFlipper>
+		    <ViewFlipper android:id="@+id/home_viewFlipper"
+		    	android:layout_width="fill_parent"
+		    	android:layout_height="wrap_content"
+		    	android:layout_margin="10sp">
+		    	
+		    	<!-- View #1 -->
+		    	<LinearLayout
+		    		android:layout_width="fill_parent"
+		    		android:layout_height="fill_parent"
+		    		android:orientation="vertical">
+		    		
+		    		<ImageView android:id="@+id/home_imgResult"
+		    			android:layout_width="wrap_content"
+		    			android:layout_height="wrap_content"
+		    			android:padding="10sp"/>
+		    		
+		    		<TextView android:id="@+id/home_txtResult"
+				    	android:layout_width="wrap_content"
+				    	android:layout_height="wrap_content"
+				    	android:layout_margin="10sp"
+				    	android:textColor="#EEEEEE"
+				    	android:textSize="18px" 
+				    	android:text="RESULTS"/>
+		    		
+	    		</LinearLayout>
+		    	
+				<!-- View #2 -->
+				<RelativeLayout 
+				    android:layout_width="fill_parent"
+				    android:layout_height="fill_parent"
+				    android:gravity="center">
+				
+					<TextView android:id="@+id/login_lblUsername"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:textSize="18px"
+				        android:text="@string/login_lblUsername"/>
+				        
+				    <EditText android:id="@+id/login_txtUsername"
+				        android:layout_width="fill_parent"
+				        android:layout_height="30dip"
+				        android:background="@android:drawable/editbox_background"
+				        android:layout_toRightOf="@id/login_lblUsername"
+				        android:layout_alignTop="@id/login_lblUsername"/>
+				        
+				    <TextView android:id="@+id/login_lblPassword"
+					    android:layout_width="wrap_content"
+					    android:layout_height="wrap_content"
+					    android:layout_below="@id/login_lblUsername"
+					    android:layout_marginTop="20dip"
+					    android:textSize="18px"
+					    android:text="@string/login_lblPassword"/>
+					    
+				    <EditText android:id="@+id/login_txtPassword"
+				        android:layout_width="fill_parent"
+				        android:layout_height="30dip"
+				        android:background="@android:drawable/editbox_background"
+				        android:layout_below="@id/login_txtUsername"
+				        android:layout_toRightOf="@id/login_lblPassword"
+				        android:layout_alignTop="@id/login_lblPassword"/>
+				        
+				    <Button android:id="@+id/login_btnLogin"
+				        android:layout_width="100dip"
+				        android:layout_height="45dip"
+				        android:layout_marginTop="20dip"
+				        android:layout_below="@id/login_lblPassword"
+				        android:layout_alignParentLeft="true"
+				        android:text="@string/login_btnLogin" />
+				        
+				    <Button android:id="@+id/login_btnClear"
+				        android:layout_width="100dip"
+				        android:layout_height="45dip"
+				        android:layout_toRightOf="@id/login_btnLogin"
+				        android:layout_alignTop="@id/login_btnLogin"
+				        android:text="@string/login_btnClear" />
+				
+				</RelativeLayout>
+		    	
+		    	<!-- View #3 -->
+		    	<RelativeLayout
+				    android:layout_width="fill_parent"
+				    android:layout_height="fill_parent">
+				        
+				    <TextView android:id="@+id/encoder_lblPrompt"
+				    	android:layout_width="wrap_content"
+				    	android:layout_height="wrap_content"
+				    	android:layout_marginTop="10dip"
+				    	android:text="@string/encoder_typePrompt"/>
+				    	
+				    <Spinner android:id="@+id/encoder_typeSpinner"
+				    	android:layout_width="fill_parent"
+				    	android:layout_height="wrap_content"
+				    	android:layout_below="@id/encoder_lblPrompt"
+				    	android:prompt="@string/encoder_typePrompt"/>
+				    	
+				    <RelativeLayout android:id="@+id/encoder_EditMagic"
+				    	android:layout_width="fill_parent"
+				    	android:layout_height="fill_parent"
+				    	android:layout_margin="0sp"
+				    	android:padding="0sp">
+				    	
+				    	<TextView android:id="@+id/encoder_lblName"
+				    		android:layout_width="wrap_content"
+				    		android:layout_height="wrap_content"
+				    		android:layout_margin="2sp"
+				    		android:text="@string/encoder_lblName"/>
+				    		
+			    		<EditText android:id="@+id/encoder_txtName"
+				    		android:layout_width="wrap_content"
+				    		android:layout_height="fill_parent" 
+				    		android:layout_margin="2sp"
+				    		android:layout_toLeftOf="@id/encoder_lblName"/>
+				    		
+				    	<TextView android:id="@+id/encoder_lblObject"
+				    		android:layout_width="wrap_content"
+				    		android:layout_height="wrap_content" 
+				    		android:layout_below="@id/encoder_lblName"
+				    		android:layout_margin="2sp"
+				    		android:text="@string/encoder_lblObject"/>
+				    		
+			    		<EditText android:id="@+id/encoder_txtObject"
+				    		android:layout_width="wrap_content"
+				    		android:layout_height="wrap_content" 
+				    		android:layout_margin="2sp"
+				    		android:layout_toLeftOf="@id/encoder_lblObject"/>
+				    		
+				    	<TextView android:id="@+id/encoder_lblCategory"
+				    		android:layout_width="wrap_content"
+				    		android:layout_height="fill_parent"
+				    		android:layout_margin="2sp"
+				    		android:layout_below="@id/encoder_lblName"
+				    		android:text="@string/encoder_lblCategory"/>
+				    		
+			    		<EditText android:id="@+id/encoder_txtCategory"
+				    		android:layout_width="wrap_content"
+				    		android:layout_height="wrap_content" 
+				    		android:layout_margin="2sp"
+				    		android:layout_toLeftOf="@id/encoder_lblCategory"/>
+				    		
+				    	<TextView android:id="@+id/encoder_lblCategory2"
+				    		android:layout_width="wrap_content"
+				    		android:layout_height="wrap_content" 
+				    		android:layout_below="@id/encoder_lblCategory"
+				    		android:layout_margin="2sp"
+				    		android:text="@string/encoder_lblCategory2"/>
+				    		
+			    		<EditText android:id="@+id/encoder_txtCategory2"
+				    		android:layout_width="wrap_content"
+				    		android:layout_height="fill_parent" 
+				    		android:layout_margin="2sp"
+				    		android:layout_toLeftOf="@id/encoder_lblCategory2"/>
+				    		
+				    	<TextView android:id="@+id/encoder_lblURL"
+				    		android:layout_width="wrap_content"
+				    		android:layout_height="wrap_content" 
+				    		android:layout_below="@id/encoder_lblCategory2"
+				    		android:layout_margin="2sp"
+				    		android:text="@string/encoder_lblCategory2"/>
+				    		
+			    		<EditText android:id="@+id/encoder_txtURL"
+				    		android:layout_width="wrap_content"
+				    		android:layout_height="fill_parent" 
+				    		android:layout_margin="2sp"
+				    		android:layout_toLeftOf="@id/encoder_lblURL"/>
+				    					    	
+				    </RelativeLayout>
+				    	
+				    <Button android:id="@+id/encoder_btnEncoder"
+				    	android:layout_width="wrap_content"
+				    	android:layout_height="wrap_content"
+				    	android:layout_below="@id/encoder_typeSpinner"
+				    	android:layout_alignRight="@id/encoder_typeSpinner"
+				    	android:text="@string/encoder_btnEncode" />
+		    
+				</RelativeLayout>
+				
+	    	</ViewFlipper>
 	    	
+	    </ScrollView>
+    
 	    <RelativeLayout
 	    	android:layout_width="fill_parent"
 	    	android:layout_height="wrap_content"

@@ -16,5 +16,11 @@
     	<item>Contact Information</item>
     	<item>Magic Item</item>
     </string-array>
+    <string name="encoder_btnEncode">Encode</string>
+    <string name="encoder_lblName">Name:</string>
+    <string name="encoder_lblObject">Object:</string>
+    <string name="encoder_lblCategory">Category:</string>
+    <string name="encoder_lblCategory2">Category2:</string>
+    <string name="encoder_lblURL">URL:</string>
     
 </resources>
