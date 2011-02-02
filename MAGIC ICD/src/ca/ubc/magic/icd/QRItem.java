@@ -1,12 +1,14 @@
 package ca.ubc.magic.icd;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import android.content.Context;
-import android.net.Uri;
-import android.widget.ImageView;
+import android.graphics.drawable.Drawable;
 
 /**
  * Parses and stores information from various popular QR-Code formats into
@@ -44,7 +46,6 @@ public class QRItem {
 		String type = lines[0].split(":")[0];
 		
 		if (type.equals(CONTACT_INFO)) {
-			// Remove id tag from start
 			tags = this.parseMagic(lines);
 		} else if (type.equals(MAGIC_ITEM)) {
 			 tags = this.parseMagic(lines);
@@ -56,23 +57,22 @@ public class QRItem {
 		return tags;
 	}
 	
-	/* *********************** Helper Methods *********************** */
 	private Map<String, String> parseMagic(String[] lines) {
 		Map<String, String> temp = new HashMap<String, String>();
-		String firstLine = "";
+		
 		// Remove type header
-		String[] fields = lines[0].split(":");
-		for (int i = 1; i < fields.length - 1; i++)
-			firstLine += fields[i] + ":";
-		firstLine += fields[fields.length];
+		String[] first = lines[0].split(":");
+		String firstLine = first[1];
+		for (int i = 2; i < first.length; i++)
+			firstLine += ":" + first[i];
 		lines[0] = firstLine;
 		
 		for (String line : lines) {
-			fields = line.split(":");
+			String[] args = line.split(":");
 			// Only use the first ":" as a the key delimiter (to avoid breaking urls, for example)
-			for (int i = 2; i < fields.length; i++)
-				fields[1] += fields[i];
-			temp.put(fields[0], fields[1]);
+			for (int i = 2; i < args.length; i++)
+				args[1] += args[i];
+			temp.put(args[0].trim(), args[1].trim());
 		}
 		return temp;
 	}
@@ -112,12 +112,20 @@ public class QRItem {
 		return tags.containsKey(key);
 	}
 	
+	/**
+	 * Returns the String identifier of the next key-value pair.
+	 * @return The key for the next key-value pair.
+	 */
 	public String nextKey() {
 		if (iterator == null)
 			goToStart();
 		return (String)((Map.Entry<String, String>)iterator.next()).getKey();
 	}
 	
+	/**
+	 * Returns whether this code has another key-value pair.
+	 * @return A boolean value representing whether this code has another key-value pair available
+	 */
 	public boolean hasNext() {
 		if (iterator == null)
 			return false;
@@ -141,31 +149,44 @@ public class QRItem {
 		return builder.toString();
 	}
 	
-	
-	public ImageView getImage(Context context) {
-		return getImage(context, 256);
-	}
-	
-	public ImageView getImage(Context context, int size) {
-		String chl = "MAGIC:" + this.toString();
-		String chs = size + "x" + size, choe = "ISO-8859-1", chld = "L";
-			
-		return getImage(context, chl, chs, choe, chld);
+	/**
+	 * Generates and returns a Drawable of this QR code via Google Charts API
+	 * @return A Drawable image of this item's QR Code.
+	 * @throws MalformedURLException
+	 * @throws IOException
+	 */
+	public Drawable getImageDrawable() throws MalformedURLException, IOException {
+		return getImageDrawable(250);
 	}
 	
 	/**
-	 * Generates and returns an ImageView of this QR code via Google Charts API
+	 * Generates and returns a Drawable of this QR code via Google Charts API
+	 * @param size dimensional size of the image to be returned.
+	 * @return A Drawable image of this item's QR Code.
+	 * @throws MalformedURLException
+	 * @throws IOException
+	 */
+	public Drawable getImageDrawable(int size) throws MalformedURLException, IOException {
+		String chl = "MAGIC:" + this.toString();
+//		String chl = "MAGIC:name:French Vanilla;object:Coffee;category:Food;category2:Drink\nurl:http://skidson.com/magic"; // debug
+		String chs = size + "x" + size, choe = "ISO-8859-1", chld = "L";
+		return getImageDrawable(chl, chs, choe, chld);
+	}
+	
+	/**
+	 * Generates and returns a Drawable of this QR code via Google Charts API
 	 * @param context the context the ImageView is for
 	 * @param chl data to encode
 	 * @param chs chart size (<width>x<height>)
 	 * @param choe encoding data (UTF-8, Shift_JIS, ISO-8859-1)
 	 * @param chld error correction level (L, M, Q, H) for (7%, 15%, 25%, 30% recovery)
-	 * @return an ImageView set with the QR code as its image
+	 * @return A Drawable image of this item's QR Code.
+	 * @throws IOException 
+	 * @throws MalformedURLException 
 	 */
-	public ImageView getImage(Context context, String chl, String chs, String choe, String chld) {
-		ImageView image = new ImageView(context);
-		image.setImageURI(Uri.parse("https://chart.googleapis.com/chart?cht=qr&chs=" + chs + "&chl=" + chl + "&choe=" + choe + "&chld=" + chld));
-		return image;
+	public Drawable getImageDrawable(String chl, String chs, String choe, String chld) throws MalformedURLException, IOException {
+		InputStream input = (InputStream) new URL("https://chart.googleapis.com/chart?cht=qr&chs=" + chs + "&chl=" + chl + "&choe=" + choe + "&chld=" + chld).getContent();
+		return Drawable.createFromStream(input, "src name");
 	}
 
 }
