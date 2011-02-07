@@ -117,8 +117,9 @@
 				    	android:prompt="@string/encoder_typePrompt"/>
 				    	
 				    <RelativeLayout android:id="@+id/encoder_EditMagic"
-				    	android:layout_width="fill_parent"
-				    	android:layout_height="fill_parent"
+				    	android:layout_width="wrap_content"
+				    	android:layout_height="wrap_content"
+				    	android:layout_below="@id/encoder_typeSpinner"
 				    	android:layout_margin="0sp"
 				    	android:padding="0sp">
 				    	
@@ -126,73 +127,99 @@
 				    		android:layout_width="wrap_content"
 				    		android:layout_height="wrap_content"
 				    		android:layout_margin="2sp"
+				    		android:textSize="18px"
+				    		android:paddingTop="10sp"
+				    		android:paddingRight="21sp"
 				    		android:text="@string/encoder_lblName"/>
 				    		
 			    		<EditText android:id="@+id/encoder_txtName"
-				    		android:layout_width="wrap_content"
-				    		android:layout_height="fill_parent" 
+				    		android:layout_width="fill_parent"
+				    		android:layout_height="40sp" 
 				    		android:layout_margin="2sp"
-				    		android:layout_toLeftOf="@id/encoder_lblName"/>
+				    		android:background="@android:drawable/editbox_background"
+				    		android:layout_toRightOf="@id/encoder_lblName"
+				    		android:layout_alignTop="@id/encoder_lblName"/>
 				    		
 				    	<TextView android:id="@+id/encoder_lblObject"
 				    		android:layout_width="wrap_content"
-				    		android:layout_height="wrap_content" 
+				    		android:layout_height="wrap_content"
+				    		android:textSize="18px" 
+				    		android:paddingTop="10sp"
 				    		android:layout_below="@id/encoder_lblName"
 				    		android:layout_margin="2sp"
 				    		android:text="@string/encoder_lblObject"/>
 				    		
 			    		<EditText android:id="@+id/encoder_txtObject"
-				    		android:layout_width="wrap_content"
-				    		android:layout_height="wrap_content" 
+				    		android:layout_width="fill_parent"
+				    		android:layout_height="40sp" 
 				    		android:layout_margin="2sp"
-				    		android:layout_toLeftOf="@id/encoder_lblObject"/>
+				    		android:background="@android:drawable/editbox_background"
+				    		android:layout_toRightOf="@id/encoder_lblObject"
+				    		android:layout_alignLeft="@id/encoder_txtName"
+				    		android:layout_alignTop="@id/encoder_lblObject"/>
 				    		
 				    	<TextView android:id="@+id/encoder_lblCategory"
 				    		android:layout_width="wrap_content"
 				    		android:layout_height="fill_parent"
+				    		android:textSize="18px"
+				    		android:paddingTop="10sp"
 				    		android:layout_margin="2sp"
-				    		android:layout_below="@id/encoder_lblName"
-				    		android:text="@string/encoder_lblCategory"/>
+				    		android:layout_below="@id/encoder_lblObject"
+				    		android:text="@string/encoder_lblCategory"
+				    		/>
 				    		
 			    		<EditText android:id="@+id/encoder_txtCategory"
-				    		android:layout_width="wrap_content"
-				    		android:layout_height="wrap_content" 
+				    		android:layout_width="fill_parent"
+				    		android:layout_height="40sp" 
 				    		android:layout_margin="2sp"
-				    		android:layout_toLeftOf="@id/encoder_lblCategory"/>
+				    		android:background="@android:drawable/editbox_background"
+				    		android:layout_toRightOf="@id/encoder_lblCategory"
+				    		android:layout_alignLeft="@id/encoder_txtName"
+				    		android:layout_alignTop="@id/encoder_lblCategory"/>
 				    		
 				    	<TextView android:id="@+id/encoder_lblCategory2"
 				    		android:layout_width="wrap_content"
 				    		android:layout_height="wrap_content" 
+				    		android:textSize="18px"
+				    		android:paddingTop="10sp"
 				    		android:layout_below="@id/encoder_lblCategory"
 				    		android:layout_margin="2sp"
 				    		android:text="@string/encoder_lblCategory2"/>
 				    		
 			    		<EditText android:id="@+id/encoder_txtCategory2"
-				    		android:layout_width="wrap_content"
-				    		android:layout_height="fill_parent" 
+				    		android:layout_width="fill_parent"
+				    		android:layout_height="40sp" 
 				    		android:layout_margin="2sp"
-				    		android:layout_toLeftOf="@id/encoder_lblCategory2"/>
+				    		android:background="@android:drawable/editbox_background"
+				    		android:layout_toRightOf="@id/encoder_lblCategory2"
+				    		android:layout_alignLeft="@id/encoder_txtName"
+				    		android:layout_alignTop="@id/encoder_lblCategory2"/>
 				    		
 				    	<TextView android:id="@+id/encoder_lblURL"
 				    		android:layout_width="wrap_content"
 				    		android:layout_height="wrap_content" 
+				    		android:textSize="18px"
+				    		android:paddingTop="10sp"
 				    		android:layout_below="@id/encoder_lblCategory2"
 				    		android:layout_margin="2sp"
-				    		android:text="@string/encoder_lblCategory2"/>
+				    		android:text="@string/encoder_lblURL"/>
 				    		
 			    		<EditText android:id="@+id/encoder_txtURL"
-				    		android:layout_width="wrap_content"
-				    		android:layout_height="fill_parent" 
+				    		android:layout_width="fill_parent"
+				    		android:layout_height="40dip" 
 				    		android:layout_margin="2sp"
-				    		android:layout_toLeftOf="@id/encoder_lblURL"/>
+				    		android:background="@android:drawable/editbox_background"
+				    		android:layout_toRightOf="@id/encoder_lblURL"
+				    		android:layout_alignLeft="@id/encoder_txtName"
+				    		android:layout_alignTop="@id/encoder_lblURL"/>
 				    					    	
 				    </RelativeLayout>
 				    	
 				    <Button android:id="@+id/encoder_btnEncoder"
 				    	android:layout_width="wrap_content"
 				    	android:layout_height="wrap_content"
-				    	android:layout_below="@id/encoder_typeSpinner"
-				    	android:layout_alignRight="@id/encoder_typeSpinner"
+						android:layout_below="@id/encoder_EditMagic"
+						android:layout_alignParentRight="true"
 				    	android:text="@string/encoder_btnEncode" />
 		    
 				</RelativeLayout>
