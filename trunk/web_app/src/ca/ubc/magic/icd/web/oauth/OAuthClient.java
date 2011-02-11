@@ -1,6 +1,8 @@
 package ca.ubc.magic.icd.web.oauth;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
@@ -39,15 +41,19 @@ public class OAuthClient {
 		this.consumerSecret = consumerSecret;
 	}
 	
-	private String getRequestToken() throws IOException {
+	public String getRequestToken() throws IOException {
 		if (this.requestToken == null) {
 			URL url = new URL(baseURL + "/" + requestTokenURL);
 			URLConnection connection = url.openConnection();
 			connection.setDoOutput(true);
+			connection.setDoInput(true);
 			connection.setRequestProperty("Authorization", getCredentials());
 			OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+			writer.write(getCredentials());
+			writer.flush();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			while((this.requestToken += reader.readLine()) != null);
 		}
-		
 		return this.requestToken;
 	}
 	
@@ -75,5 +81,10 @@ public class OAuthClient {
 	
 	public void setConsumerSecret(String consumerSecret) {
 		this.consumerSecret	= consumerSecret;
+	}
+	
+	public String toString() {
+		// TODO (for testing!)
+		return "";
 	}
 }
