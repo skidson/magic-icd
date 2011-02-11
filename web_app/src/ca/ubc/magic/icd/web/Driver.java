@@ -1,29 +1,20 @@
 package ca.ubc.magic.icd.web;
 
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
+
+import ca.ubc.magic.icd.web.oauth.CoffeeShopClient;
 
 public class Driver {
+	private static final String CONSUMER_KEY = "766bec602a9fe2795b43501ea4f9a9c9";
+	private static final String CONSUMER_SECRET = "sad234fdsf243f4ff3f343kj43hj43g4hgf423f";
 	
 	public static void main(String args[]) {
-		URL url;
-		URLConnection connection;
+		CoffeeShopClient client = new CoffeeShopClient("http://kimberly.magic.ubc.ca:8080/1/",
+				"request_token", "authorize", "access_token", CONSUMER_KEY, CONSUMER_SECRET);
 		try {
-			url = new URL("http://kimberly.ubc.ca:8080/1/echo");
-			connection = url.openConnection();
-			
-			connection.setDoOutput(true);
-			OutputStreamWriter output = new OutputStreamWriter(connection.getOutputStream());
-			
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
+			System.out.println(client.getRequestToken());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 }
