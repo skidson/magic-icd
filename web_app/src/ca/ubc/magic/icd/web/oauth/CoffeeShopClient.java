@@ -1,5 +1,11 @@
 package ca.ubc.magic.icd.web.oauth;
 
+/**
+ * Provides various convenience methods for working with the MAGIC Broker 2.0's interface
+ * for the Interactive Community Displays (ICD) project.
+ * @author skidson
+ *
+ */
 public class CoffeeShopClient extends OAuthClient {
 	public static final int PERSON = 1;
 	public static final int PLACE = 2;
