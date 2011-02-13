@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import ca.ubc.magic.icd.web.oauth.CoffeeShopClient;
 
-public class Driver {
+public class TestDriver {
 	private static final String CONSUMER_KEY = "766bec602a9fe2795b43501ea4f9a9c9";
 	private static final String CONSUMER_SECRET = "sad234fdsf243f4ff3f343kj43hj43g4hgf423f";
 	
