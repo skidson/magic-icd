@@ -1,4 +1,4 @@
-package ca.ubc.magic.icd;
+package ca.ubc.magic.icd.android;
 
 public class Contact {
 	private String firstName;
