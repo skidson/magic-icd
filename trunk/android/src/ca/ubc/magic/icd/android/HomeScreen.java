@@ -1,4 +1,4 @@
-package ca.ubc.magic.icd;
+package ca.ubc.magic.icd.android;
 
 import java.io.IOException;
 import java.net.MalformedURLException;

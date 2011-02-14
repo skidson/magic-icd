@@ -1,4 +1,4 @@
-package ca.ubc.magic.icd;
+package ca.ubc.magic.icd.android;
 
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
