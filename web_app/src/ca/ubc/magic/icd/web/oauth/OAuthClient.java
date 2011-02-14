@@ -9,14 +9,19 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
- * Provides an abstract interface to OAuth 1.0 protocols as per RFC5489.
+ * Provides an abstract interface to OAuth 1.0 protocols as per RFC5849.
  * @author skidson
  *
  */
 public class OAuthClient {
-	public static enum Encoding { PLAINTEXT, HMAC_SHA1, RSA_SHA1 };
+	public static final String PLAINTEXT = "PLAINTEXT";
+	public static final String HMAC_SHA1 = "HMAC-SHA1";
+	public static final String RSA_SHA1 = "RSA-SHA1";
 	public static final String OAUTH_CONSUMER_KEY = "oauth_consumer_key";
     public static final String OAUTH_TOKEN = "oauth_token";
     public static final String OAUTH_TOKEN_SECRET = "oauth_token_secret";
@@ -41,7 +46,7 @@ public class OAuthClient {
 	protected String requestToken;
 	protected String nonce;
 	protected String timestamp;
-	protected Encoding encoding = Encoding.PLAINTEXT;
+	protected String encoding = HMAC_SHA1;
 	
 	/**
 	 * Provides an abstract interface to OAuth 1.0 protocols.
@@ -83,9 +88,8 @@ public class OAuthClient {
 			connection.setDoOutput(true);
 			connection.setDoInput(true);
 			connection.setAllowUserInteraction(false);
-			System.out.println(parseAuthorizationParameters()); // debug
-//			connection.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-			connection.addRequestProperty("Authorization", "OAuth " + parseAuthorizationParameters());
+			connection.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+			connection.addRequestProperty("Authorization", "OAuth " + normalize(getAuthorizationParameters(true), ",", true));
 			connection.connect();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 			while((this.requestToken += reader.readLine()) != null);
@@ -94,50 +98,56 @@ public class OAuthClient {
 	}
 	
 	/**
-	 * Returns a string containing OAuth authorization parameters intended for use in an http request's Authorization header.
-	 * Returned parameters are formatted as name/value pairs seperated with "=" and delimited by "," - following OAuth1.0
-	 * specifications outlined in RFC5849.
+	 * Returns a LinkedHashMap containing OAuth authorization parameters intended for use in an http request's Authorization header.
 	 * @return a string containing OAuth authorization parameter name/value pairs seperated with "=" and delimited by ",".
 	 */
-	private String parseAuthorizationParameters() {
-		try {
-			String[][] parameters = { 
-					{OAUTH_CONSUMER_KEY, encode(consumerKey, "UTF-8")},
-					{OAUTH_NONCE, nonce},
-					{OAUTH_SIGNATURE_METHOD, encoding.toString()},
-					{OAUTH_SIGNATURE, getSignature()},
-					{OAUTH_TIMESTAMP, timestamp},
-					{OAUTH_VERSION, VERSION_1_0 }};
-			return normalize(parameters, ",", true);
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace(); // debug
-			return null;
-		}
+	private LinkedHashMap<String, String> getAuthorizationParameters() {
+		return getAuthorizationParameters(false);
 	}
 	
 	/**
-	 * Returns a string normalized to RFC5489 specifications.
+	 * Returns a LinkedHashMap containing OAuth authorization parameters intended for use in an http request's Authorization header.
+	 * @param whether to include signature.
+	 * @return a string containing OAuth authorization parameter name/value pairs seperated with "=" and delimited by ",".
+	 */
+	private LinkedHashMap<String, String> getAuthorizationParameters(boolean signature) {
+		LinkedHashMap<String, String> parameters = new LinkedHashMap<String, String>();
+		try {
+			parameters.put(OAUTH_CONSUMER_KEY, encode(consumerKey, "UTF-8"));
+			if (!tokenSecret.equals(""))
+				parameters.put(OAUTH_TOKEN, encode(tokenSecret, "UTF-8"));
+			parameters.put(OAUTH_NONCE, nonce);
+			parameters.put(OAUTH_SIGNATURE_METHOD, encoding);
+			parameters.put(OAUTH_TIMESTAMP, timestamp);
+			parameters.put(OAUTH_VERSION, VERSION_1_0);
+			if (signature)
+				parameters.put(OAUTH_SIGNATURE, getSignature(parameters));
+		} catch (UnsupportedEncodingException e) { e.printStackTrace(); }
+		return parameters;
+	}
+	
+	/**
+	 * Returns a string normalized to RFC5849 specifications. Note that a backing LinkedHashMap is used here as
+	 * it is important we keep the parameters in order.
 	 * @param parameters a 2d array of name/value pairs.
 	 * @param delim the desired deliminating character between parameters.
 	 * @param quoted whether the value portion of the parameter should be in quotations.
 	 * @return a string of name/value pairs.
 	 */
-	private String normalize(String[][] parameters, String delim, boolean quoted){
+	private String normalize(Map<String, String> parameters, String delim, boolean quoted){
 		// TODO sort parameters
 		String quotes = "";
 		if (quoted)
 			quotes = "\"";
 		
 		StringBuilder builder = new StringBuilder();
-		for (String[] parameter : parameters)
+		Iterator<Map.Entry<String, String>> iterator = parameters.entrySet().iterator();
+		while(iterator.hasNext()) {
+			Map.Entry<String, String> parameter = iterator.next();
 			try {
-				builder.append(encode(parameter[0], "UTF-8") + "=" + quotes + encode(parameter[1], "UTF-8") + quotes + delim);
+				builder.append(encode(parameter.getKey(), "UTF-8") + "=" + quotes + encode(parameter.getValue(), "UTF-8") + quotes + delim);
 			} catch (UnsupportedEncodingException e) { e.printStackTrace(); }
-		
-		if (delim.equals(""))
-			return builder.toString();
-		
-		// Remove last instance of delim
+		}
 		return builder.toString().substring(0, builder.lastIndexOf(delim));
 	}
 	
@@ -145,50 +155,33 @@ public class OAuthClient {
 	 * Returns a signature in the format determined by this client's encoding value.
 	 * @return a string for this client's signature.
 	 */
-	private String getSignature() {
-		// TODO fix this
+	private String getSignature(Map<String, String> parameters) {
 		String signature ="";
-		switch(encoding) {
-		case PLAINTEXT:
-			signature = consumerSecret;
-			break;
-		case HMAC_SHA1:
-			break;
-		case RSA_SHA1:
-			break;
+		try {
+			if (encoding.equals(PLAINTEXT)) {
+				signature = encode(consumerSecret, "UTF-8") + "&" + encode(tokenSecret, "UTF-8");
+			} else if (encoding.equals(HMAC_SHA1)) {
+					signature = "POST&" + encode(baseURL, "UTF-8") + "&" + normalize(parameters, "&", false);
+			} else if (encoding.equals(RSA_SHA1)) {
+				// TODO unsupported at the moment
+				throw new UnsupportedEncodingException();
+			}
+		} catch (UnsupportedEncodingException e) { 
+			e.printStackTrace();
+			System.exit(1);
 		}
 		return signature;
 	}
 	
 	/**
-	 * Encodes the string with this client's encoding type.
-	 * @param data string to be encoded.
-	 * @return an encoded string.
-	 * @throws UnsupportedEncodingException
-	 */
-	private String encode(String data) throws UnsupportedEncodingException {
-		switch(encoding) {
-		case PLAINTEXT:
-			data = URLEncoder.encode(data, "UTF-8").replace("*", "%2A").replace("+", "%20").replace("%7E", "~");
-			break;
-		case HMAC_SHA1:
-			break;
-		case RSA_SHA1:
-			break;
-		}
-		return data;
-	}
-	
-	/**
-	 * Encodes the string with the specified encoding type.
+	 * Encodes the string with the specified encoding type. Wraps URLEncoder.encode()
 	 * @param data the string to be encoded.
 	 * @param format the desired encoding format.
 	 * @return an encoded string.
 	 * @throws UnsupportedEncodingException
 	 */
 	private String encode(String data, String format) throws UnsupportedEncodingException {
-		data = URLEncoder.encode(data, format).replace("*", "%2A").replace("+", "%20").replace("%7E", "~");
-		return data;
+		return URLEncoder.encode(data, format).replace("*", "%2A").replace("+", "%20").replace("%7E", "~");
 	}
 	
 	/**
@@ -236,20 +229,11 @@ public class OAuthClient {
 	 * Sets the encoding type of this OAuth client (PLAINTEXT, HMAC_SHA1, RSA_SHA1).
 	 * @param encoding the new encoding type.
 	 */
-	public void setEncoding(Encoding encoding) {
+	public void setEncoding(String encoding) {
 		this.encoding = encoding;
 	}
 	
-	/**
-	 * Sets the encoding type of this OAuth client (PLAINTEXT, HMAC_SHA1, RSA_SHA1).
-	 * @param encoding the new encoding type.
-	 */
-	public void setEncoding(String encoding) {
-		this.encoding = Encoding.valueOf(encoding);
-	}
-	
 	public String toString() {
-		// TODO (for testing!)
-		return "";
+		return normalize(getAuthorizationParameters(true), ",\n", true);
 	}
 }

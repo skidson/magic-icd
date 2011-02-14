@@ -11,6 +11,7 @@ public class TestDriver {
 	public static void main(String args[]) {
 		CoffeeShopClient client = new CoffeeShopClient("http://kimberly.magic.ubc.ca:8080/1/",
 				"request_token", "authorize", "access_token", CONSUMER_KEY, CONSUMER_SECRET);
+		System.out.println(client.toString());
 		try {
 			System.out.println(client.getRequestToken());
 		} catch (IOException e) {
