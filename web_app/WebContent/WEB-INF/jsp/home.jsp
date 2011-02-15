@@ -8,10 +8,10 @@
 <title>I R SUCCESS</title>
 </head>
 <body>
-	Steve's friends are! 
+	Steve's friends are : 
 	<c:forEach items="${friends}" var="friend">
 					<tr>
-						<td>${friend}</td><td><td> <td></td>
+						<td>${friend}</td>
 					</tr>
 	</c:forEach>
 </body>
