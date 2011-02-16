@@ -1,17 +1,22 @@
 package ca.ubc.magic.icd.web.oauth;
 
-import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 
 /**
  * Provides an abstract interface to OAuth 1.0 protocols as per RFC5849.
@@ -22,6 +27,7 @@ public class OAuthClient {
 	public static final String PLAINTEXT = "PLAINTEXT";
 	public static final String HMAC_SHA1 = "HMAC-SHA1";
 	public static final String RSA_SHA1 = "RSA-SHA1";
+	public static final String ENCODING = "UTF-8";
 	public static final String OAUTH_CONSUMER_KEY = "oauth_consumer_key";
     public static final String OAUTH_TOKEN = "oauth_token";
     public static final String OAUTH_TOKEN_SECRET = "oauth_token_secret";
@@ -33,8 +39,10 @@ public class OAuthClient {
     public static final String OAUTH_CALLBACK = "oauth_callback";
     public static final String OAUTH_CALLBACK_CONFIRMED = "oauth_callback_confirmed";
     public static final String OAUTH_VERIFIER = "oauth_verifier";
-    
     public static final String VERSION_1_0 = "1.0";
+    
+    private static final String HTTP_REQUEST_METHOD = "POST";
+    private static final int NONCE_LENGTH = 32;
     
 	protected String baseURL;
 	protected String requestTokenURL;
@@ -84,25 +92,31 @@ public class OAuthClient {
 	public String getRequestToken() throws IOException {
 		next();
 		if (this.requestToken == null) {
-			URLConnection connection = new URL(baseURL + requestTokenURL).openConnection();
-			connection.setDoOutput(true);
-			connection.setDoInput(true);
-			connection.setAllowUserInteraction(false);
-			connection.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-			connection.addRequestProperty("Authorization", "OAuth " + normalize(getAuthorizationParameters(true), ",", true));
-			connection.connect();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-			while((this.requestToken += reader.readLine()) != null);
+			Map<String, String> parameters = getAuthorizationParameters();
+			parameters.put(OAUTH_SIGNATURE, getSignature(parameters, baseURL + requestTokenURL));
+			String parametersURL = "?" + normalize(parameters, "?", false);
+			System.out.println(baseURL + requestTokenURL + parametersURL); // debug
+			URLConnection connection = setupConnection(new URL(baseURL + requestTokenURL + parametersURL));
+			
+//			connection.setRequestProperty("Authorization", "OAuth " + normalize(parameters, ",", true));
+			DataOutputStream writer = new DataOutputStream(connection.getOutputStream());
+			writer.write(0);
+			writer.flush();
+			DataInputStream reader = new DataInputStream(connection.getInputStream());
+			while((this.requestToken += reader.readLine()) != null)
+				System.out.println(requestToken);
 		}
 		return this.requestToken;
 	}
 	
-	/**
-	 * Returns a LinkedHashMap containing OAuth authorization parameters intended for use in an http request's Authorization header.
-	 * @return a string containing OAuth authorization parameter name/value pairs seperated with "=" and delimited by ",".
-	 */
-	private LinkedHashMap<String, String> getAuthorizationParameters() {
-		return getAuthorizationParameters(false);
+	private URLConnection setupConnection(URL url) throws IOException {
+		URLConnection connection = url.openConnection();
+		connection.setDoOutput(true);
+		connection.setDoInput(true);
+		connection.setAllowUserInteraction(false);
+		((HttpURLConnection)connection).setRequestMethod(HTTP_REQUEST_METHOD);
+//		connection.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+		return connection;
 	}
 	
 	/**
@@ -110,18 +124,15 @@ public class OAuthClient {
 	 * @param whether to include signature.
 	 * @return a string containing OAuth authorization parameter name/value pairs seperated with "=" and delimited by ",".
 	 */
-	private LinkedHashMap<String, String> getAuthorizationParameters(boolean signature) {
+	private LinkedHashMap<String, String> getAuthorizationParameters() {
 		LinkedHashMap<String, String> parameters = new LinkedHashMap<String, String>();
 		try {
-			parameters.put(OAUTH_CONSUMER_KEY, encode(consumerKey, "UTF-8"));
-			if (!tokenSecret.equals(""))
-				parameters.put(OAUTH_TOKEN, encode(tokenSecret, "UTF-8"));
+			parameters.put(OAUTH_CONSUMER_KEY, encode(consumerKey));
 			parameters.put(OAUTH_NONCE, nonce);
 			parameters.put(OAUTH_SIGNATURE_METHOD, encoding);
 			parameters.put(OAUTH_TIMESTAMP, timestamp);
+			parameters.put(OAUTH_TOKEN, encode(tokenSecret));
 			parameters.put(OAUTH_VERSION, VERSION_1_0);
-			if (signature)
-				parameters.put(OAUTH_SIGNATURE, getSignature(parameters));
 		} catch (UnsupportedEncodingException e) { e.printStackTrace(); }
 		return parameters;
 	}
@@ -145,7 +156,7 @@ public class OAuthClient {
 		while(iterator.hasNext()) {
 			Map.Entry<String, String> parameter = iterator.next();
 			try {
-				builder.append(encode(parameter.getKey(), "UTF-8") + "=" + quotes + encode(parameter.getValue(), "UTF-8") + quotes + delim);
+				builder.append(encode(parameter.getKey()) + "=" + quotes + encode(parameter.getValue()) + quotes + delim);
 			} catch (UnsupportedEncodingException e) { e.printStackTrace(); }
 		}
 		return builder.toString().substring(0, builder.lastIndexOf(delim));
@@ -155,13 +166,16 @@ public class OAuthClient {
 	 * Returns a signature in the format determined by this client's encoding value.
 	 * @return a string for this client's signature.
 	 */
-	private String getSignature(Map<String, String> parameters) {
+	private String getSignature(Map<String, String> parameters, String requestURL) {
 		String signature ="";
 		try {
 			if (encoding.equals(PLAINTEXT)) {
-				signature = encode(consumerSecret, "UTF-8") + "&" + encode(tokenSecret, "UTF-8");
+				signature = encode(consumerSecret) + "&" + encode(tokenSecret);
 			} else if (encoding.equals(HMAC_SHA1)) {
-					signature = "POST&" + encode(baseURL, "UTF-8") + "&" + normalize(parameters, "&", false);
+					signature = HTTP_REQUEST_METHOD + "&" 
+							+ encode(requestURL) + "&" 
+							+ encode(normalize(parameters, "&", false));
+					signature = encryptHMAC_SHA1(signature);
 			} else if (encoding.equals(RSA_SHA1)) {
 				// TODO unsupported at the moment
 				throw new UnsupportedEncodingException();
@@ -173,6 +187,23 @@ public class OAuthClient {
 		return signature;
 	}
 	
+	private String encryptHMAC_SHA1(String data) {
+		String result = "";
+		try {
+			byte[] key = (encode(consumerKey) + "&" + encode(tokenSecret)).getBytes();
+			Mac mac = Mac.getInstance("HmacSHA1");
+			mac.init(new SecretKeySpec(key, mac.getAlgorithm()));
+			result = new String(Base64.encodeBase64(mac.doFinal(data.getBytes())));
+		} catch (NoSuchAlgorithmException e) { 
+			e.printStackTrace();
+		} catch (InvalidKeyException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) { 
+			e.printStackTrace(); 
+		}
+		return result;
+	}
+	
 	/**
 	 * Encodes the string with the specified encoding type. Wraps URLEncoder.encode()
 	 * @param data the string to be encoded.
@@ -180,8 +211,8 @@ public class OAuthClient {
 	 * @return an encoded string.
 	 * @throws UnsupportedEncodingException
 	 */
-	private String encode(String data, String format) throws UnsupportedEncodingException {
-		return URLEncoder.encode(data, format).replace("*", "%2A").replace("+", "%20").replace("%7E", "~");
+	private String encode(String data) throws UnsupportedEncodingException {
+		return URLEncoder.encode(data, ENCODING).replace("*", "%2A").replace("+", "%20").replace("%7E", "~");
 	}
 	
 	/**
@@ -189,24 +220,29 @@ public class OAuthClient {
 	 */
 	private void next() {
 		nonce = nextNonce();
-		timestamp = Long.toString(System.currentTimeMillis());
+		timestamp = Long.toString(System.currentTimeMillis()/1000);
 	}
 	
 	/**
-	 * Generates a new nonce.
+	 * Generates a new 32-bit "number used once" value.
 	 * @return a nonce value as a string.
 	 */
 	private String nextNonce() {
-		// TODO fix this
+		return nextNonce(NONCE_LENGTH);
+	}
+	
+	private String nextNonce(int length) {
+		String nonce = "";
+		String regex = "abcdefghijklmnopqrstuvwxyz" + "1234567890";
 		SecureRandom random = null;
-		byte[] bytes = new byte[1024];
 		try {
 			random = SecureRandom.getInstance("SHA1PRNG");
-			random.nextBytes(bytes);
+			for (int i = 0; i < length; i++)
+				nonce += regex.charAt(random.nextInt(regex.length()-1));
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
-		return("abcdgfda343sd");
+		return(nonce);
 	}
 	
 	/**
@@ -218,7 +254,7 @@ public class OAuthClient {
 	}
 	
 	/**
-	 * Sets the vvalue of this client's consumer secret, corresponding to the consumer key.
+	 * Sets the value of this client's consumer secret, corresponding to the consumer key.
 	 * @param consumerSecret the consumer secret.
 	 */
 	public void setConsumerSecret(String consumerSecret) {
@@ -234,6 +270,6 @@ public class OAuthClient {
 	}
 	
 	public String toString() {
-		return normalize(getAuthorizationParameters(true), ",\n", true);
+		return normalize(getAuthorizationParameters(), ",\n", true);
 	}
 }
