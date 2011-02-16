@@ -6,10 +6,12 @@ import java.util.List;
 public class User {
 	private String name;
 	private List<String> friends;
+	private List<Bit> bits;
 	
 	public User(String name){
 		this.name = name;
 		friends = new ArrayList<String>();
+		bits = new ArrayList<Bit>();
 	}
 	
 	public void setName(String name){
@@ -28,6 +30,20 @@ public class User {
 		friends.add("Ricard Simmons");
 		friends.add("Justin Bieber");
 		return this.friends;
+	}
+	
+	public void setBits(List<Bit> bits){
+		this.bits = bits;
+	}
+	
+	public List<Bit> getBits(){
+		Bit mocha = new Bit(93248);
+		Bit cappuccino = new Bit(23894);
+		mocha.setName("Mocha");
+		cappuccino.setName("cappuccino");
+		bits.add(mocha);
+		bits.add(cappuccino);
+		return bits;
 	}
 	
 	public void addFriend(String name){

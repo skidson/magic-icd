@@ -9,10 +9,18 @@
 </head>
 <body>
 	Steve's friends are : 
-	<c:forEach items="${friends}" var="friend">
+	<c:forEach items="${relationships['friends']}" var="friend">
 					<tr>
-						<td>${friend}</td>
+						<td>${friend}, </td>
 					</tr>
 	</c:forEach>
+	<br>
+	and he likes 
+	<c:forEach items="${relationships['bits']}" var="bit">
+					<tr>
+						<td>${bit.name}, </td>
+					</tr>
+	</c:forEach>
+		
 </body>
 </html>

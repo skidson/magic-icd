@@ -1,5 +1,6 @@
 package ca.ubc.magic.icd.web.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,10 @@ public class HomeController {
  
         User steve = new User("Steve");
         List<String> friends = steve.getFriends();
-        return new ModelAndView("home", "friends", friends);
+        List<Bit> bits = steve.getBits();
+        HashMap relationships = new HashMap();
+        relationships.put("friends", friends);
+        relationships.put("bits", bits);
+        return new ModelAndView("home", "relationships", relationships);
     }
 }
