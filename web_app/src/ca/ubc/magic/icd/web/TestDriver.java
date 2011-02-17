@@ -1,5 +1,7 @@
 package ca.ubc.magic.icd.web;
 
+import java.io.IOException;
+
 import ca.ubc.magic.icd.web.oauth.CoffeeShopClient;
 
 public class TestDriver {
@@ -9,7 +11,11 @@ public class TestDriver {
 		CoffeeShopClient client = new CoffeeShopClient("http://kimberly.magic.ubc.ca:8080/1/",
 				"request_token", "authorize", "access_token", CONSUMER_KEY, CONSUMER_SECRET);
 		
-		
-		
+		System.out.println(client.getSignature("http://kimberly.magic.ubc.ca:8080/1/request_token"));
+		try {
+			System.out.println(client.getRequestToken());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
