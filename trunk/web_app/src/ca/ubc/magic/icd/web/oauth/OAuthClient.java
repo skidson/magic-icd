@@ -93,12 +93,10 @@ public class OAuthClient {
 		next();
 		if (this.requestToken == null) {
 			Map<String, String> parameters = getAuthorizationParameters();
-			parameters.put(OAUTH_SIGNATURE, getSignature(parameters, baseURL + requestTokenURL));
+			parameters.put(OAUTH_SIGNATURE, getSignature(baseURL + requestTokenURL));
 			String parametersURL = "?" + normalize(parameters, "?", false);
-			System.out.println(baseURL + requestTokenURL + parametersURL); // debug
 			URLConnection connection = setupConnection(new URL(baseURL + requestTokenURL + parametersURL));
 			
-//			connection.setRequestProperty("Authorization", "OAuth " + normalize(parameters, ",", true));
 			DataOutputStream writer = new DataOutputStream(connection.getOutputStream());
 			writer.write(0);
 			writer.flush();
@@ -122,18 +120,17 @@ public class OAuthClient {
 	/**
 	 * Returns a LinkedHashMap containing OAuth authorization parameters intended for use in an http request's Authorization header.
 	 * @param whether to include signature.
-	 * @return a string containing OAuth authorization parameter name/value pairs seperated with "=" and delimited by ",".
+	 * @return a LinkedHashMap containing OAuth authorization parameter name/value pairs.
 	 */
 	private LinkedHashMap<String, String> getAuthorizationParameters() {
 		LinkedHashMap<String, String> parameters = new LinkedHashMap<String, String>();
-		try {
-			parameters.put(OAUTH_CONSUMER_KEY, encode(consumerKey));
-			parameters.put(OAUTH_NONCE, nonce);
-			parameters.put(OAUTH_SIGNATURE_METHOD, encoding);
-			parameters.put(OAUTH_TIMESTAMP, timestamp);
-			parameters.put(OAUTH_TOKEN, encode(tokenSecret));
-			parameters.put(OAUTH_VERSION, VERSION_1_0);
-		} catch (UnsupportedEncodingException e) { e.printStackTrace(); }
+		parameters.put(OAUTH_CONSUMER_KEY, consumerKey);
+		parameters.put(OAUTH_NONCE, nonce);
+		parameters.put(OAUTH_SIGNATURE_METHOD, encoding);
+		parameters.put(OAUTH_TIMESTAMP, timestamp);
+		if (!tokenSecret.equals(""))
+			parameters.put(OAUTH_TOKEN, tokenSecret);
+		parameters.put(OAUTH_VERSION, VERSION_1_0);
 		return parameters;
 	}
 	
@@ -145,7 +142,7 @@ public class OAuthClient {
 	 * @param quoted whether the value portion of the parameter should be in quotations.
 	 * @return a string of name/value pairs.
 	 */
-	private String normalize(Map<String, String> parameters, String delim, boolean quoted){
+	public String normalize(Map<String, String> parameters, String delim, boolean quoted){
 		// TODO sort parameters
 		String quotes = "";
 		if (quoted)
@@ -159,23 +156,28 @@ public class OAuthClient {
 				builder.append(encode(parameter.getKey()) + "=" + quotes + encode(parameter.getValue()) + quotes + delim);
 			} catch (UnsupportedEncodingException e) { e.printStackTrace(); }
 		}
-		return builder.toString().substring(0, builder.lastIndexOf(delim));
+		if (!delim.equals(""))
+			return builder.toString().substring(0, builder.lastIndexOf(delim));
+		return builder.toString();
 	}
 	
 	/**
 	 * Returns a signature in the format determined by this client's encoding value.
 	 * @return a string for this client's signature.
 	 */
-	private String getSignature(Map<String, String> parameters, String requestURL) {
+	public String getSignature(String requestURL) {
 		String signature ="";
+		Map<String, String> parameters = getAuthorizationParameters();
 		try {
 			if (encoding.equals(PLAINTEXT)) {
 				signature = encode(consumerSecret) + "&" + encode(tokenSecret);
 			} else if (encoding.equals(HMAC_SHA1)) {
-					signature = HTTP_REQUEST_METHOD + "&" 
-							+ encode(requestURL) + "&" 
-							+ encode(normalize(parameters, "&", false));
-					signature = encryptHMAC_SHA1(signature);
+				// Compile signature base string
+				signature = HTTP_REQUEST_METHOD + "&" 
+						+ encode(requestURL) + "&"
+						+ encode(normalize(parameters, "&", false));
+				System.out.println("pre HMAC: " + signature);
+				signature = encryptHMAC_SHA1(signature);
 			} else if (encoding.equals(RSA_SHA1)) {
 				// TODO unsupported at the moment
 				throw new UnsupportedEncodingException();
@@ -190,7 +192,7 @@ public class OAuthClient {
 	private String encryptHMAC_SHA1(String data) {
 		String result = "";
 		try {
-			byte[] key = (encode(consumerKey) + "&" + encode(tokenSecret)).getBytes();
+			byte[] key = (encode(consumerSecret) + "&" + encode(tokenSecret)).getBytes();
 			Mac mac = Mac.getInstance("HmacSHA1");
 			mac.init(new SecretKeySpec(key, mac.getAlgorithm()));
 			result = new String(Base64.encodeBase64(mac.doFinal(data.getBytes())));
@@ -211,7 +213,7 @@ public class OAuthClient {
 	 * @return an encoded string.
 	 * @throws UnsupportedEncodingException
 	 */
-	private String encode(String data) throws UnsupportedEncodingException {
+	public String encode(String data) throws UnsupportedEncodingException {
 		return URLEncoder.encode(data, ENCODING).replace("*", "%2A").replace("+", "%20").replace("%7E", "~");
 	}
 	
@@ -221,6 +223,8 @@ public class OAuthClient {
 	private void next() {
 		nonce = nextNonce();
 		timestamp = Long.toString(System.currentTimeMillis()/1000);
+//		nonce = "daa803c74e0cd7fb59cc67dcad93d8a9"; //debug
+//		timestamp = "1297901364"; //debug
 	}
 	
 	/**
