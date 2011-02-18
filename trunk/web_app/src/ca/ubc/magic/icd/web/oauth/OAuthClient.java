@@ -289,5 +289,4 @@ public class OAuthClient {
 		return normalize(getAuthorizationParameters(), ",\n", true);
 	}
 	
-	
 }

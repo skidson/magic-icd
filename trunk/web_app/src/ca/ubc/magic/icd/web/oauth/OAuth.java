@@ -59,7 +59,17 @@ public class OAuth {
     private static String getBaseString(OAuthRequest request) {
     	return request.getHttpMethod() + "&"
 				+ encode(request.getUrl()) + "&"
-				+ encode(normalize(sort(request), "&", false));
+				+ encode(normalize(request));
+    }
+    
+    public static String normalize(OAuthRequest request) {
+    	Iterator<Map.Entry<String, String>> iterator = request.iterator();
+    	LinkedHashMap<String, String> parameters = new LinkedHashMap<String, String>();
+    	while (iterator.hasNext()) {
+    		Map.Entry<String, String>  parameter = iterator.next();
+    		parameters.put(parameter.getKey(), parameter.getValue());
+    	}
+    	return normalize(parameters);
     }
     
     public static String normalize(Map<String, String> parameters) {
@@ -67,7 +77,7 @@ public class OAuth {
     }
     
     public static String normalize(Map<String, String> parameters, String delim, boolean quoted) {
-    	// TODO sort parameters
+    	parameters = sort(parameters);
 		String quotes = "";
 		if (quoted)
 			quotes = "\"";

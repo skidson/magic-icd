@@ -1,16 +1,9 @@
 package ca.ubc.magic.icd.web.oauth;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-import ca.ubc.magic.icd.web.oauth.OAuth.Encoding;
 
 public class OAuthConsumer {
 	protected String baseURL;
@@ -38,10 +31,6 @@ public class OAuthConsumer {
 		
 		if(!baseURL.endsWith("/"))
 			this.baseURL.concat("/");
-	}
-	
-	public void connect() {
-
 	}
 	
 	private URLConnection initConnection(URL url) throws IOException {
