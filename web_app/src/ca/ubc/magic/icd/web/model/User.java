@@ -4,9 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-	private String name;
+	private String name, username, description;
+	private int exp;
+	private int points;
 	private List<String> friends;
 	private List<Bit> bits;
+	
+	public User(){}
 	
 	public User(String name){
 		this.name = name;
@@ -37,10 +41,8 @@ public class User {
 	}
 	
 	public List<Bit> getBits(){
-		Bit mocha = new Bit(93248);
-		Bit cappuccino = new Bit(23894);
-		mocha.setName("Mocha");
-		cappuccino.setName("cappuccino");
+		Bit mocha = new Bit("Mocha", "Pretty good", 4, 2, 3);
+		Bit cappuccino = new Bit("Cappuccino", "good", 4, 1, 5);
 		bits.add(mocha);
 		bits.add(cappuccino);
 		return bits;
@@ -48,5 +50,37 @@ public class User {
 	
 	public void addFriend(String name){
 		friends.add(name);
+	}
+	
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public int getExp() {
+		return exp;
+	}
+
+	public void setExp(int exp) {
+		this.exp = exp;
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
 	}
 }

@@ -1,8 +1,12 @@
 package ca.ubc.magic.icd.web.oauth;
 
-import java.io.IOException;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.io.IOException;
 import ca.ubc.magic.icd.web.json.JsonItem;
+import ca.ubc.magic.icd.web.model.Bit;
+import ca.ubc.magic.icd.web.model.User;
 
 /**
  * Provides various convenience methods for working with the MAGIC Broker 2.0's interface
@@ -65,9 +69,10 @@ public class CoffeeShopClient extends OAuthConsumer {
 		// TODO
 	}
 	
-	public JsonItem getBit(String id) {
+	public Bit getBit(String id) {
 		// TODO
-		return null;
+		Bit testbit = new Bit("French Vanilla", "A tasty Drink", 4, 1, 5);
+		return testbit;
 	}
 	
 	public void setBit(String id, String value) {
@@ -78,4 +83,22 @@ public class CoffeeShopClient extends OAuthConsumer {
 		
 	}
 	
+	public User getUser(){
+		
+		return null;
+	}
+	
+	public User getUser(int id){
+		User test = new User();
+		test.setName("Steve");
+		test.setDescription("I like men");
+		test.setExp(0);
+		test.setPoints(1);
+		List<String> testFriends = new ArrayList<String>();
+		testFriends.add("whoooo");
+		testFriends.add("aafds");
+		test.setFriends(testFriends);
+		
+		return test;
+	}
 }

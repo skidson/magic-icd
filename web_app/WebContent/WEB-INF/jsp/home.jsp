@@ -8,7 +8,7 @@
 <title>I R SUCCESS</title>
 </head>
 <body>
-	Steve's friends are : 
+	<a href="/user.html?user_id=1">Steve's</a> friends are : 
 	<c:forEach items="${relationships['friends']}" var="friend">
 					<tr>
 						<td>${friend}, </td>

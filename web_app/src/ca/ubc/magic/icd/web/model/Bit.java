@@ -6,11 +6,16 @@ import java.util.List;
 public class Bit {
 	private String name;
 	private int id;
-	private List<String> friends;
+	private int places_id;
+	private int bit_type_id;
+	private String description;
 	
-	public Bit(int id){
+	public Bit(String name, String description, int bit_type_id, int places_id, int id){
 		this.id = id;
-		friends = new ArrayList<String>();
+		this.name = name;
+		this.description = description;
+		this.bit_type_id = bit_type_id;
+		this.places_id = places_id;
 	}
 	
 	public void setName(String name){
@@ -28,17 +33,39 @@ public class Bit {
 	public String getName(){
 		return this.name;
 	}
-	
-	public void setFriends(List<String> friends){
-		this.friends = friends;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getPlaces_id() {
+		return places_id;
+	}
+
+	public void setPlaces_id(int places_id) {
+		this.places_id = places_id;
+	}
+
+	public int getBit_type_id() {
+		return bit_type_id;
+	}
+
+	public void setBit_type_id(int bit_type_id) {
+		this.bit_type_id = bit_type_id;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
-	public List<String> getFriends(){
-		return this.friends;
-	}
 	
-	public void addFriend(String name){
-		friends.add(name);
-	}
 }
 
