@@ -77,5 +77,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-security-web-3.0.5.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/standard.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/com.google.gson"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
