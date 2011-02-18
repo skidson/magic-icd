@@ -1,5 +1,7 @@
 package ca.ubc.magic.icd.web.oauth;
 
+import java.io.IOException;
+
 import ca.ubc.magic.icd.web.json.JsonItem;
 
 /**
@@ -36,6 +38,18 @@ public class CoffeeShopClient extends OAuthConsumer {
 			String consumerKey,
 			String consumerSecret) {
 		super(baseURL, requestTokenURL, userAuthorizationURL, accessTokenURL, consumerKey, consumerSecret);
+	}
+	
+	public void login() {
+		// TODO
+		OAuthRequest request = new OAuthRequest(baseURL + requestTokenURL,
+				consumerKey, consumerSecret);
+		OAuth.sign(request);
+		try {
+			request.send();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public JsonItem getFriend(String id) {
