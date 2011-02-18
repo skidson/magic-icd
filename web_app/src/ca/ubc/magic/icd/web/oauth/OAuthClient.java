@@ -41,7 +41,7 @@ public class OAuthClient {
     public static final String OAUTH_VERIFIER = "oauth_verifier";
     public static final String VERSION_1_0 = "1.0";
     
-    private static final String HTTP_REQUEST_METHOD = "POST";
+    private static final String HTTP_REQUEST_METHOD = "GET";
     private static final int NONCE_LENGTH = 32;
     
 	protected String baseURL;
@@ -95,14 +95,14 @@ public class OAuthClient {
 			Map<String, String> parameters = getAuthorizationParameters();
 			parameters.put(OAUTH_SIGNATURE, getSignature(baseURL + requestTokenURL));
 			String parametersURL = "?" + normalize(parameters, "?", false);
-			URLConnection connection = setupConnection(new URL(baseURL + requestTokenURL + parametersURL));
-			
-			DataOutputStream writer = new DataOutputStream(connection.getOutputStream());
-			writer.write(0);
-			writer.flush();
-			DataInputStream reader = new DataInputStream(connection.getInputStream());
-			while((this.requestToken += reader.readLine()) != null)
-				System.out.println(requestToken);
+			System.out.println(baseURL + requestTokenURL + parametersURL);
+//			URLConnection connection = setupConnection(new URL(baseURL + requestTokenURL + parametersURL));
+//			DataOutputStream writer = new DataOutputStream(connection.getOutputStream());
+//			writer.write(0);
+//			writer.flush();
+//			DataInputStream reader = new DataInputStream(connection.getInputStream());
+//			while((this.requestToken += reader.readLine()) != null)
+//				System.out.println(requestToken);
 		}
 		return this.requestToken;
 	}
