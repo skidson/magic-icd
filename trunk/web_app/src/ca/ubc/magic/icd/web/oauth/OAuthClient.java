@@ -51,7 +51,7 @@ public class OAuthClient {
 	protected String consumerKey;
 	protected String consumerSecret;
 	protected String tokenSecret = "";
-	protected String requestToken;
+	protected String token = "";
 	protected String nonce;
 	protected String timestamp;
 	protected String encoding = HMAC_SHA1;
@@ -91,20 +91,18 @@ public class OAuthClient {
 	 */
 	public String getRequestToken() throws IOException {
 		next();
-		if (this.requestToken == null) {
-			Map<String, String> parameters = getAuthorizationParameters();
-			parameters.put(OAUTH_SIGNATURE, getSignature(baseURL + requestTokenURL));
-			String parametersURL = "?" + normalize(parameters, "?", false);
-			System.out.println(baseURL + requestTokenURL + parametersURL);
-//			URLConnection connection = setupConnection(new URL(baseURL + requestTokenURL + parametersURL));
-//			DataOutputStream writer = new DataOutputStream(connection.getOutputStream());
-//			writer.write(0);
-//			writer.flush();
-//			DataInputStream reader = new DataInputStream(connection.getInputStream());
-//			while((this.requestToken += reader.readLine()) != null)
-//				System.out.println(requestToken);
-		}
-		return this.requestToken;
+		Map<String, String> parameters = getAuthorizationParameters();
+		parameters.put(OAUTH_SIGNATURE, getSignature(baseURL + requestTokenURL));
+		String parametersURL = "?" + normalize(sort(parameters), "&", false);
+		URLConnection connection = setupConnection(new URL(baseURL + requestTokenURL + parametersURL));
+		DataOutputStream writer = new DataOutputStream(connection.getOutputStream());
+		writer.write(0);
+		writer.flush();
+		
+		DataInputStream reader = new DataInputStream(connection.getInputStream());
+		String response = "";
+		while((response += reader.readLine()) != null);
+		return response;
 	}
 	
 	private URLConnection setupConnection(URL url) throws IOException {
@@ -128,8 +126,8 @@ public class OAuthClient {
 		parameters.put(OAUTH_NONCE, nonce);
 		parameters.put(OAUTH_SIGNATURE_METHOD, encoding);
 		parameters.put(OAUTH_TIMESTAMP, timestamp);
-		if (!tokenSecret.equals(""))
-			parameters.put(OAUTH_TOKEN, tokenSecret);
+		if (!token.equals(""))
+			parameters.put(OAUTH_TOKEN, token);
 		parameters.put(OAUTH_VERSION, VERSION_1_0);
 		return parameters;
 	}
@@ -142,7 +140,7 @@ public class OAuthClient {
 	 * @param quoted whether the value portion of the parameter should be in quotations.
 	 * @return a string of name/value pairs.
 	 */
-	public String normalize(Map<String, String> parameters, String delim, boolean quoted){
+	private String normalize(Map<String, String> parameters, String delim, boolean quoted){
 		// TODO sort parameters
 		String quotes = "";
 		if (quoted)
@@ -165,8 +163,8 @@ public class OAuthClient {
 	 * Returns a signature in the format determined by this client's encoding value.
 	 * @return a string for this client's signature.
 	 */
-	public String getSignature(String requestURL) {
-		String signature ="";
+	private String getSignature(String requestURL) {
+		String signature = "";
 		Map<String, String> parameters = getAuthorizationParameters();
 		try {
 			if (encoding.equals(PLAINTEXT)) {
@@ -176,7 +174,6 @@ public class OAuthClient {
 				signature = HTTP_REQUEST_METHOD + "&" 
 						+ encode(requestURL) + "&"
 						+ encode(normalize(parameters, "&", false));
-				System.out.println("pre HMAC: " + signature);
 				signature = encryptHMAC_SHA1(signature);
 			} else if (encoding.equals(RSA_SHA1)) {
 				// TODO unsupported at the moment
@@ -223,8 +220,6 @@ public class OAuthClient {
 	private void next() {
 		nonce = nextNonce();
 		timestamp = Long.toString(System.currentTimeMillis()/1000);
-//		nonce = "daa803c74e0cd7fb59cc67dcad93d8a9"; //debug
-//		timestamp = "1297901364"; //debug
 	}
 	
 	/**
@@ -247,6 +242,23 @@ public class OAuthClient {
 			e.printStackTrace();
 		}
 		return(nonce);
+	}
+	
+	public Map<String, String> sort(Map<String, String> unsorted) {
+		Map<String, String> sorted = new LinkedHashMap<String, String>();
+		sorted.put(OAUTH_VERSION, unsorted.get(OAUTH_VERSION));
+		sorted.put(OAUTH_NONCE, unsorted.get(OAUTH_NONCE));
+		sorted.put(OAUTH_TIMESTAMP, unsorted.get(OAUTH_TIMESTAMP));
+		sorted.put(OAUTH_CONSUMER_KEY, unsorted.get(OAUTH_CONSUMER_KEY));
+		sorted.put(OAUTH_SIGNATURE_METHOD, unsorted.get(OAUTH_SIGNATURE_METHOD));
+		sorted.put(OAUTH_SIGNATURE, unsorted.get(OAUTH_SIGNATURE));
+		return sorted;
+	}
+	
+	public String debug() throws IOException {
+		return ("\nnonce: " + nonce +
+				"\ntimestamp: " + timestamp +
+				"\nsignature: " + getSignature(baseURL + requestTokenURL));
 	}
 	
 	/**
@@ -276,4 +288,6 @@ public class OAuthClient {
 	public String toString() {
 		return normalize(getAuthorizationParameters(), ",\n", true);
 	}
+	
+	
 }
