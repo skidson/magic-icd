@@ -60,10 +60,10 @@ public class JsonItem extends FeedItem {
 	}
 	
 	public String toString() {
-		Iterator iterator = attributes.entrySet().iterator();
+		Iterator<Map.Entry<String, Object>> iterator = attributes.entrySet().iterator();
 		StringBuilder builder = new StringBuilder();
 		while (iterator.hasNext()) {
-			Map.Entry pairs = (Map.Entry)iterator.next();
+			Map.Entry<String, Object> pairs = (Map.Entry<String, Object>)iterator.next();
 			builder.append(pairs.getKey() + ": " + pairs.getValue() + "\n");
 		}
 		return builder.toString();

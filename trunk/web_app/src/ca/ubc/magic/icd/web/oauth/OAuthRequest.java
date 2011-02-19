@@ -23,36 +23,36 @@ public class OAuthRequest {
 	private Encoding encoding = Encoding.HMAC_SHA1;
 	
 	public OAuthRequest(String url, String consumerKey, 
-			String consumerSecret, String tokenSecret, LinkedHashMap<String, String> parameters) {
+			String consumerSecret, String tokenSecret) {
 		this.url = url;
 		this.consumerSecret = consumerSecret;
-		this.parameters = parameters;
 		this.tokenSecret = tokenSecret;
+		this.parameters = new LinkedHashMap<String, String>();
 		parameters.put(OAuth.OAUTH_CONSUMER_KEY, consumerKey);
 		parameters.put(OAuth.OAUTH_VERSION, "1.0");
 		parameters.put(OAuth.OAUTH_SIGNATURE_METHOD, encoding.toString().replace("_", "-"));
 	}
 	
-	public OAuthRequest(String url, String consumerKey, String consumerSecret, String tokenSecret) {
-		this(url, consumerKey, consumerSecret, tokenSecret, new LinkedHashMap<String, String>());
-	}
-	
 	public OAuthRequest(String url, String consumerKey, String consumerSecret) {
-		this(url, consumerKey, consumerSecret, "", new LinkedHashMap<String, String>());
+		this(url, consumerKey, consumerSecret, "");
 	}
 	
-	public String send() throws IOException {
-		System.out.println(toString());
-		return toString();
-//		URLConnection connection = initConnection(url + "?" + OAuth.normalize(parameters));
-//		DataOutputStream writer = new DataOutputStream(connection.getOutputStream());
-//		writer.write(0);
-//		writer.flush();
-//		
-//		DataInputStream reader = new DataInputStream(connection.getInputStream());
-//		String response = "";
-//		while((response += reader.readLine()) != null);
-//		return response;
+	public String setup(String callbackURL) throws MalformedURLException, IOException {
+		parameters.put(OAuth.OAUTH_CALLBACK, callbackURL);
+		this.send();
+		DataInputStream reader = new DataInputStream((new URL(callbackURL)).openConnection().getInputStream());
+		String response = "";
+		while((response += reader.readLine()) != null);
+		return response;
+	}
+	
+	public void send() throws IOException {
+		System.out.println("Sending...\n" + toString()); // debug
+		URLConnection connection = (new URL(url + "?" + OAuth.normalize(parameters)).openConnection());
+		DataOutputStream writer = new DataOutputStream(connection.getOutputStream());
+		writer.write(0);
+		writer.flush();
+		// TODO read data back
 	}
 	
 	private URLConnection initConnection(String url) throws MalformedURLException, IOException {

@@ -23,6 +23,7 @@ import javax.crypto.spec.SecretKeySpec;
  * @author skidson
  *
  */
+@Deprecated
 public class OAuthClient {
 	public static final String PLAINTEXT = "PLAINTEXT";
 	public static final String HMAC_SHA1 = "HMAC-SHA1";

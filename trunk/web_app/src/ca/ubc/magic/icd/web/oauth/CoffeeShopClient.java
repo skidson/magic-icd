@@ -31,6 +31,7 @@ public class CoffeeShopClient extends OAuthConsumer {
 				"request_token",
 				"authorize",
 				"access_token",
+				"", // like localhost but we need the external IP, a controller should be listening to this URL
 				"766bec602a9fe2795b43501ea4f9a9c9",
 				"sad234fdsf243f4ff3f343kj43hj43g4hgf423f");
 	}
@@ -39,9 +40,10 @@ public class CoffeeShopClient extends OAuthConsumer {
 			String requestTokenURL, 
 			String userAuthorizationURL,
 			String accessTokenURL,
+			String callbackURL,
 			String consumerKey,
 			String consumerSecret) {
-		super(baseURL, requestTokenURL, userAuthorizationURL, accessTokenURL, consumerKey, consumerSecret);
+		super(baseURL, requestTokenURL, userAuthorizationURL, accessTokenURL, callbackURL, consumerKey, consumerSecret);
 	}
 	
 	public void login() {
