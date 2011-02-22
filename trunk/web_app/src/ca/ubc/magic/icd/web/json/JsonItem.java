@@ -9,6 +9,11 @@ import java.util.Map;
 
 import ca.ubc.magic.icd.web.FeedItem;
 
+/**
+ * Container for parsed JSON items.
+ * @author skidson
+ *
+ */
 public class JsonItem extends FeedItem {
 	Map<String, Object> attributes;
 	

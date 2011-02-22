@@ -22,6 +22,9 @@ public class JsonParser extends BaseParser {
 		this.type = type;
 	}
 	
+	/** Parses all items available at this parser's URL. Foreknowledge of 
+	 * @return a List containing JSON items fetched from this parser's URL.
+	 */
 	public List<JsonItem> parse() {
 		// Determines whether we are fetching an array or just one item and parses accordingly
 		try {
