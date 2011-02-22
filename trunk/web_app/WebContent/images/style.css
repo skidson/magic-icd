@@ -270,10 +270,10 @@ input.button {
 	padding-right: 20px;	
 }
 #menu ul li a:hover {
-	color: #D4E59F;	
+	color: #f9bb3f;	
 }
 #menu ul li#current a {	
-	color: #D4E59F;
+	color: #f9bb3f;
 }
 
 /* Main Column */
@@ -365,17 +365,20 @@ input.button {
 
 /* Footer */	
 #footer {
-	color: #C6DDEE;
+	color: #FFF;
 	background: #CCC url(<%=request.getContextPath()%>/images/footer.jpg) no-repeat center top;
 	clear: both;
 	width: 820px;
 	height: 65px;
 	text-align: center;	
 	font-size: 92%;	
+}
 #footer a { 
 	color: #FFF;
 	text-decoration: none; 
 }
+
+
 
 /* alignment classes */
 .float-left  { float: left; }
