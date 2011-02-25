@@ -7,20 +7,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import ca.ubc.magic.icd.web.model.*;
- 
+
 @Controller
 public class HomeController {
- 
-    @RequestMapping("/home")
-    public ModelAndView homePage() {
- 
-        User steve = new User("Steve");
-        List<String> friends = steve.getFriends();
-        List<Bit> bits = steve.getBits();
-        HashMap relationships = new HashMap();
-        relationships.put("friends", friends);
-        relationships.put("bits", bits);
-        return new ModelAndView("home", "relationships", relationships);
-    	//return new ModelAndView("login");
-    }
+
+	@RequestMapping("/home")
+	public ModelAndView homePage() {
+
+		String randomString = "Home Page kkthx";
+		return new ModelAndView("home", "randomString", randomString);
+		//return new ModelAndView("login");
+	}
 }
