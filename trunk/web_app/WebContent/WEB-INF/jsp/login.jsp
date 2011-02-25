@@ -59,7 +59,7 @@
 					</form>		
 				</tr></table>
 				</center>
-			</div> <!--  main -->
+			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	
 					
 		<!--footer starts here-->
