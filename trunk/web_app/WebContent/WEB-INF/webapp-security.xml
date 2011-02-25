@@ -7,11 +7,11 @@
 		http://www.springframework.org/schema/security
 		http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 	<http>
-		<intercept-url pattern="/home.*"
+		<intercept-url pattern="/home*"
 			access="ROLE_USER" />
-		<intercept-url pattern="/search*" access="ROLE_USER" />
+		<intercept-url pattern="/bits*" access="ROLE_USER" />
 		<intercept-url pattern="/friends*" access="ROLE_USER" />
-		<intercept-url pattern="/register*" access="ROLE_GUEST" />
+		<intercept-url pattern="/profile*" access="ROLE_GUEST" />
 		<anonymous username="guest" granted-authority="ROLE_GUEST" />
 		<form-login login-page="/login.jsp" default-target-url="/home.html"
 			authentication-failure-url="/login.jsp?error=true" />

@@ -14,13 +14,13 @@ public class HomeController {
     @RequestMapping("/home")
     public ModelAndView homePage() {
  
-//        User steve = new User("Steve");
-//        List<String> friends = steve.getFriends();
-//        List<Bit> bits = steve.getBits();
-//        HashMap relationships = new HashMap();
-//        relationships.put("friends", friends);
-//        relationships.put("bits", bits);
-//        return new ModelAndView("home", "relationships", relationships);
-    	return new ModelAndView("login");
+        User steve = new User("Steve");
+        List<String> friends = steve.getFriends();
+        List<Bit> bits = steve.getBits();
+        HashMap relationships = new HashMap();
+        relationships.put("friends", friends);
+        relationships.put("bits", bits);
+        return new ModelAndView("home", "relationships", relationships);
+    	//return new ModelAndView("login");
     }
 }
