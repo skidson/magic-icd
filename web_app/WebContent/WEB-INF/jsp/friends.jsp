@@ -1,33 +1,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
 <%@ include file="/WEB-INF/jsp/include.jsp" %>
-
-<title>Coffee Shop</title>
-	
-</head>
 
 <body>
 <!-- wrap starts here -->
 <div id="wrap">
-		
-		<!--header -->
-		<div id="header">			
-				
-			<h1 id="logo-text"><a href="home.html">Coffee Shop</a></h1>		
-			<p id="slogan">Blurring the lines of reality</p>		
-			
-			<div id="header-links">
-				<p>
-					<a href="home.html">Home</a> | 
-					<a href="index.html">Contact</a> | 
-					<a href="index.html">Site Map</a>			
-				</p>		
-			</div>		
-						
-		</div>
-		
+		<%@ include file="/WEB-INF/jsp/header.jsp" %>
 		<!-- menu -->	
 		<div  id="menu">
 			<ul>
