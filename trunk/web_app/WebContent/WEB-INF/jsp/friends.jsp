@@ -15,7 +15,7 @@
 		<!--header -->
 		<div id="header">			
 				
-			<h1 id="logo-text"><a href="index.html">Coffee Shop</a></h1>		
+			<h1 id="logo-text"><a href="home.html">Coffee Shop</a></h1>		
 			<p id="slogan">Blurring the lines of reality</p>		
 			
 			<div id="header-links">
@@ -31,7 +31,7 @@
 		<!-- menu -->	
 		<div  id="menu">
 			<ul>
-				<li><a href="index.html">Home</a></li>
+				<li><a href="home.html">Home</a></li>
 				<li id="current"><a href="friends.html">Friends</a></li>
 				<li><a href="bits.html">Bits</a></li>
 				<li><a href="inbox.html">Inbox</a></li>

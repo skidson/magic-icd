@@ -7,24 +7,23 @@
 		http://www.springframework.org/schema/security
 		http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 	<http>
-		<intercept-url pattern="/home*"
-			access="ROLE_USER" />
+		<intercept-url pattern="/home*" access="ROLE_USER" />
 		<intercept-url pattern="/bits*" access="ROLE_USER" />
 		<intercept-url pattern="/friends*" access="ROLE_USER" />
-		<intercept-url pattern="/profile*" access="ROLE_GUEST" />
-		<anonymous username="guest" granted-authority="ROLE_GUEST" />
+		<intercept-url pattern="/account*" access="ROLE_USER" />
+		<intercept-url pattern="/inbox*" access="ROLE_USER" />
 		<form-login login-page="/login.jsp" default-target-url="/home.html"
 			authentication-failure-url="/login.jsp?error=true" />
 		<logout logout-success-url="/login.jsp" />
 	</http>
 	
 	<authentication-manager>
-	<authentication-provider>
-	<user-service>
-<user name="admin" password="secret" authorities="ROLE_ADMIN,ROLE_USER" />
- <user name="user1" password="1111" authorities="ROLE_USER" /> 
- <user name="user2" password="2222" disabled="true" authorities="ROLE_USER" />
-</user-service>
-	</authentication-provider>
+		<authentication-provider>
+			<user-service>
+				<user name="admin" password="secret" authorities="ROLE_ADMIN,ROLE_USER" />
+				 <user name="user1" password="1111" authorities="ROLE_USER" /> 
+				 <user name="user2" password="2222" disabled="true" authorities="ROLE_USER" />
+			</user-service>
+		</authentication-provider>
 	</authentication-manager>
 </beans:beans>

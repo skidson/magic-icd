@@ -15,12 +15,12 @@
 		<!--header -->
 		<div id="header">			
 				
-			<h1 id="logo-text"><a href="index.html">Coffee Shop</a></h1>		
+			<h1 id="logo-text"><a href="home.html">Coffee Shop</a></h1>		
 			<p id="slogan">Blurring the lines of reality</p>		
 			
 			<div id="header-links">
 				<p>
-					<a href="homehtml">Home</a> | 
+					<a href="home.html">Home</a> | 
 					<a href="index.html">Contact</a> | 
 					<a href="index.html">Site Map</a>			
 				</p>		
@@ -31,7 +31,7 @@
 		<!-- menu -->	
 		<div  id="menu">
 			<ul>
-				<li id="current"><a href="index.html">Home</a></li>
+				<li id="current"><a href="home.html">Home</a></li>
 				<li><a href="friends.html">Friends</a></li>
 				<li><a href="bits.html">Bits</a></li>
 				<li><a href="inbox.html">Inbox</a></li>
@@ -52,7 +52,7 @@
 					<form method="post" action="<c:url value="/j_spring_security_check" />">			
 						<label>Username:</label><input type="text" size = "30" name="j_username" />
 						<label>Password:</label><input type="password" size="30" name="j_password" /> <br />
-						<a href="register.htm?error=false">Register</a>
+						<a href="register.html?error=false">Register</a>
 						<br />
 						<label><input type="checkbox" name="_spring_security_remember_me" /> Remember me</label>
 						<center><input class="button" value="          Login          " type="submit" /></center>
