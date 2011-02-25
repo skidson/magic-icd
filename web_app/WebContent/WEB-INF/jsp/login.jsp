@@ -20,7 +20,7 @@
 			
 			<div id="header-links">
 				<p>
-					<a href="index.html">Home</a> | 
+					<a href="homehtml">Home</a> | 
 					<a href="index.html">Contact</a> | 
 					<a href="index.html">Site Map</a>			
 				</p>		
@@ -32,10 +32,10 @@
 		<div  id="menu">
 			<ul>
 				<li id="current"><a href="index.html">Home</a></li>
-				<li><a href="index.html">Friends</a></li>
-				<li><a href="index.html">Bits</a></li>
-				<li><a href="index.html">Inbox</a></li>
-				<li class="last"><a href="index.html">Account</a></li>		
+				<li><a href="friends.html">Friends</a></li>
+				<li><a href="bits.html">Bits</a></li>
+				<li><a href="inbox.html">Inbox</a></li>
+				<li class="last"><a href="account.html">Account</a></li>		
 			</ul>
 		</div>					
 			

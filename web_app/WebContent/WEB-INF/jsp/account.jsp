@@ -31,7 +31,7 @@
 		<!-- menu -->	
 		<div  id="menu">
 			<ul>
-				<li id="current"><a href="home.html">Home</a></li>
+				<li id="current"><a href="index.html">Home</a></li>
 				<li><a href="friends.html">Friends</a></li>
 				<li><a href="bits.html">Bits</a></li>
 				<li><a href="inbox.html">Inbox</a></li>
@@ -43,20 +43,8 @@
 		<div id="content-wrap">
 
 			<div id="main">
-				<h2>Home</h2>
-				<a href="/user.html?user_id=1">Steve's</a> friends are : 
-	<c:forEach items="${relationships['friends']}" var="friend">
-					<tr>
-						<td>${friend}, </td>
-					</tr>
-	</c:forEach>
-	<br>
-	and he likes 
-	<c:forEach items="${relationships['bits']}" var="bit">
-					<tr>
-						<td>${bit.name}, </td>
-					</tr>
-	</c:forEach>
+				<h2>Login</h2>
+				${randomString}
 			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	
 					

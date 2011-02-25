@@ -20,7 +20,7 @@
 			
 			<div id="header-links">
 				<p>
-					<a href="homehtml">Home</a> | 
+					<a href="home.html">Home</a> | 
 					<a href="index.html">Contact</a> | 
 					<a href="index.html">Site Map</a>			
 				</p>		
@@ -31,8 +31,8 @@
 		<!-- menu -->	
 		<div  id="menu">
 			<ul>
-				<li id="current"><a href="home.html">Home</a></li>
-				<li><a href="friends.html">Friends</a></li>
+				<li><a href="index.html">Home</a></li>
+				<li id="current"><a href="friends.html">Friends</a></li>
 				<li><a href="bits.html">Bits</a></li>
 				<li><a href="inbox.html">Inbox</a></li>
 				<li class="last"><a href="account.html">Account</a></li>		
@@ -43,20 +43,8 @@
 		<div id="content-wrap">
 
 			<div id="main">
-				<h2>Home</h2>
-				<a href="/user.html?user_id=1">Steve's</a> friends are : 
-	<c:forEach items="${relationships['friends']}" var="friend">
-					<tr>
-						<td>${friend}, </td>
-					</tr>
-	</c:forEach>
-	<br>
-	and he likes 
-	<c:forEach items="${relationships['bits']}" var="bit">
-					<tr>
-						<td>${bit.name}, </td>
-					</tr>
-	</c:forEach>
+				<h2>Friends</h2>
+				${randomString}
 			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	
 					
