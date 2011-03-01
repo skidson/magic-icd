@@ -5,7 +5,7 @@
 	<p id="slogan">Blurring the lines of reality</p>		
 	
 	<div id="header-links">
-		<p><a href="logout.html">Logout</a></p>		
+		<p>Logged in as: ${user.username} | <a href="<c:url value="/j_spring_security_logout" />">Logout</a></p>		
 	</div>		
 				
 </div>
