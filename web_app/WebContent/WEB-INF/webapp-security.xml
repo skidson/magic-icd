@@ -10,6 +10,8 @@
 		http://www.springframework.org/schema/security/oauth 
 		http://www.springframework.org/schema/security/spring-security-oauth.xsd">
 	<http>
+		<intercept-url pattern="/home.*" access="ROLE_USER" />
+		<intercept-url pattern="user*" access="ROLE_USER" />
 		<intercept-url pattern="/home*" access="ROLE_USER" />
 		<intercept-url pattern="/bits*" access="ROLE_USER" />
 		<intercept-url pattern="/friends*" access="ROLE_USER" />

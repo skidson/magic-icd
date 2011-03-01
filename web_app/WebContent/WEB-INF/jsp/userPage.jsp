@@ -5,15 +5,18 @@
 
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>User Page</title>
 </head>
 <body>
-Hi im ${user.name}
+Hi im ${testuser.name}
 <br>
-${user.description}
+${testuser.description}
 
-I currently have ${user.exp}<c:if test="user.exp = 0"> cuz im a noob </c:if>
- experience and ${user.points} points
+I currently have ${testuser.exp}<c:if test="${testuser.exp} = 0"> cuz im a noob </c:if>
+ experience and ${testuser.points} points
+ 
+ <br>
+ friends include <c:forEach items="${testuser.friends}" var="friends">
+ 					<td> ${friends}, </td> </c:forEach>
 </body>
 </html>

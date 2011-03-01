@@ -18,8 +18,39 @@
 		<div id="content-wrap">
 			<div id="main">
 				<h2>Friends</h2>
-				${randomString}
-			</div> <!--  main --> 
+					<table border="3">
+						<tr>
+							<td rowspan="2" align="center"> PICTUREEE </td>
+							<td align="center"> Friend name here? </td>
+						</tr>
+						<tr>
+							
+							<td align="center">Description or w/e</td>
+						</tr>
+					</table>
+					
+					<table border="3">
+						<tr>
+							<td rowspan="2" align="center"> PICTUREEE </td>
+							<td align="center"> Friend name here? </td>
+						</tr>
+						<tr>
+							
+							<td align="center">Description or w/e</td>
+						</tr>
+					</table>
+					
+					<table border="3">
+						<tr>
+							<td rowspan="2" align="center"> PICTUREEE </td>
+							<td align="center"> Friend name here? </td>
+						</tr>
+						<tr>
+							
+							<td align="center">Description or w/e</td>
+						</tr>
+					</table>
+</div> <!--  main --> 
 		</div> <!-- content-wrap -->	
 					
 		<div id="footer">

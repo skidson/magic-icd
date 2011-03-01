@@ -15,14 +15,14 @@ import ca.ubc.magic.icd.web.oauth.CoffeeShopClient;
 @Controller
 public class UserController {
 	
-	@RequestMapping("/user")
-	public ModelAndView homePage(@RequestParam("user_id") int userID) {
+	@RequestMapping("/userPage")
+	public ModelAndView userPage() {
 		CoffeeShopClient csc = new CoffeeShopClient();
+		int userID = 1;
+		User testuser = new User();
+		testuser = csc.getUser(userID);
 		
-		User user = new User();
-		user = csc.getUser(userID);
-		
-		return new ModelAndView("user", "user", user);
+		return new ModelAndView("userPage", "testuser", testuser);
 	}
 }
 

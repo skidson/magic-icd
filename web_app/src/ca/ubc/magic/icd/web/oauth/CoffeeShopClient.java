@@ -93,14 +93,14 @@ public class CoffeeShopClient extends OAuthConsumer {
 	public User getUser(int id){
 		User test = new User();
 		test.setName("Steve");
-		test.setDescription("I like men");
+		test.setDescription("Jeff was here");
 		test.setExp(0);
 		test.setPoints(1);
 		List<String> testFriends = new ArrayList<String>();
 		testFriends.add("whoooo");
 		testFriends.add("aafds");
 		test.setFriends(testFriends);
-		
+		System.out.println(test.getName());
 		return test;
 	}
 }

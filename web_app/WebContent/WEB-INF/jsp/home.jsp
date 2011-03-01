@@ -14,11 +14,11 @@
 				<li class="last"><a href="account.html">Account</a></li>		
 			</ul>
 		</div>					
-			
 		<div id="content-wrap">
 			<div id="main">
 				<h2>Home</h2>
-				${randomString}
+				${test}
+				
 			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	
 					
