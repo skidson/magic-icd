@@ -11,7 +11,7 @@ import java.net.URL;
  *
  */
 public abstract class BaseParser implements Parser {
-	private URL feedUrl;
+	private InputStream stream;
 	
 	/**
 	 * Constructs a basic parser from the feed's URL.
@@ -19,10 +19,20 @@ public abstract class BaseParser implements Parser {
 	 */
 	protected BaseParser(String feedUrl) {
 		try {
-			this.feedUrl = new URL(feedUrl);
+			this.stream = (new URL(feedUrl)).openStream();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Constructs a basic parser from the feed's input stream.
+	 * @param feedUrl the stream to parse data from.
+	 */
+	protected BaseParser(InputStream stream) {
+		this.stream = stream;
 	}
 	
 	/**
@@ -31,6 +41,6 @@ public abstract class BaseParser implements Parser {
 	 * @throws IOException
 	 */
 	protected InputStream getInputStream() throws IOException {
-		return feedUrl.openConnection().getInputStream();
+		return stream;
 	}
 }

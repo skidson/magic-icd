@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>Your Page Title</title>
-<meta http-equiv="REFRESH" content="0;url=http://localhost:8080/web_app/home.html"></HEAD>
+<meta http-equiv="REFRESH" content="0;url=http://localhost:8010/web_app/home.html"></HEAD>
 <BODY>
 </BODY>
 </HTML>
