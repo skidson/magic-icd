@@ -10,24 +10,9 @@ import ca.ubc.magic.icd.web.json.JsonParser;
 
 public class CoffeeShopService implements MagicService {
 	private String magicURLPattern;
-	private String magicImageURLPattern;
+	private String magicQRCodeURLPattern;
 	private OAuthRestTemplate magicRestTemplate;
-	
-	public String getMagicURLPattern() {
-		return magicURLPattern;
-	}
 
-	public void setMagicURLPattern(String magicURLPattern) {
-		this.magicURLPattern = magicURLPattern;
-	}
-
-	public String getMagicImageURLPattern() {
-		return magicImageURLPattern;
-	}
-
-	public void setMagicImageURLPattern(String magicImageURLPattern) {
-		this.magicImageURLPattern = magicImageURLPattern;
-	}
 
 	@Override
 	public JsonItem showBit(int id) {
@@ -121,6 +106,22 @@ public class CoffeeShopService implements MagicService {
 
 	public OAuthRestTemplate getMagicRestTemplate() {
 		return magicRestTemplate;
+	}
+
+	public void setMagicQRCodeURLPattern(String magicQRCodeURLPattern) {
+		this.magicQRCodeURLPattern = magicQRCodeURLPattern;
+	}
+
+	public String getMagicQRCodeURLPattern() {
+		return magicQRCodeURLPattern;
+	}
+	
+	public String getMagicURLPattern() {
+		return magicURLPattern;
+	}
+
+	public void setMagicURLPattern(String magicURLPattern) {
+		this.magicURLPattern = magicURLPattern;
 	}
 
 }
