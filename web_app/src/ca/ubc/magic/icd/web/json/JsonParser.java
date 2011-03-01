@@ -1,19 +1,26 @@
 package ca.ubc.magic.icd.web.json;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.stream.JsonReader;
 import ca.ubc.magic.icd.web.BaseParser;
 import ca.ubc.magic.icd.web.FeedItem;
+
+import com.google.gson.stream.JsonReader;
 
 public class JsonParser extends BaseParser {
 	private FeedItem.Type type;
 	
 	public JsonParser(String feedUrl) {
 		super(feedUrl);
+		this.type = FeedItem.Type.OTHER;
+	}
+	
+	public JsonParser(InputStream stream) {
+		super(stream);
 		this.type = FeedItem.Type.OTHER;
 	}
 	
@@ -60,11 +67,11 @@ public class JsonParser extends BaseParser {
 		while(reader.hasNext()) {
 			key = reader.nextName();
 			String nextToken = reader.peek().toString();
-			if (nextToken.equals("BEGIN_ARRAY")) {
+			if (nextToken.equals("BEGIN_ARRAY"))
 				item.addAttribute(key, this.parseArray(reader));
-			} else if (nextToken.equals("BEGIN_OBJECT")) {
+			else if (nextToken.equals("BEGIN_OBJECT"))
 				item.addAttribute(key, this.parseItem(reader));
-			} else {
+			else {
 				String value;
 				try {
 					value = reader.nextString().trim();

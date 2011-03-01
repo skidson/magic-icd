@@ -9,6 +9,11 @@
 		http://www.springframework.org/schema/security/spring-security-3.0.xsd
 		http://www.springframework.org/schema/security/oauth 
 		http://www.springframework.org/schema/security/spring-security-oauth.xsd">
+		
+	<beans:bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<beans:property name="location" value="/WEB-INF/magic.properties"/>
+	</beans:bean>
+		
 	<http>
 		<intercept-url pattern="/home.*" access="ROLE_USER" />
 		<intercept-url pattern="user*" access="ROLE_USER" />
@@ -33,7 +38,7 @@
 	</authentication-manager>
 	
 	<oauth:consumer resource-details-service-ref="resourceDetails" oauth-failure-page="/oauth_error.jsp">
-		<oauth:url pattern="/magic/**" resources="magicBroker"/>
+		<oauth:url pattern="/magic/**" resources="magicBroker" />
 	</oauth:consumer>
  
 	<oauth:resource-details-service id="resourceDetails">
@@ -42,6 +47,8 @@
 		                secret="sad234fdsf243f4ff3f343kj43hj43g4hgf423f"
 		                request-token-url="http://api.platybox.com/1/request_token"
 		                user-authorization-url="http://api.platybox.com/1/authorize"
-		                access-token-url="http://api.platybox.com/1/access_token"/>
+		                access-token-url="http://api.platybox.com/1/access_token"
+		                user-authorization-callback-param="http://localhost:8010/web_app"/>
 	</oauth:resource-details-service>
+	
 </beans:beans>
