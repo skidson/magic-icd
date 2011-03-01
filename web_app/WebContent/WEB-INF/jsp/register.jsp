@@ -4,12 +4,11 @@
 
 <body>
 	<div id="wrap">
-		<!--header -->
 		<div id="header">			
 			<h1 id="logo-text"><a href="home.html">Coffee Shop</a></h1>		
 			<p id="slogan">Blurring the lines of reality</p>		
 		</div>
-		<!-- menu -->
+		
 		<div  id="menu">
 			<ul>
 				<li><a href="home.html">Home</a></li>
@@ -21,7 +20,6 @@
 		</div>		
 		
 		<div id="content-wrap">
-				
 			<div id="main">
 				<h2>Register</h2>
 				

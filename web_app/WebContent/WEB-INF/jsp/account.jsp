@@ -3,36 +3,32 @@
 <%@ include file="/WEB-INF/jsp/include.jsp" %>
 
 <body>
-<!-- wrap starts here -->
-<div id="wrap">
+	<div id="wrap">
 		<%@ include file="/WEB-INF/jsp/header.jsp" %>
-		<!-- menu -->	
 		<div  id="menu">
 			<ul>
-				<li id="current"><a href="home.html">Home</a></li>
+				<li><a href="home.html">Home</a></li>
 				<li><a href="friends.html">Friends</a></li>
 				<li><a href="bits.html">Bits</a></li>
 				<li><a href="inbox.html">Inbox</a></li>
-				<li class="last"><a href="account.html">Account</a></li>		
+				<li class="last" id="current"><a href="account.html">Account</a></li>		
 			</ul>
 		</div>					
 			
-		<!-- content-wrap -->
 		<div id="content-wrap">
 
 			<div id="main">
-				<h2>Login</h2>
+				<h2>Account</h2>
 				${randomString}
 			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	
 					
-		<!-- footer -->
 		<div id="footer">
 			<%@ include file="/WEB-INF/jsp/footer.jsp" %>
 		</div>	
 
-<!-- wrap ends here -->
-</div>
+	<!-- wrap ends here -->
+	</div>
 
 </body>
 </html>

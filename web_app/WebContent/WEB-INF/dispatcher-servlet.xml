@@ -21,4 +21,15 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
+	<bean id="magicService" class="ca.ubc.magic.icd.web.controller.oauth.CoffeeShopService">
+    <property name="magicURLPattern" value="${magicURLPattern}"/>
+    <property name="magicImagesURLPattern" value="${magicImagesURLPattern}"/>
+    <property name="magicRestTemplate">
+      <bean class="org.springframework.security.oauth.consumer.OAuthRestTemplate">
+        <constructor-arg ref="magicBroker"/>
+      </bean>
+    </property>
+
+  </bean>
+	
 </beans>

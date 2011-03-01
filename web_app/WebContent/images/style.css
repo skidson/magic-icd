@@ -289,7 +289,7 @@ input.button {
 	color: #f9bb3f; 
 	padding: 5px 0 5px 25px; 	
 	border-bottom: 1px solid #EFF0F1;
-	background: #FFF url(<%=request.getContextPath()%>/images/square-green.png) no-repeat 3px 50%;	
+	background: #FFF url(<%=request.getContextPath()%>/images/square.png) no-repeat 3px 50%;	
 	text-transform: none;
 }
 #main h2 a {
