@@ -17,13 +17,13 @@
 		
 		<div id="content-wrap">
 			<div id="main">
-				<h2>Mailbox</h2> <br />
+				<h2>Inbox</h2> 
+				<br />
 				<a href="composeMessage.htm?username=" " "><button> Compose Message </button></a>
 				<table>
 					SHOW MESSAGES HERE LULZ
 				</table>
 			</div> <!-- main -->
-		
 		</div> <!-- content-wrap -->
 					
 		<div id="footer">

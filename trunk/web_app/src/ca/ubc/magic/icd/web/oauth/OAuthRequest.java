@@ -1,8 +1,10 @@
 package ca.ubc.magic.icd.web.oauth;
 
+import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -49,10 +51,46 @@ public class OAuthRequest {
 	public void send() throws IOException {
 		System.out.println("Sending...\n" + toString()); // debug
 		URLConnection connection = (new URL(url + "?" + OAuth.normalize(parameters)).openConnection());
+		connection.setDoOutput(true);
+		connection.setDoInput(true);
 		DataOutputStream writer = new DataOutputStream(connection.getOutputStream());
 		writer.write(0);
 		writer.flush();
-		// TODO read data back
+		DataInputStream reader = new DataInputStream(connection.getInputStream());
+		while(reader.available() > 0) {
+			System.out.println(reader.read());
+		}
+		
+		/*ByteArrayOutputStream byteOutputStream = null;
+        InputStream inputStream = null;
+        String stream = null;
+        try {
+            inputStream = (new URL(url + "?" + OAuth.normalize(parameters))).openStream();
+            byteOutputStream = new ByteArrayOutputStream();
+            int i;
+            while ((i = inputStream.read()) != -1)
+                byteOutputStream.write(i);
+            stream = new String(byteOutputStream.toByteArray());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (null != byteOutputStream) {
+                try {
+                    byteOutputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+ 
+            if (null != inputStream) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        System.out.println(stream); */
 	}
 	
 	private URLConnection initConnection(String url) throws MalformedURLException, IOException {

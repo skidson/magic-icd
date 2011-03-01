@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/security"
 	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:oauth="http://www.springframework.org/schema/security/oauth"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 		http://www.springframework.org/schema/security
-		http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+		http://www.springframework.org/schema/security/spring-security-3.0.xsd
+		http://www.springframework.org/schema/security/oauth 
+		http://www.springframework.org/schema/security/spring-security-oauth.xsd">
 	<http>
 		<intercept-url pattern="/home*" access="ROLE_USER" />
 		<intercept-url pattern="/bits*" access="ROLE_USER" />
@@ -21,9 +24,22 @@
 		<authentication-provider>
 			<user-service>
 				<user name="admin" password="secret" authorities="ROLE_ADMIN,ROLE_USER" />
-				 <user name="user1" password="1111" authorities="ROLE_USER" /> 
-				 <user name="user2" password="2222" disabled="true" authorities="ROLE_USER" />
+				<user name="user1" password="1111" authorities="ROLE_USER" /> 
+				<user name="user2" password="2222" disabled="true" authorities="ROLE_USER" />
 			</user-service>
 		</authentication-provider>
 	</authentication-manager>
+	
+	<oauth:consumer resource-details-service-ref="resourceDetails" oauth-failure-page="/oauth_error.jsp">
+		<oauth:url pattern="/magic/**" resources="magicBroker"/>
+	</oauth:consumer>
+ 
+	<oauth:resource-details-service id="resourceDetails">
+		<oauth:resource id="magicBroker"
+		                key="766bec602a9fe2795b43501ea4f9a9c9"
+		                secret="sad234fdsf243f4ff3f343kj43hj43g4hgf423f"
+		                request-token-url="http://api.platybox.com/1/request_token"
+		                user-authorization-url="http://api.platybox.com/1/authorize"
+		                access-token-url="http://api.platybox.com/1/access_token"/>
+	</oauth:resource-details-service>
 </beans:beans>
