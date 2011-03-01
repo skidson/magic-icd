@@ -23,7 +23,7 @@
 	
 	<bean id="magicService" class="ca.ubc.magic.icd.web.controller.oauth.CoffeeShopService">
     <property name="magicURLPattern" value="${magicURLPattern}"/>
-    <property name="magicImagesURLPattern" value="${magicImagesURLPattern}"/>
+    <property name="magicQRCodeURLPattern" value="${magicQRCodeURLPattern}"/>
     <property name="magicRestTemplate">
       <bean class="org.springframework.security.oauth.consumer.OAuthRestTemplate">
         <constructor-arg ref="magicBroker"/>
