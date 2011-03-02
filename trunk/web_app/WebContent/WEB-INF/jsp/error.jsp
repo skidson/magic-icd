@@ -16,9 +16,8 @@
 		</div>					
 		<div id="content-wrap">
 			<div id="main">
-				<h2>Error!</h2>
-				${error}
-				
+	            <h2>Woops!</h2>
+				<p>${error_message}</p>
 			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	
 					
