@@ -37,7 +37,7 @@
 		</authentication-provider>
 	</authentication-manager>
 	
-	<oauth:consumer resource-details-service-ref="resourceDetails" oauth-failure-page="/oauth_error.jsp">
+	<oauth:consumer resource-details-service-ref="resourceDetails" oauth-failure-page="/error.jsp">
 		<oauth:url pattern="/magic/**" resources="magicBroker" />
 	</oauth:consumer>
  
@@ -48,8 +48,8 @@
 		                request-token-url="http://api.platybox.com/1/request_token"
 		                user-authorization-url="http://api.platybox.com/1/authorize"
 		                access-token-url="http://api.platybox.com/1/access_token"
-		                user-authorization-callback-param="callbackURL">
-        	<oauth:addtionalParameter name="callbackURL" value="http://www.google.com"/>
+		                user-authorization-callback-param="oauth_callback">
+        	<oauth:addtionalParameter name="oauth_callback" value="http://www.google.com"/>
         </oauth:resource>
 	</oauth:resource-details-service>
 	

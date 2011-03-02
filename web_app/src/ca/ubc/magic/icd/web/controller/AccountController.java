@@ -9,10 +9,9 @@ import org.springframework.web.servlet.ModelAndView;
 public class AccountController {
  
     @RequestMapping("/account")
-    public ModelAndView homePage() {
+    public ModelAndView accountPage() {
     	String tester = "ACCOUNT PAGE KKTHX";
         return new ModelAndView("account", "randomString", tester);
-    	//return new ModelAndView("login");
     }
     
     @RequestMapping(value = "/register", method = RequestMethod.GET)
