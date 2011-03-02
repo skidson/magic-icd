@@ -15,12 +15,12 @@ public class HomeController {
 
 	@RequestMapping("/home")
 	public ModelAndView homePage() {
-		CoffeeShopService css = new CoffeeShopService();
-		
-		String test = getMagicService().showUser(1).getAsString("user");
-		User user = new User();
-		user.setUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-		return new ModelAndView("home", "test", test);
+//		System.out.println(((CoffeeShopService)getMagicService()).debug());
+//		
+//		String test = getMagicService().showUser(1).getAsString("user");
+//		User user = new User();
+//		user.setUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+		return new ModelAndView("home");
 		//return new ModelAndView("login");
 	}
 

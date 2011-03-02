@@ -17,7 +17,7 @@
 		<div id="content-wrap">
 			<div id="main">
 				<h2>Home</h2>
-				${test}
+				<a href="<c:url value="/magic/friends"/>">Load friends list</a>
 				
 			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	

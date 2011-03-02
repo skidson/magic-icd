@@ -18,6 +18,12 @@
 		<div id="content-wrap">
 			<div id="main">
 				<h2>Friends</h2>
+				
+					<c:forEach var="friend" items="${friends_list}">
+						${friend}
+						<!-- <li><img src="<c:url value="${friend}"/>"/></li> -->
+					</c:forEach>
+				
 					<table border="3">
 						<tr>
 							<td rowspan="2" align="center"> PICTUREEE </td>
