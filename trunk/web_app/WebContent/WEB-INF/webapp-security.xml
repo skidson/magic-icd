@@ -48,7 +48,9 @@
 		                request-token-url="http://api.platybox.com/1/request_token"
 		                user-authorization-url="http://api.platybox.com/1/authorize"
 		                access-token-url="http://api.platybox.com/1/access_token"
-		                user-authorization-callback-param="http://localhost:8010/web_app"/>
+		                user-authorization-callback-param="callbackURL">
+        	<oauth:addtionalParameter name="callbackURL" value="http://www.google.com"/>
+        </oauth:resource>
 	</oauth:resource-details-service>
 	
 </beans:beans>
