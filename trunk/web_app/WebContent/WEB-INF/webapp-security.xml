@@ -15,8 +15,6 @@
 	</beans:bean>
 		
 	<http>
-		<intercept-url pattern="/home.*" access="ROLE_USER" />
-		<intercept-url pattern="user*" access="ROLE_USER" />
 		<intercept-url pattern="/home*" access="ROLE_USER" />
 		<intercept-url pattern="/bits*" access="ROLE_USER" />
 		<intercept-url pattern="/friends*" access="ROLE_USER" />
@@ -45,11 +43,9 @@
 		<oauth:resource id="magicBroker"
 		                key="766bec602a9fe2795b43501ea4f9a9c9"
 		                secret="sad234fdsf243f4ff3f343kj43hj43g4hgf423f"
-		                request-token-url="http://api.platybox.com/1/request_token"
-		                user-authorization-url="http://api.platybox.com/1/authorize"
-		                access-token-url="http://api.platybox.com/1/access_token"
-		                user-authorization-callback-param="oauth_callback">
-        	<oauth:addtionalParameter name="oauth_callback" value="http://www.google.com"/>
+		                request-token-url="http://kimberly.magic.ubc.ca:8080/1/request_token"
+		                user-authorization-url="http://kimberly.magic.ubc.ca:8080/1/authorize"
+		                access-token-url="http://kimberly.magic.ubc.ca:8080/1/access_token">
         </oauth:resource>
 	</oauth:resource-details-service>
 	

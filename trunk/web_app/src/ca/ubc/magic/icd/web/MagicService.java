@@ -44,4 +44,7 @@ public interface MagicService {
 	
 	public JsonItem searchUser(String query);
 	
+	// debug
+	public List<String> getSparklrPhotoIds();
+	
 }

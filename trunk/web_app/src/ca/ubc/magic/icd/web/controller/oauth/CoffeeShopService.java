@@ -1,11 +1,20 @@
 package ca.ubc.magic.icd.web.controller.oauth;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
 import org.springframework.security.oauth.consumer.OAuthRestTemplate;
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
 
 import ca.ubc.magic.icd.web.MagicService;
 import ca.ubc.magic.icd.web.json.JsonItem;
@@ -15,6 +24,10 @@ public class CoffeeShopService implements MagicService {
 	private String magicURLPattern;
 	private String magicQRCodeURLPattern;
 	private OAuthRestTemplate magicRestTemplate;
+
+	private OAuthRestTemplate sparklrRestTemplate;
+	private String sparklrPhotoListURL;
+	private String sparklrURLPattern;
 
 	@Override
 	public JsonItem showBit(int id) {
@@ -88,12 +101,12 @@ public class CoffeeShopService implements MagicService {
 	}
 	
 	public JsonItem showUser() {
-		String request = "friends/show";
+		String request = "user/show";
 		return (new JsonParser(compileInputStream(request))).parse().get(0);
 	}
 	
 	public JsonItem showUser(int id) {
-		String request = "friends/show?id=" + id;
+		String request = "user/show?id=" + id;
 		return (new JsonParser(compileInputStream(request))).parse().get(0);
 	}
 	
@@ -127,7 +140,60 @@ public class CoffeeShopService implements MagicService {
 	}
 	
 	private InputStream compileInputStream(String request) {
-		return new ByteArrayInputStream(getMagicRestTemplate().getForObject(URI.create(getMagicURLPattern() + request), byte[].class));
+		return new ByteArrayInputStream(getMagicRestTemplate()
+				.getForObject(URI.create(getMagicURLPattern() + request), byte[].class));
+	}
+	
+	public String debug() {
+		return magicRestTemplate.getResource().getAdditionalParameters().get("oauth_callback");
+	}
+	
+	public List<String> getSparklrPhotoIds() {
+	    try {
+	      InputStream photosXML = new ByteArrayInputStream(getSparklrRestTemplate().getForObject(URI.create(getSparklrPhotoListURL()), byte[].class));
+
+	      final List<String> photoIds = new ArrayList<String>();
+	      SAXParserFactory parserFactory = SAXParserFactory.newInstance();
+	      parserFactory.setValidating(false);
+	      parserFactory.setXIncludeAware(false);
+	      parserFactory.setNamespaceAware(false);
+	      SAXParser parser = parserFactory.newSAXParser();
+	      parser.parse(photosXML, new DefaultHandler() {
+	        @Override
+	        public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+	          if ("photo".equals(qName)) {
+	            photoIds.add(attributes.getValue("id"));
+	          }
+	        }
+	      });
+	      return photoIds;
+	    } catch (IOException e) {
+	        throw new IllegalStateException(e);
+	    } catch (SAXException e) {
+	      throw new IllegalStateException(e);
+	    } catch (ParserConfigurationException e) {
+	      throw new IllegalStateException(e);
+	    }
+	  }
+	
+	public void setSparklrRestTemplate(OAuthRestTemplate sparklrRestTemplate) {
+		this.sparklrRestTemplate = sparklrRestTemplate;
+	}
+
+	public OAuthRestTemplate getSparklrRestTemplate() {
+		return sparklrRestTemplate;
+	}
+	
+	public String getSparklrPhotoListURL() {
+		return sparklrPhotoListURL;
+	}
+
+	public String getSparklrURLPattern() {
+		return sparklrURLPattern;
+	}
+
+	public void setSparklrURLPattern(String sparklrURLPattern) {
+		this.sparklrURLPattern = sparklrURLPattern;
 	}
 
 }

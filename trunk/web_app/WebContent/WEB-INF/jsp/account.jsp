@@ -22,7 +22,7 @@
 
 			<div id="main">
 				<h2>Account</h2>
-				${randomString}
+				${user}
 			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	
 					
