@@ -30,8 +30,7 @@ public class MagicController {
 	}
 	
 	@RequestMapping("/sparklr/photos.jsp")
-	public ModelAndView getSpra() {
-		String user = getMagicService().showUser(1).toString();
+	public ModelAndView getSparklrPhotoList() {
 		return new ModelAndView("account", "photoIds", getMagicService().getSparklrPhotoIds());
 	}
 	

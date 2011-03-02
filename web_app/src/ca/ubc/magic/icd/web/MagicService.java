@@ -46,5 +46,6 @@ public interface MagicService {
 	
 	// debug
 	public List<String> getSparklrPhotoIds();
+	public String getSparklrPhotoListURL() ;
 	
 }

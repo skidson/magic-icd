@@ -15,7 +15,12 @@
     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>
     
 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations" value="/WEB-INF/magic.properties"/>
+		<property name="locations">
+			<list>
+				<value>/WEB-INF/sparklr.properties</value>
+				<value>/WEB-INF/magic.properties</value>
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="magicController" class="ca.ubc.magic.icd.controller.MagicController">
@@ -41,6 +46,14 @@
 	        <constructor-arg ref="magicBroker"/>
 	      </bean>
 	    </property>
+	    
+	    <property name="sparklrURLPattern" value="${sparklrURLPattern}"/>
+	    <property name="sparklrPhotoListURL" value="sparklrPhotoListURL"/>
+	    <property name="sparklrRestTemplate">
+	      <bean class="org.springframework.security.oauth.consumer.OAuthRestTemplate">
+	        <constructor-arg ref="sparklr"/>
+	      </bean>
+	    </property>
   </bean>
-	
+  
 </beans>

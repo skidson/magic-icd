@@ -47,6 +47,13 @@
 		                user-authorization-url="http://kimberly.magic.ubc.ca:8080/1/authorize"
 		                access-token-url="http://kimberly.magic.ubc.ca:8080/1/access_token">
         </oauth:resource>
+        <oauth:resource id="sparklr"
+		                key="766bec602a9fe2795b43501ea4f9a9c9"
+		                secret="sad234fdsf243f4ff3f343kj43hj43g4hgf423f"
+		                request-token-url="http://kimberly.magic.ubc.ca:8080/1/request_token"
+		                user-authorization-url="http://kimberly.magic.ubc.ca:8080/1/authorize"
+		                access-token-url="http://kimberly.magic.ubc.ca:8080/1/access_token">
+        </oauth:resource>
 	</oauth:resource-details-service>
 	
 </beans:beans>
