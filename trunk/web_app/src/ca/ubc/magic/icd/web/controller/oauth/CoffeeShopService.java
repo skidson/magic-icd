@@ -202,6 +202,6 @@ public class CoffeeShopService implements MagicService {
 	
 	public InputStream loadSparklrPhoto(String id) {
 	    return new ByteArrayInputStream(getSparklrRestTemplate().getForObject(URI.create(String.format(getSparklrPhotoURLPattern(), id)), byte[].class));
-	  }
+	}
 
 }

@@ -33,12 +33,12 @@ public class MagicController {
 		return new ModelAndView("account", "user", user);
 	}
 	
-	@RequestMapping("/sparklrphotos")
+	@RequestMapping("photos.jsp")
 	public ModelAndView getSparklrPhotoList() {
 		return new ModelAndView("account", "photoIds", getMagicService().getSparklrPhotoIds());
 	}
 	
-	@RequestMapping("/sparklrphoto")
+	@RequestMapping("photo")
 	@ResponseBody
 	public String getSparklrPhoto(@RequestParam("photo_id") String photoID) {
 		InputStream photo = getMagicService().loadSparklrPhoto(photoID);

@@ -17,7 +17,8 @@
 		<div id="content-wrap">
 			<div id="main">
 				<h2>Home</h2>
-				<a href="sparklrphotos.html">Load sparklr photos</a>
+				<a href="sparklr/photos.jsp">Load sparklr photos</a>
+				<a href=""/>
 				
 			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	

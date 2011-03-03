@@ -23,7 +23,7 @@
 			<div id="main">
 				<h2>Account</h2>
 				<c:forEach var="sparklrPhotoId" items="${photoIds}">
-        			<img src="sparklrphoto.html?photo_id=${sparklrPhotoId}"/>
+        			<img src="sparklr/photo?photo_id=${sparklrPhotoId}"/>
      			</c:forEach>
 			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	
@@ -31,7 +31,7 @@
 		<!-- footer -->
 		<div id="footer">
 			<%@ include file="/WEB-INF/jsp/footer.jsp" %>
-		</div>	
+		</div>
 
 <!-- wrap ends here -->
 </div>
