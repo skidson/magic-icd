@@ -27,6 +27,7 @@ public class BitController {
     	Map<String, Object> model = new HashMap<String, Object>();
 		UserService.addUserContext(model);
     	
+		// Dummy values until we can connect to broker
     	List<Bit> bitsList = new ArrayList<Bit>();
     	bitsList.add(new Bit("Coffee", "A delicious drink. Brewed from Columbian beans at a perfect temperature " +
     			"topped off with a swirl of whipped cream. MMmmmmm.", CoffeeShopService.DRINK, 1, 1));
