@@ -11,6 +11,8 @@ public class Bit {
 	private String description;
 	private String imageURL;
 	
+	public Bit() {}
+	
 	public Bit(String name, String description, int bit_type_id, int places_id, int id){
 		this.id = id;
 		this.name = name;

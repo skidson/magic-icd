@@ -26,7 +26,7 @@ public class FriendController {
 			JsonItem currentUser = friendsitr.next();
 			User user = new User(currentUser.getAsString("username"));
 			user.setDescription(currentUser.getAsString("description"));
-			user.setPictureURL(currentUser.getAsString("photo"));
+			user.setImageURL(currentUser.getAsString("photo"));
 			user.setName(currentUser.getAsString("name"));
 			friendsList.add(user);
 		}
