@@ -12,6 +12,7 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.springframework.security.oauth.consumer.OAuthRestTemplate;
+import org.springframework.security.oauth.consumer.ProtectedResourceDetails;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -145,7 +146,8 @@ public class CoffeeShopService implements MagicService {
 	}
 	
 	public String debug() {
-		return magicRestTemplate.getResource().getAdditionalParameters().get("oauth_callback");
+		ProtectedResourceDetails test = magicRestTemplate.getResource(); // debug
+		return test.toString();
 	}
 	
 	public List<String> getSparklrPhotoIds() {
