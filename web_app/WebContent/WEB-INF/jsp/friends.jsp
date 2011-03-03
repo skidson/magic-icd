@@ -12,7 +12,7 @@
 					<c:forEach items="{friendsList}" var="friend">
 						<table border="3">
 						<tr>
-							<td rowspan="2" align="center"> <img src="${friend.photo}" alt="${friend.name}'s picture" /> </td>
+							<td rowspan="2" align="center"> <img src="${friend.imageURL}" alt="${friend.name}'s picture" /> </td>
 							<td align="center"> ${friend.name} </td>
 						</tr>
 						<tr>
