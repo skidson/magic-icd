@@ -18,41 +18,18 @@
 		<div id="content-wrap">
 			<div id="main">
 				<h2>Friends</h2>
-				
-					${magicuser}
-				
-					<table border="3">
+					<c:forEach items="{friendsList}" var="friend">
+						<table border="3">
 						<tr>
-							<td rowspan="2" align="center"> PICTUREEE </td>
-							<td align="center"> Friend name here? </td>
+							<td rowspan="2" align="center"> <img src="${friend.photo}" alt="${friend.name}'s picture" /> </td>
+							<td align="center"> ${friend.name} </td>
 						</tr>
 						<tr>
-							
-							<td align="center">Description or w/e</td>
+							<td align="center">${friend.description}</td>
 						</tr>
 					</table>
-					
-					<table border="3">
-						<tr>
-							<td rowspan="2" align="center"> PICTUREEE </td>
-							<td align="center"> Friend name here? </td>
-						</tr>
-						<tr>
-							
-							<td align="center">Description or w/e</td>
-						</tr>
-					</table>
-					
-					<table border="3">
-						<tr>
-							<td rowspan="2" align="center"> PICTUREEE </td>
-							<td align="center"> Friend name here? </td>
-						</tr>
-						<tr>
-							
-							<td align="center">Description or w/e</td>
-						</tr>
-					</table>
+					</c:forEach>
+
 </div> <!--  main --> 
 		</div> <!-- content-wrap -->	
 					

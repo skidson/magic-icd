@@ -15,6 +15,7 @@
 	</beans:bean>
 		
 	<http>
+		<intercept-url pattern="/index*" access="ROLE_USER" />
 		<intercept-url pattern="/home*" access="ROLE_USER" />
 		<intercept-url pattern="/bits*" access="ROLE_USER" />
 		<intercept-url pattern="/friends*" access="ROLE_USER" />

@@ -17,6 +17,16 @@
 		<div id="content-wrap">
 			<div id="main">
 				<h2>Home</h2>
+				
+				<table>
+					<tr>
+						<form method="post" action="userSearch.html">
+						<center><input type="text" size="40" name="searchQuery" />
+						<input class="button" value=" Search " type="submit" /></center>
+						</form>
+					</tr>
+				</table>
+				
 				<a href="sparklr/photos.jsp">Load sparklr photos</a>
 				<a href="magic/user">Load magic user</a>
 			</div> <!--  main --> 
