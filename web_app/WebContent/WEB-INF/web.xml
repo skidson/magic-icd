@@ -38,4 +38,14 @@
 		<url-pattern>*.html</url-pattern>
 	</servlet-mapping>
 	
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>/magic/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>/sparklr/*</url-pattern>
+	</servlet-mapping>
+	
 </web-app>
