@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-	private String name, username, description;
+	private String name, username, description, pictureURL;
 	private int exp;
 	private int points;
 	private String imageURL;
