@@ -5,18 +5,8 @@
 <body>
 <!-- wrap starts here -->
 <div id="wrap">
-		<%@ include file="/WEB-INF/jsp/header.jsp" %>
-		<!-- menu -->	
-		<div  id="menu">
-			<ul>
-				<li><a href="home.html">Home</a></li>
-				<li><a href="friends.html">Friends</a></li>
-				<li><a href="bits.html">Bits</a></li>
-				<li><a href="inbox.html">Inbox</a></li>
-				<li id="current" class="last"><a href="account.html">Account</a></li>		
-			</ul>
-		</div>					
-			
+		<c:set var="directory" value="account"/>
+		<%@ include file="/WEB-INF/jsp/header.jsp" %>			
 		<!-- content-wrap -->
 		<div id="content-wrap">
 

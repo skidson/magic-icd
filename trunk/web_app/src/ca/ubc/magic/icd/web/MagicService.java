@@ -15,6 +15,15 @@ public interface MagicService {
 	public static final int CONTENT = 7;
 	public static final int PERSON = 8;
 	
+	public static final String ID = "id";
+	public static final String QR_IMAGE_URL = "qr_image_url";
+	public static final String PLACES_ID = "places_id";
+	public static final String DESCRIPTION = "description";
+	public static final String NAME = "name";
+	public static final String BITS_TYPE_ID = "bits_type_id";
+	public static final String GEOLONG = "geolong";
+	public static final String GEOLAT = "geolat";
+	
 	public JsonItem createBit(int type, String name, String description);
 	
 	public JsonItem createBit(int type, String name, String description, int place);

@@ -4,16 +4,7 @@
 
 <body>
 	<div id="wrap">
-		<%@ include file="/WEB-INF/jsp/header.jsp" %>
-		<div  id="menu">
-			<ul>
-				<li id="current"><a href="home.html">Home</a></li>
-				<li><a href="friends.html">Friends</a></li>
-				<li><a href="bits.html">Bits</a></li>
-				<li><a href="inbox.html">Inbox</a></li>
-				<li class="last"><a href="account.html">Account</a></li>		
-			</ul>
-		</div>					
+		<%@ include file="/WEB-INF/jsp/header.jsp" %>			
 		<div id="content-wrap">
 			<div id="main">
 	            <h2>Woops!</h2>

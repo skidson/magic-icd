@@ -23,18 +23,18 @@ public class BitController {
     public ModelAndView showList() {
     	List<Bit> bitsList = new ArrayList<Bit>();
     	bitsList.add(new Bit("Coffee", "A delicious drink. Brewed from Columbian beans at a perfect temperature " +
-    			"topped off with a swirl of whipped cream. MMmmmmm.", CoffeeShopService.DRINK, 1, 1337));
-    	bitsList.add(new Bit("Ham & Cheese Panini", "A delicious meal", CoffeeShopService.FOOD, 1, 1338));
+    			"topped off with a swirl of whipped cream. MMmmmmm.", CoffeeShopService.DRINK, 1, 1));
+    	bitsList.add(new Bit("Ham & Cheese Panini", "A delicious meal", CoffeeShopService.FOOD, 1, 2));
     	return new ModelAndView("bits", "bitsList", bitsList);
     }
     
     @RequestMapping("/bit")
-    public ModelAndView homePage(@RequestParam("bit") int bitID) {
+    public ModelAndView homePage(@RequestParam("id") int bitID) {
     	JsonItem bitInfo = magicService.showBit(bitID); // TODO sanitize this input
-    	Bit bit = new Bit(bitInfo.getAsString("name"),
-    			bitInfo.getAsString("description"),
-    			bitInfo.getAsInteger("bit_types_id"),
-    			bitInfo.getAsInteger("places_id"),
+    	Bit bit = new Bit(bitInfo.getAsString(MagicService.NAME),
+    			bitInfo.getAsString(MagicService.DESCRIPTION),
+    			bitInfo.getAsInteger(MagicService.BITS_TYPE_ID),
+    			bitInfo.getAsInteger(MagicService.PLACES_ID),
     			bitID);
     	return new ModelAndView("bit", "bit", bit);
     }
