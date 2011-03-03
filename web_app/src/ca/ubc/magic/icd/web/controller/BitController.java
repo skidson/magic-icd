@@ -1,7 +1,9 @@
 package ca.ubc.magic.icd.web.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,7 @@ import ca.ubc.magic.icd.web.MagicService;
 import ca.ubc.magic.icd.web.controller.oauth.CoffeeShopService;
 import ca.ubc.magic.icd.web.json.JsonItem;
 import ca.ubc.magic.icd.web.model.Bit;
+import ca.ubc.magic.icd.web.services.UserService;
  
 @Controller
 public class BitController {
@@ -21,11 +24,16 @@ public class BitController {
  
     @RequestMapping("/bits")
     public ModelAndView showList() {
+    	Map<String, Object> model = new HashMap<String, Object>();
+		UserService.addUserContext(model);
+    	
     	List<Bit> bitsList = new ArrayList<Bit>();
     	bitsList.add(new Bit("Coffee", "A delicious drink. Brewed from Columbian beans at a perfect temperature " +
     			"topped off with a swirl of whipped cream. MMmmmmm.", CoffeeShopService.DRINK, 1, 1));
     	bitsList.add(new Bit("Ham & Cheese Panini", "A delicious meal", CoffeeShopService.FOOD, 1, 2));
-    	return new ModelAndView("bits", "bitsList", bitsList);
+    	
+    	model.put("bitsList", model);
+    	return new ModelAndView("bits", model);
     }
     
     @RequestMapping("/bit")
