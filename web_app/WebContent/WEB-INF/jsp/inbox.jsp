@@ -4,17 +4,8 @@
 
 <body>
 	<div id="wrap">
+		<c:set var="directory" value="inbox"/>
 		<%@ include file="/WEB-INF/jsp/header.jsp" %>
-		<div  id="menu">
-			<ul>
-				<li><a href="home.html">Home</a></li>
-				<li><a href="friends.html">Friends</a></li>
-				<li><a href="bits.html">Bits</a></li>
-				<li id="current"><a href="inbox.html">Inbox</a></li>
-				<li class="last" ><a href="account.html">Account</a></li>
-			</ul>
-		</div>		
-		
 		<div id="content-wrap">
 			<div id="main">
 				<h2>Inbox</h2> 

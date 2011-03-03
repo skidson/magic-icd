@@ -4,21 +4,8 @@
 
 <body>
 	<div id="wrap">
-		<div id="header">			
-			<h1 id="logo-text"><a href="home.html">Coffee Shop</a></h1>		
-			<p id="slogan">Blurring the lines of reality</p>		
-		</div>
-		
-		<div  id="menu">
-			<ul>
-				<li><a href="home.html">Home</a></li>
-				<li><a href="friends.html">Friends</a></li>
-				<li><a href="bits.html">Bits</a></li>
-				<li><a href="inbox.html">Inbox</a></li>
-				<li class="last" id="current"><a href="account.html">Account</a></li>	
-			</ul>
-		</div>		
-		
+		<c:set var="directory" value="account"/>
+		<%@ include file="/WEB-INF/jsp/header.jsp" %>
 		<div id="content-wrap">
 			<div id="main">
 				<h2>Register</h2>
