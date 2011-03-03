@@ -7,6 +7,7 @@ public class User {
 	private String name, username, description;
 	private int exp;
 	private int points;
+	private String imageURL;
 	private List<String> friends;
 	private List<Bit> bits;
 	
@@ -82,5 +83,13 @@ public class User {
 
 	public void setPoints(int points) {
 		this.points = points;
+	}
+
+	public void setImageURL(String imageURL) {
+		this.imageURL = imageURL;
+	}
+
+	public String getImageURL() {
+		return imageURL;
 	}
 }

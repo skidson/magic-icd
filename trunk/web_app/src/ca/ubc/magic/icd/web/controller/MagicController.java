@@ -23,7 +23,7 @@ public class MagicController {
 	@Autowired
 	private MagicService magicService;
 
-	@RequestMapping("friends")
+	/*@RequestMapping("/magicfriends")
 	public ModelAndView getFriends() {
 		List<JsonItem> friends = magicService.showFriends();
 		List<String> friends_list = new ArrayList<String>();
@@ -32,12 +32,12 @@ public class MagicController {
 		return new ModelAndView("friends", "friends_list", friends_list);
 	}
 	
-	@RequestMapping("user")
+	@RequestMapping("/user")
 	public ModelAndView getUser() {
 		
 		String user = magicService.showUser(1).toString();
 		return new ModelAndView("friends", "magicuser", user);
-	}
+	}*/
 	
 	@RequestMapping("photos.jsp")
 	public ModelAndView getSparklrPhotoList() {
