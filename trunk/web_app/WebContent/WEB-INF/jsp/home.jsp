@@ -9,7 +9,7 @@
 		<div id="content-wrap">
 			<div id="main">
 				<h2>Home</h2>
-				
+				<br>
 				<table>
 					<tr>
 						<form method="post" action="userSearch.html">
