@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import ca.ubc.magic.icd.web.MagicService;
+import ca.ubc.magic.icd.web.services.MagicService;
 
 @Controller
 public class SearchController {

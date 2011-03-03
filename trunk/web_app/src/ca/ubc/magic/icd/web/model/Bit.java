@@ -1,6 +1,6 @@
 package ca.ubc.magic.icd.web.model;
 
-import ca.ubc.magic.icd.web.controller.oauth.CoffeeShopService;
+import ca.ubc.magic.icd.web.services.CoffeeShopService;
 
 public class Bit {
 	private String name;
