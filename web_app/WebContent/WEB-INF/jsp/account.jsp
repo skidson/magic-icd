@@ -22,7 +22,9 @@
 
 			<div id="main">
 				<h2>Account</h2>
-				${user}
+				<c:forEach var="sparklrPhotoId" items="${photoIds}">
+        			<img src="sparklrphoto.html?photo_id=${sparklrPhotoId}"/>
+     			</c:forEach>
 			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	
 					
