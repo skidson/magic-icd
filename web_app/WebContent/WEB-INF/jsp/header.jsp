@@ -18,6 +18,6 @@
 		<li <c:if test="${directory == 'friends'}" >id="current"</c:if>> <a href="friends.html">Friends</a></li>
 		<li <c:if test="${directory == 'bits'}" >id="current"</c:if>> <a href="bits.html">Bits</a></li>
 		<li <c:if test="${directory == 'inbox'}" >id="current"</c:if>> <a href="inbox.html">Inbox</a></li>
-		<li <c:if test="${directory == 'aaccount'}" >id="current"</c:if> class="last"> <a href="account.html">Account</a></li>
+		<li <c:if test="${directory == 'account'}" >id="current"</c:if> class="last"> <a href="account.html">Account</a></li>
 	</ul>
 </div>			

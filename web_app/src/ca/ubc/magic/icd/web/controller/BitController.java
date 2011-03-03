@@ -32,18 +32,23 @@ public class BitController {
     			"topped off with a swirl of whipped cream. MMmmmmm.", CoffeeShopService.DRINK, 1, 1));
     	bitsList.add(new Bit("Ham & Cheese Panini", "A delicious meal", CoffeeShopService.FOOD, 1, 2));
     	
-    	model.put("bitsList", model);
+    	model.put("bitsList", bitsList);
     	return new ModelAndView("bits", model);
     }
     
     @RequestMapping("/bit")
-    public ModelAndView homePage(@RequestParam("id") int bitID) {
+    public ModelAndView showBit(@RequestParam("id") int bitID) {
+    	Map<String, Object> model = new HashMap<String, Object>();
+		UserService.addUserContext(model);
+    	
     	JsonItem bitInfo = magicService.showBit(bitID); // TODO sanitize this input
     	Bit bit = new Bit(bitInfo.getAsString(MagicService.NAME),
     			bitInfo.getAsString(MagicService.DESCRIPTION),
     			bitInfo.getAsInteger(MagicService.BITS_TYPE_ID),
     			bitInfo.getAsInteger(MagicService.PLACES_ID),
     			bitID);
-    	return new ModelAndView("bit", "bit", bit);
+    	
+    	model.put("bit", bit);
+    	return new ModelAndView("bit", model);
     }
 }

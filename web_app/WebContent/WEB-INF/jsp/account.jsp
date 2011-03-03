@@ -3,13 +3,10 @@
 <%@ include file="/WEB-INF/jsp/include.jsp" %>
 
 <body>
-<!-- wrap starts here -->
-<div id="wrap">
+	<div id="wrap">
 		<c:set var="directory" value="account"/>
 		<%@ include file="/WEB-INF/jsp/header.jsp" %>			
-		<!-- content-wrap -->
 		<div id="content-wrap">
-
 			<div id="main">
 				<h2>Account</h2>
 				<c:forEach var="sparklrPhotoId" items="${photoIds}">
@@ -22,9 +19,7 @@
 		<div id="footer">
 			<%@ include file="/WEB-INF/jsp/footer.jsp" %>
 		</div>
-
-<!-- wrap ends here -->
-</div>
+	</div>
 
 </body>
 </html>
