@@ -18,8 +18,7 @@
 			<div id="main">
 				<h2>Home</h2>
 				<a href="sparklr/photos.jsp">Load sparklr photos</a>
-				<a href=""/>
-				
+				<a href="magic/user">Load magic user</a>
 			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	
 					

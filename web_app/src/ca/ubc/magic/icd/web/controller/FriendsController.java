@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class FriendsController {
  
-    @RequestMapping("/friends")
+    @RequestMapping("/oldfriends")
     public ModelAndView homePage() {
     	String tester = "Friends PAGE KKTHX";
         return new ModelAndView("friends", "randomString", tester);

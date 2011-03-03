@@ -13,6 +13,7 @@
         
     <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
     
 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
@@ -22,15 +23,7 @@
 			</list>
 		</property>
 	</bean>
-	
-	<bean id="magicController" class="ca.ubc.magic.icd.web.controller.MagicController">
-		<property name="magicService" ref="magicService" />
-	</bean>
-	
-	<bean id="homeController" class="ca.ubc.magic.icd.web.controller.HomeController">
-    	<property name="magicService" ref="magicService"/>
-  	</bean>
-        
+
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
