@@ -31,7 +31,7 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
-	<bean id="magicService" class="ca.ubc.magic.icd.web.controller.oauth.CoffeeShopService">
+	<bean id="magicService" class="ca.ubc.magic.icd.web.services.CoffeeShopService">
 	    <property name="magicURLPattern" value="${magicURLPattern}"/>
 	    <property name="magicQRCodeURLPattern" value="${magicQRCodeURLPattern}"/>
 	    <property name="magicRestTemplate">

@@ -1,4 +1,4 @@
-package ca.ubc.magic.icd.web;
+package ca.ubc.magic.icd.web.services;
 
 import java.io.InputStream;
 import java.util.List;

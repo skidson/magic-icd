@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import ca.ubc.magic.icd.web.MagicService;
-import ca.ubc.magic.icd.web.controller.oauth.CoffeeShopService;
 import ca.ubc.magic.icd.web.json.JsonItem;
+import ca.ubc.magic.icd.web.services.CoffeeShopService;
+import ca.ubc.magic.icd.web.services.MagicService;
 
 @Controller
 public class MagicController {

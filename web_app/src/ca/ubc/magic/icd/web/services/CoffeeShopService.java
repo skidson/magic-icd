@@ -1,4 +1,4 @@
-package ca.ubc.magic.icd.web.controller.oauth;
+package ca.ubc.magic.icd.web.services;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -17,7 +17,6 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import ca.ubc.magic.icd.web.MagicService;
 import ca.ubc.magic.icd.web.json.JsonItem;
 import ca.ubc.magic.icd.web.json.JsonParser;
 
