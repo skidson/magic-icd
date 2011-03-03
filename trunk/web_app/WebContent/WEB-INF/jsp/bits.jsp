@@ -17,8 +17,28 @@
 			
 		<div id="content-wrap">
 			<div id="main">
-				<h2>Bits</h2>
-				${randomString}
+				<h2>Your Bits</h2>
+				<table>
+				<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<c:forEach var="bit" items="${bitsList}">
+        			<tr><td>${bit.name}</td><td>${bit.type}</td><td>${bit.description}</td></tr>
+     			</c:forEach>
+     			</table> <br>
+     			<h2>Search</h2><br>
+     			<table><tr><form method="post" action="search.htm">
+					<center><b>Keyword: </b><input type="text" size="40" name="searchQuery" />
+					<select name="dropdown_media" size="1">
+						<option value="all">All</option>
+						<option value="place">Place</option>
+						<option value="display">Display</option>
+						<option value="content">Content</option>
+						<option value="person">Person</option>
+						<option value="drink">Drink</option>
+						<option value="food">Food</option>
+						<option value="table">Table</option>
+					</select>
+					<input class="button" value=" Search " type="submit" /></center>
+				</form></tr></table>
 			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	
 					
