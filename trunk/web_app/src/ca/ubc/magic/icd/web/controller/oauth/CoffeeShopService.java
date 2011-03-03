@@ -27,7 +27,7 @@ public class CoffeeShopService implements MagicService {
 
 	private OAuthRestTemplate sparklrRestTemplate;
 	private String sparklrPhotoListURL;
-	private String sparklrURLPattern;
+	private String sparklrPhotoURLPattern;
 
 	@Override
 	public JsonItem showBit(int id) {
@@ -188,12 +188,20 @@ public class CoffeeShopService implements MagicService {
 		return sparklrPhotoListURL;
 	}
 
-	public String getSparklrURLPattern() {
-		return sparklrURLPattern;
+	public String getSparklrPhotoURLPattern() {
+		return sparklrPhotoURLPattern;
 	}
 
-	public void setSparklrURLPattern(String sparklrURLPattern) {
-		this.sparklrURLPattern = sparklrURLPattern;
+	public void setSparklrPhotoURLPattern(String sparklrPhotoURLPattern) {
+		this.sparklrPhotoURLPattern = sparklrPhotoURLPattern;
 	}
+	
+	public void setSparklrPhotoListURL(String sparklrPhotoListURL) {
+		this.sparklrPhotoListURL = sparklrPhotoListURL;
+	}
+	
+	public InputStream loadSparklrPhoto(String id) {
+	    return new ByteArrayInputStream(getSparklrRestTemplate().getForObject(URI.create(String.format(getSparklrPhotoURLPattern(), id)), byte[].class));
+	  }
 
 }

@@ -17,7 +17,7 @@
 		<div id="content-wrap">
 			<div id="main">
 				<h2>Home</h2>
-				<a href="<c:url value="/magic/friends"/>">Load friends list</a>
+				<a href="sparklrphotos.html">Load sparklr photos</a>
 				
 			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	

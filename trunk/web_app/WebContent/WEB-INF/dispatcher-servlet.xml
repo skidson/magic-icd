@@ -23,7 +23,7 @@
 		</property>
 	</bean>
 	
-	<bean id="magicController" class="ca.ubc.magic.icd.controller.MagicController">
+	<bean id="magicController" class="ca.ubc.magic.icd.web.controller.MagicController">
 		<property name="magicService" ref="magicService" />
 	</bean>
 	
@@ -47,11 +47,11 @@
 	      </bean>
 	    </property>
 	    
-	    <property name="sparklrURLPattern" value="${sparklrURLPattern}"/>
-	    <property name="sparklrPhotoListURL" value="sparklrPhotoListURL"/>
+	    <property name="sparklrPhotoURLPattern" value="${sparklrPhotoURLPattern}"/>
+	    <property name="sparklrPhotoListURL" value="${sparklrPhotoListURL}"/>
 	    <property name="sparklrRestTemplate">
 	      <bean class="org.springframework.security.oauth.consumer.OAuthRestTemplate">
-	        <constructor-arg ref="sparklr"/>
+	        <constructor-arg ref="sparklrPhotos"/>
 	      </bean>
 	    </property>
   </bean>

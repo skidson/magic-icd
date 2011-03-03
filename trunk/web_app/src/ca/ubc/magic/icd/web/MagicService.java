@@ -1,5 +1,6 @@
 package ca.ubc.magic.icd.web;
 
+import java.io.InputStream;
 import java.util.List;
 
 import ca.ubc.magic.icd.web.json.JsonItem;
@@ -46,6 +47,6 @@ public interface MagicService {
 	
 	// debug
 	public List<String> getSparklrPhotoIds();
-	public String getSparklrPhotoListURL() ;
+	public InputStream loadSparklrPhoto(String id);
 	
 }
