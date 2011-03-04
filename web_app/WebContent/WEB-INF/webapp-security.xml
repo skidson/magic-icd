@@ -36,7 +36,7 @@
 		</authentication-provider>
 	</authentication-manager>
 	
-	<oauth:consumer resource-details-service-ref="resourceDetails" oauth-failure-page="/error.jsp">
+	<oauth:consumer resource-details-service-ref="resourceDetails" oauth-failure-page="/error.html">
 		<oauth:url pattern="/magic/**" resources="magicBroker" />
 		<oauth:url pattern="/sparklr/**" resources="sparklrPhotos" />
 	</oauth:consumer>

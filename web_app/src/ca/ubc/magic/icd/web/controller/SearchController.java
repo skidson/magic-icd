@@ -21,7 +21,9 @@ public class SearchController {
 	}
 
 	@RequestMapping("/bitSearch")
-	public ModelAndView bitSearch(){
+	public ModelAndView bitSearch(@RequestParam("searchQuery") String search,
+			@RequestParam("searchFilter" )String filter) {
+		// TODO implement some fancy search logic here
 		return new ModelAndView("searchResult");
 	}
 	
