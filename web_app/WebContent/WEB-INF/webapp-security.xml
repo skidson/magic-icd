@@ -15,9 +15,9 @@
 	</beans:bean>
 		
 	<http>
+		<intercept-url pattern="/basic/*" access="ROLE_USER"/>
+		<intercept-url pattern="/magic/*" access="ROLE_USER"/>
 		<intercept-url pattern="/index*" access="ROLE_USER" />
-		<intercept-url pattern="/basic/*" access="ROLE_USER" />
-		<intercept-url pattern="/magic/*" access="ROLE_USER" />
 		<form-login login-page="/login.jsp" default-target-url="/basic/home"
 			authentication-failure-url="/login.jsp?error=true" />
 		<logout logout-success-url="/login.jsp" />
@@ -45,6 +45,8 @@
 		                request-token-url="http://kimberly.magic.ubc.ca:8080/1/request_token"
 		                user-authorization-url="http://kimberly.magic.ubc.ca:8080/1/authorize"
 		                access-token-url="http://kimberly.magic.ubc.ca:8080/1/access_token">
+		            <!--   	user-authorization-callback-param="oauth_callback">
+			<oauth:addtionalParameter name="oauth_callback" value="http://localhost:8010/web_app/basic/callback"/> -->  
         </oauth:resource>
         <oauth:resource id="sparklrPhotos"
                     key="tonr-consumer-key"

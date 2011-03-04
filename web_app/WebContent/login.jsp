@@ -4,15 +4,10 @@
 <%@ include file="/WEB-INF/jsp/include.jsp" %>
 	
 <body>
-<!-- wrap starts here -->
 <div id="wrap">
-		
 		<c:set var="directory" value="home"/>
 		<%@ include file="/WEB-INF/jsp/header.jsp" %>
-			
-		<!-- content-wrap starts here -->
 		<div id="content-wrap">
-
 			<div id="main">
 				<h2>Login</h2>
 				<center>

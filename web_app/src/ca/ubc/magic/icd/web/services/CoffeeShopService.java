@@ -140,13 +140,9 @@ public class CoffeeShopService implements MagicService {
 	}
 	
 	private InputStream compileInputStream(String request) {
+//		getMagicRestTemplate().getResource().getAdditionalParameters().put("oauth_callback", "http://localhost:8010/web_app/basic/callback?oauth_verifier=lol");
 		return new ByteArrayInputStream(getMagicRestTemplate()
 				.getForObject(URI.create(getMagicURLPattern() + request), byte[].class));
-	}
-	
-	public String debug() {
-		ProtectedResourceDetails test = magicRestTemplate.getResource(); // debug
-		return test.toString();
 	}
 	
 	public List<String> getSparklrPhotoIds() {
