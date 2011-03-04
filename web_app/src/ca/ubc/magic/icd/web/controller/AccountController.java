@@ -3,22 +3,36 @@ package ca.ubc.magic.icd.web.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import ca.ubc.magic.icd.web.json.JsonItem;
 import ca.ubc.magic.icd.web.model.User;
+import ca.ubc.magic.icd.web.services.MagicService;
 import ca.ubc.magic.icd.web.services.UserService;
  
 @Controller
 public class AccountController {
- 
+	@Autowired
+	MagicService magicService;
     @RequestMapping("/basic/account")
     public ModelAndView accountPage() {
     	Map<String, Object> model = new HashMap<String, Object>();
 		UserService.addUserContext(model);
+		
+		JsonItem userInfo = magicService.showUser();
+		System.out.println(magicService.showUser().toString());
+		User user = new User();
+		user.setDescription(userInfo.getAsString("description"));
+		user.setName(userInfo.getAsString("name"));
+		System.out.println(userInfo.getAsString("name"));
+		user.setUsername(userInfo.getAsString("username"));
+		user.setImageURL("photo");
+		model.put("user", user);
 		return new ModelAndView("account", model);
     }
     
