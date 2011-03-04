@@ -14,8 +14,8 @@
 <!-- menu -->	
 <div  id="menu">
 	<ul>
-		<li <c:if test="${directory == 'home'}" >id="current"</c:if>> <a href="home.html">Home</a></li>
-		<li <c:if test="${directory == 'friends'}" >id="current"</c:if>> <a href="friends.html">Friends</a></li>
+		<li <c:if test="${directory == 'home'}" >id="current"</c:if>> <a href="<c:url value="home.html" />">Home</a></li>
+		<li <c:if test="${directory == 'friends'}" >id="current"</c:if>> <a href="<c:url value="home.html" />">Friends</a></li>
 		<li <c:if test="${directory == 'bits'}" >id="current"</c:if>> <a href="bits.html">Bits</a></li>
 		<li <c:if test="${directory == 'inbox'}" >id="current"</c:if>> <a href="inbox.html">Inbox</a></li>
 		<li <c:if test="${directory == 'account'}" >id="current"</c:if> class="last"> <a href="account.html">Account</a></li>
