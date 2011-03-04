@@ -48,7 +48,6 @@
 		                request-token-url="http://kimberly.magic.ubc.ca:8080/1/request_token"
 		                user-authorization-url="http://kimberly.magic.ubc.ca:8080/1/authorize"
 		                access-token-url="http://kimberly.magic.ubc.ca:8080/1/access_token">
-        	<!-- <oauth:addtionalParameter name="oauth_callback" value="http://localhost:8010/web_app"/> -->
         </oauth:resource>
         <oauth:resource id="sparklrPhotos"
                     key="tonr-consumer-key"

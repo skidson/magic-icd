@@ -12,6 +12,15 @@
 				<c:forEach var="sparklrPhotoId" items="${photoIds}">
         			<img src="sparklr/photo?photo_id=${sparklrPhotoId}"/>
      			</c:forEach>
+     			<table border="3">
+						<tr>
+							<td rowspan="2" align="center"> <img src="${user.imageURL}" alt="${user.name}'s picture" /> </td>
+							<td align="center"> ${user.name} </td>
+						</tr>
+						<tr>
+							<td align="center">${user.description}</td>
+						</tr>
+					</table>
 			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	
 					

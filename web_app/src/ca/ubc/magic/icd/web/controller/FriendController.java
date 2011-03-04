@@ -18,7 +18,7 @@ public class FriendController {
 	@Autowired
 	private MagicService magicService;
 
-	@RequestMapping("/friends")
+	@RequestMapping("/basic/friends")
 	public ModelAndView friendPage() {
 		Iterator<JsonItem> friendsitr = getMagicService().showFriends().iterator();
 		List<User> friendsList = new ArrayList<User>();

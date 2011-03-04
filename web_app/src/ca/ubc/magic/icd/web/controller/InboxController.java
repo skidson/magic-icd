@@ -12,7 +12,7 @@ import ca.ubc.magic.icd.web.services.UserService;
 @Controller
 public class InboxController {
  
-    @RequestMapping("/inbox")
+    @RequestMapping("/basic/inbox")
     public ModelAndView showInbox() {
     	Map<String, Object> model = new HashMap<String, Object>();
 		UserService.addUserContext(model);

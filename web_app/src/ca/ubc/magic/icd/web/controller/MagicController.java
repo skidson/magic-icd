@@ -31,15 +31,13 @@ public class MagicController {
 			friends_list.add(friend.toString());
 		return new ModelAndView("friends", "friends_list", friends_list);
 	}
-	
-	@RequestMapping("/user")
+	*/
+	@RequestMapping("/magic/user")
 	public ModelAndView getUser() {
-		
-		String user = magicService.showUser(1).toString();
-		return new ModelAndView("friends", "magicuser", user);
-	}*/
+		return new ModelAndView("acount", "magicuser", magicService.showUser(1).toString());
+	}
 	
-	@RequestMapping("photos.jsp")
+	@RequestMapping("/sparklr/photos.jsp")
 	public ModelAndView getSparklrPhotoList() {
 		Map<String, String> test = ((CoffeeShopService)magicService).getSparklrRestTemplate().getResource().getAdditionalParameters();
 		if (test == null) {
@@ -54,7 +52,7 @@ public class MagicController {
 		return new ModelAndView("account", "photoIds", magicService.getSparklrPhotoIds());
 	}
 	
-	@RequestMapping("photo")
+	@RequestMapping("/sparklr/photo")
 	@ResponseBody
 	public String getSparklrPhoto(@RequestParam("photo_id") String photoID) {
 		InputStream photo = magicService.loadSparklrPhoto(photoID);
