@@ -15,19 +15,19 @@ import ca.ubc.magic.icd.web.services.UserService;
 @Controller
 public class AccountController {
  
-    @RequestMapping("/account")
+    @RequestMapping("/basic/account")
     public ModelAndView accountPage() {
     	Map<String, Object> model = new HashMap<String, Object>();
 		UserService.addUserContext(model);
 		return new ModelAndView("account", model);
     }
     
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    @RequestMapping(value = "/basic/register", method = RequestMethod.GET)
 	public ModelAndView showForm() {
 		return new ModelAndView("register");
 	}
     
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @RequestMapping(value = "/basic/register", method = RequestMethod.POST)
 	public ModelAndView registerUser(@RequestParam("in_firstName") String firstName,
 			@RequestParam("in_lastName") String lastName,
 			@RequestParam("in_email") String email,

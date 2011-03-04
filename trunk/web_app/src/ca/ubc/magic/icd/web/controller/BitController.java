@@ -22,7 +22,7 @@ public class BitController {
 	@Autowired
 	private MagicService magicService;
  
-    @RequestMapping("/bits")
+    @RequestMapping("/basic/bits")
     public ModelAndView showList() {
     	Map<String, Object> model = new HashMap<String, Object>();
 		UserService.addUserContext(model);
@@ -37,7 +37,7 @@ public class BitController {
     	return new ModelAndView("bits", model);
     }
     
-    @RequestMapping("/bit")
+    @RequestMapping("/basic/bit")
     public ModelAndView showBit(@RequestParam("id") int bitID) {
     	Map<String, Object> model = new HashMap<String, Object>();
 		UserService.addUserContext(model);
