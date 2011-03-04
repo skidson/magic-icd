@@ -9,10 +9,7 @@
 		<div id="content-wrap">
 			<div id="main">
 				<h2>Account</h2>
-				<c:forEach var="sparklrPhotoId" items="${photoIds}">
-        			<img src="sparklr/photo?photo_id=${sparklrPhotoId}"/>
-     			</c:forEach>
-     			${magicuser}
+				
      			<table border="3">
 						<tr>
 							<td rowspan="2" align="center"> <img src="${magicuser.imageURL}" alt="${magicuser.name}'s picture" /> </td>

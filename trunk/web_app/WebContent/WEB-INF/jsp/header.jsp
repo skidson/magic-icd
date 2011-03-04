@@ -15,10 +15,10 @@
 <div  id="menu">
 	<ul>
 		<li <c:if test="${directory == 'home'}" >id="current"</c:if>><a href="<c:url value="/basic/home"/>">Home</a></li>
-		<li <c:if test="${directory == 'friends'}" >id="current"</c:if>> <a href="<c:url value="/basic/friends"/>">Friends</a></li>
+		<li <c:if test="${directory == 'friends'}" >id="current"</c:if>> <a href="<c:url value="/magic/friends"/>">Friends</a></li>
 		<li <c:if test="${directory == 'bits'}" >id="current"</c:if>> <a href="<c:url value="/basic/bits"/>">Bits</a></li>
 		<li <c:if test="${directory == 'inbox'}" >id="current"</c:if>> <a href="<c:url value="/basic/inbox"/>">Inbox</a></li>
-		<li <c:if test="${directory == 'account'}" >id="current"</c:if> class="/basic/last"> <a href="<c:url value="/basic/account"/>">Account</a></li>
+		<li <c:if test="${directory == 'account'}" >id="current"</c:if> class="last"> <a href="<c:url value="/basic/account"/>">Account</a></li>
 
 	</ul>
 </div>			
