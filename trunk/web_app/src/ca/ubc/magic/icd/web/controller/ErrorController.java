@@ -16,7 +16,7 @@ public class ErrorController {
 		return new ModelAndView("error", "error", message);
 	}
 	
-	@RequestMapping("/error")
+	@RequestMapping("/basic/error")
 	public ModelAndView generalError() {
         	String message = "404 Page Not Found\n";
 		return new ModelAndView("error", "error", message);

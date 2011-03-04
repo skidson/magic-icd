@@ -1,7 +1,7 @@
 <!--header -->
 <div id="header">			
 		
-	<h1 id="logo-text"><a href="index.html">Coffee Shop</a></h1>		
+	<h1 id="logo-text"><a href="<c:url value="/basic/home"/>">Coffee Shop</a></h1>		
 	<p id="slogan">Blurring the lines of reality</p>		
 	
 	<c:if test="${!empty user}" >
