@@ -8,7 +8,7 @@
 		<div id="content-wrap">
 			<div id="main">
 	            <h2>Woops!</h2>
-				<p>${error_message}</p>
+				<br><br><center><font color="red" size="12">${error}</font></center><br><br>
 			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	
 					

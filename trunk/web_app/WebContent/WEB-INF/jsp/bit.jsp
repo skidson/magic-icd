@@ -8,13 +8,17 @@
 		<%@ include file="/WEB-INF/jsp/header.jsp" %>
 		<div id="content-wrap">
 			<div id="main">
-				<h2>${bit.name}</h2>
-				<b>Type: </b> ${bit.type}
-				<b>Description: </b> <p>${bit.description}</p>
-				<c:if test="${!empty bit.imageURL}">
-					<img src="${bit.imageURL}" />
-				</c:if>
-				
+			<h2>${bit.name}</h2><br>
+			<table>
+				<tr>
+					<td><b>Type: </b> ${bit.type}</td>
+					<td><c:if test="${!empty bit.imageURL}"> <img src="${bit.imageURL}" /> </c:if></td>
+				</tr>
+				<tr colSpan="2">
+					<b>Description: </b> <p>${bit.description}</p>
+				</tr>
+			</table>
+			
 			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	
 					

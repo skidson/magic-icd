@@ -30,7 +30,7 @@ public class BitController {
 		// Dummy values until we can connect to broker
     	List<Bit> bitsList = new ArrayList<Bit>();
     	bitsList.add(new Bit("Coffee", "A delicious drink. Brewed from Columbian beans at a perfect temperature " +
-    			"topped off with a swirl of whipped cream. MMmmmmm.", CoffeeShopService.DRINK, 1, 1));
+    			" and topped off with a swirl of whipped cream. MMmmmmm.", CoffeeShopService.DRINK, 1, 1));
     	bitsList.add(new Bit("Ham & Cheese Panini", "A delicious meal", CoffeeShopService.FOOD, 1, 2));
     	
     	model.put("bitsList", bitsList);

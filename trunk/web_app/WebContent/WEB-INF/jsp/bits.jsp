@@ -12,13 +12,13 @@
 				<table>
 				<tr><th>Name</th><th>Type</th><th>Description</th></tr>
 				<c:forEach var="bit" items="${bitsList}">
-        			<tr><td><a href="bit.html?id=${bit.id}">${bit.name}</a></td><td>${bit.type}</td><td>${bit.description}</td></tr>
+        			<tr><td><a href="magic/bit?id=${bit.id}">${bit.name}</a></td><td>${bit.type}</td><td>${bit.description}</td></tr>
      			</c:forEach>
      			</table> <br>
      			<h2>Search</h2><br>
-     			<table><tr><form method="post" action="search.htm">
+     			<table><tr><form method="post" action="bitSearch.html">
 					<center><b>Keyword: </b><input type="text" size="40" name="searchQuery" />
-					<select name="dropdown_media" size="1">
+					<select name="searchFilter" size="1">
 						<option value="all">All</option>
 						<option value="place">Place</option>
 						<option value="display">Display</option>
@@ -30,6 +30,9 @@
 					</select>
 					<input class="button" value=" Search " type="submit" /></center>
 				</form></tr></table>
+				
+				<a href="error.html">ERROR TEST</a>
+				
 			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	
 					
