@@ -7,22 +7,8 @@
 <!-- wrap starts here -->
 <div id="wrap">
 		
-		<!--header -->
-		<div id="header">			
-			<h1 id="logo-text"><a href="home.html">Coffee Shop</a></h1>		
-			<p id="slogan">Blurring the lines of reality</p>		
-		</div>
-		
-		<!-- menu -->	
-		<div  id="menu">
-			<ul>
-				<li id="current"><a href="home.html">Home</a></li>
-				<li><a href="friends.html">Friends</a></li>
-				<li><a href="bits.html">Bits</a></li>
-				<li><a href="inbox.html">Inbox</a></li>
-				<li class="last"><a href="account.html">Account</a></li>		
-			</ul>
-		</div>
+		<c:set var="directory" value="home"/>
+		<%@ include file="/WEB-INF/jsp/header.jsp" %>
 			
 		<!-- content-wrap starts here -->
 		<div id="content-wrap">

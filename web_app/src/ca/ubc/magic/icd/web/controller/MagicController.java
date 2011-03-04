@@ -34,7 +34,7 @@ public class MagicController {
 	*/
 	@RequestMapping("/magic/user")
 	public ModelAndView getUser() {
-		return new ModelAndView("acount", "magicuser", magicService.showUser(1).toString());
+		return new ModelAndView("account", "magicuser", magicService.showUser(1).toString());
 	}
 	
 	@RequestMapping("/sparklr/photos.jsp")

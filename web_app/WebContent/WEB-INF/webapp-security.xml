@@ -16,11 +16,8 @@
 		
 	<http>
 		<intercept-url pattern="/index*" access="ROLE_USER" />
-		<intercept-url pattern="/home*" access="ROLE_USER" />
-		<intercept-url pattern="/bits*" access="ROLE_USER" />
-		<intercept-url pattern="/friends*" access="ROLE_USER" />
-		<intercept-url pattern="/account*" access="ROLE_USER" />
-		<intercept-url pattern="/inbox*" access="ROLE_USER" />
+		<intercept-url pattern="/basic/*" access="ROLE_USER" />
+		<intercept-url pattern="/magic/*" access="ROLE_USER" />
 		<form-login login-page="/login.jsp" default-target-url="/basic/home"
 			authentication-failure-url="/login.jsp?error=true" />
 		<logout logout-success-url="/login.jsp" />

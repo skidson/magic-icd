@@ -20,7 +20,7 @@ public class FriendController {
 
 	@RequestMapping("/basic/friends")
 	public ModelAndView friendPage() {
-		Iterator<JsonItem> friendsitr = getMagicService().showFriends().iterator();
+		Iterator<JsonItem> friendsitr = magicService.showFriends().iterator();
 		List<User> friendsList = new ArrayList<User>();
 		while(friendsitr.hasNext()){
 			JsonItem currentUser = friendsitr.next();
@@ -31,13 +31,5 @@ public class FriendController {
 			friendsList.add(user);
 		}
 		return new ModelAndView("friends", "friendList", friendsList);
-	}
-
-	public void setMagicService(MagicService magicService) {
-		this.magicService = magicService;
-	}
-
-	public MagicService getMagicService() {
-		return magicService;
 	}
 }
