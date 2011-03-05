@@ -12,7 +12,6 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.springframework.security.oauth.consumer.OAuthRestTemplate;
-import org.springframework.security.oauth.consumer.ProtectedResourceDetails;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -32,62 +31,62 @@ public class CoffeeShopService implements MagicService {
 	@Override
 	public JsonItem showBit(int id) {
 		String request = "bit/show?id=" + id;
-		return (new JsonParser(compileInputStream(request))).parse().get(0);
+		return (new JsonParser(compileInputStream(request))).parse().get(0).getAsJsonItem("bit");
 	}
 
 	@Override
 	public JsonItem createBit(int type, String name, String description) {
 		String request = "create?bits_types=" + type + "&name="
 			+ name + "&description=" + description;
-		return (new JsonParser(compileInputStream(request))).parse().get(0);
+		return (new JsonParser(compileInputStream(request))).parse().get(0).getAsJsonItem("bit");
 	}
 	
 	@Override
 	public JsonItem createBit(int type, String name, String description, int place) {
 		String request = "bit/create?bits_types=" + type + "&name="
 			+ name + "&description=" + description + "&places_id=" + place;
-		return (new JsonParser(compileInputStream(request))).parse().get(0);
+		return (new JsonParser(compileInputStream(request))).parse().get(0).getAsJsonItem("bit");
 	}
 
 	@Override
 	public JsonItem updateBitName(int id, String name) {
 		String request = "bit/update?id=" + id + "&name=" + name;
-		return (new JsonParser(compileInputStream(request))).parse().get(0);
+		return (new JsonParser(compileInputStream(request))).parse().get(0).getAsJsonItem("bit");
 	}
 
 	@Override
 	public JsonItem updateBitDescription(int id, String description) {
 		String request = "bit/update?id=" + id + "&desription=" + description;
-		return (new JsonParser(compileInputStream(request))).parse().get(0);
+		return (new JsonParser(compileInputStream(request))).parse().get(0).getAsJsonItem("bit");
 	}
 
 	@Override
 	public JsonItem updateBitType(int id, int type) {
 		String request = "bit/update?id=" + id + "&bits_types_id=" + type;
-		return (new JsonParser(compileInputStream(request))).parse().get(0);
+		return (new JsonParser(compileInputStream(request))).parse().get(0).getAsJsonItem("bit");
 	}
 
 	@Override
 	public JsonItem updateBitPlace(int id, int place) {
 		String request = "bit/update?id=" + id + "&places_id=" + place;
-		return (new JsonParser(compileInputStream(request))).parse().get(0);
+		return (new JsonParser(compileInputStream(request))).parse().get(0).getAsJsonItem("bit");
 	}
 	
 	public JsonItem checkin(int id) {
 		String request = "chekin/bit?id=" + id;
-		return (new JsonParser(compileInputStream(request))).parse().get(0);
+		return (new JsonParser(compileInputStream(request))).parse().get(0).getAsJsonItem("checkin");
 	}
 	
 	@Override
-	public JsonItem createFriend(int id) {
+	public void createFriend(int id) {
 		String request = "friend/create?id=" + id;
-		return (new JsonParser(compileInputStream(request))).parse().get(0);
+		(new JsonParser(compileInputStream(request))).parse();
 	}
 
 	@Override
-	public JsonItem destroyFriend(int id) {
+	public void destroyFriend(int id) {
 		String request = "friend/destroy?id=" + id;
-		return (new JsonParser(compileInputStream(request))).parse().get(0);
+		(new JsonParser(compileInputStream(request))).parse();
 	}
 	
 	public List<JsonItem> showFriends() {
@@ -97,12 +96,18 @@ public class CoffeeShopService implements MagicService {
 	
 	public List<JsonItem> showFriends(int id) {
 		String request = "friends/show?id=" + id;
-		return (new JsonParser(compileInputStream(request))).parse();
+		List<JsonItem> raw = (new JsonParser(compileInputStream(request))).parse();
+		List<JsonItem> users = new ArrayList<JsonItem>();
+		for (JsonItem user : raw) {
+			users.add(raw.get(0).getAsJsonItem("user"));
+		}
+		
+		return users;
 	}
 	
 	public JsonItem showUser() {
 		String request = "user/show";
-		return (new JsonParser(compileInputStream(request))).parse().get(0);
+		return (new JsonParser(compileInputStream(request))).parse().get(0).getAsJsonItem("user");
 	}
 	
 	public JsonItem showUser(int id) {

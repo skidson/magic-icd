@@ -15,7 +15,7 @@ import ca.ubc.magic.icd.web.FeedItem;
  *
  */
 public class JsonItem extends FeedItem {
-	Map<String, Object> attributes;
+	private Map<String, Object> attributes;
 	
 	public JsonItem() {
 		super();
@@ -45,6 +45,7 @@ public class JsonItem extends FeedItem {
 	}
 	
 	public String getAsString(String key) {
+		System.out.println(this.attributes.get(key));
 		return (String) this.attributes.get(key);
 	}
 	
@@ -67,10 +68,13 @@ public class JsonItem extends FeedItem {
 	public String toString() {
 		Iterator<Map.Entry<String, Object>> iterator = attributes.entrySet().iterator();
 		StringBuilder builder = new StringBuilder();
+		int i = 0;
 		while (iterator.hasNext()) {
-			Map.Entry<String, Object> pairs = (Map.Entry<String, Object>)iterator.next();
+			i++;
+			Map.Entry<String, Object> pairs = iterator.next();
 			builder.append(pairs.getKey() + ": " + pairs.getValue() + "\n");
 		}
+		System.out.println("NUMBER OF PARAMETERS: " + i);
 		return builder.toString();
 	}
 	

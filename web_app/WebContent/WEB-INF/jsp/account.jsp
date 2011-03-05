@@ -9,16 +9,7 @@
 		<div id="content-wrap">
 			<div id="main">
 				<h2>Account</h2>
-				
-     			<table border="3">
-						<tr>
-							<td rowspan="2" align="center"> <img src="${magicuser.imageURL}" alt="${magicuser.name}'s picture" /> </td>
-							<td align="center"> ${magicuser.name} </td>
-						</tr>
-						<tr>
-							<td align="center">${magicuser.description}</td>
-						</tr>
-					</table>
+				${magicUser.username}
 			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	
 					
