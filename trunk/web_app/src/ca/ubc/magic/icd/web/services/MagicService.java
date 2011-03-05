@@ -40,9 +40,9 @@ public interface MagicService {
 	
 	public JsonItem checkin(int id);
 	
-	public JsonItem createFriend(int id);
+	public void createFriend(int id);
 	
-	public JsonItem destroyFriend(int id);
+	public void destroyFriend(int id);
 	
 	public List<JsonItem> showFriends();
 	
