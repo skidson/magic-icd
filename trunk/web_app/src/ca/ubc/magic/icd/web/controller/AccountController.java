@@ -25,12 +25,11 @@ public class AccountController {
 		UserService.addUserContext(model);
 		
 		JsonItem userInfo = magicService.showUser();
-		userInfo.toString();
-		User user = new User();
-		user.setDescription(userInfo.getAsString("description"));
-		user.setName(userInfo.getAsString("name"));
-		user.setUsername(userInfo.getAsString("username"));
-		user.setImageURL("photo");
+		System.out.println(userInfo.toString());
+		User user = new User(userInfo.getAsString("name"), userInfo.getAsString("username")
+				, userInfo.getAsString("description")
+				, userInfo.getAsInteger("experience")
+				, userInfo.getAsInteger("points"));
 		model.put("magicUser", user);
 		return new ModelAndView("account", model);
     }

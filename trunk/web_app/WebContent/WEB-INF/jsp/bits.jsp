@@ -12,7 +12,7 @@
 				<table>
 				<tr><th>Name</th><th>Type</th><th>Description</th></tr>
 				<c:forEach var="bit" items="${bitsList}">
-        			<tr><td><a href="magic/bit?id=${bit.id}">${bit.name}</a></td><td>${bit.type}</td><td>${bit.description}</td></tr>
+        			<tr><td><a href="<c:url value ="/magic/bit?id=${bit.id}"/>">${bit.name}</a></td><td>${bit.type}</td><td>${bit.description}</td></tr>
      			</c:forEach>
      			</table> <br>
      			<h2>Search</h2><br>
@@ -31,7 +31,7 @@
 					<input class="button" value=" Search " type="submit" /></center>
 				</form></tr></table>
 				
-				<a href="error.html">ERROR TEST</a>
+				<a href="<c:url value="/magic/createBit?bit_type_id=4&name=coffee&description=mmmmmgood&place_id=5"/>">CREATE A BIT Z0MG</a>
 				
 			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	

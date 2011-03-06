@@ -9,7 +9,23 @@
 		<div id="content-wrap">
 			<div id="main">
 				<h2>Account</h2>
-				${magicUser.username}
+				<table border="3">
+					<tr>
+						<td rowspan="2" align="center"> <img src="${magicUser.imageURL}" alt="${magicUser.name}'s picture" /> </td>
+						<td align="center"> ${magicUser.name} </td>
+					</tr>
+					<tr>
+						<td align="center">${magicUser.description}</td>
+					</tr>
+					<tr>
+						<td align="center"> EXP: ${magicUser.exp}</td>
+						<td align="center"> Points: ${magicUser.points}</td>	
+					</tr>
+				</table>
+				
+				CHECKIN TEST:
+				<a href="<c:url value="/magic/checkinBit?id=1"/>">Checkin to bit 1 </a>
+				
 			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	
 					

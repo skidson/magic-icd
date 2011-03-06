@@ -19,8 +19,17 @@
 					</tr>
 				</table>
 				
-				<a href="<c:url value="/sparklr/photos.jsp"/>">Load sparklr photos</a><br>
-				<a href="<c:url value="/magic/user"/>">Load magic user</a>
+				<table border="2">
+					<tr>
+						<td rowspan="2" align="center"> <img src="${user2.imageURL}" alt="${user2.name}'s picture" /> </td>
+						<td align="center"> ${user2.name} </td>
+					</tr>
+					<tr>
+						<td align="center">${user2.description}</td>
+					</tr>
+				</table>
+				
+				
 				
 				
 			</div> <!--  main --> 

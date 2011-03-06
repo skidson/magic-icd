@@ -13,8 +13,12 @@ public class User {
 	
 	public User(){}
 	
-	public User(String name){
+	public User(String name, String username, String description, int exp, int points){
 		this.name = name;
+		this.username = username;
+		this.description = description;
+		this.exp = exp;
+		this.points = points;
 		friends = new ArrayList<String>();
 		bits = new ArrayList<Bit>();
 	}
