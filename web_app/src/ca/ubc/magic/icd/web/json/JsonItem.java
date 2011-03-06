@@ -74,7 +74,6 @@ public class JsonItem extends FeedItem {
 			Map.Entry<String, Object> pairs = iterator.next();
 			builder.append(pairs.getKey() + ": " + pairs.getValue() + "\n");
 		}
-		System.out.println("NUMBER OF PARAMETERS: " + i);
 		return builder.toString();
 	}
 	

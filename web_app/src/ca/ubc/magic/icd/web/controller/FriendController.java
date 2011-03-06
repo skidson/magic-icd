@@ -30,10 +30,10 @@ public class FriendController {
 		List<User> friendsList = new ArrayList<User>();
 		while (iterator.hasNext()) {
 			JsonItem currentUser = iterator.next();
-			User user = new User(currentUser.getAsString("username"));
-			user.setDescription(currentUser.getAsString("description"));
-			user.setImageURL(currentUser.getAsString("photo"));
-			user.setName(currentUser.getAsString("name"));
+			User user = new User(currentUser.getAsString("name"), currentUser.getAsString("username")
+					, currentUser.getAsString("description")
+					, Integer.parseInt(currentUser.getAsString("exp"))
+					, Integer.parseInt(currentUser.getAsString("points")));
 			friendsList.add(user);
 		}
 		

@@ -73,7 +73,7 @@ public class CoffeeShopService implements MagicService {
 	}
 	
 	public JsonItem checkin(int id) {
-		String request = "chekin/bit?id=" + id;
+		String request = "checkin/bit?id=" + id;
 		return (new JsonParser(compileInputStream(request))).parse().get(0).getAsJsonItem("checkin");
 	}
 	
@@ -112,7 +112,7 @@ public class CoffeeShopService implements MagicService {
 	
 	public JsonItem showUser(int id) {
 		String request = "user/show?id=" + id;
-		return (new JsonParser(compileInputStream(request))).parse().get(0);
+		return (new JsonParser(compileInputStream(request))).parse().get(0).getAsJsonItem("user");
 	}
 	
 	public JsonItem searchUser(String query) {

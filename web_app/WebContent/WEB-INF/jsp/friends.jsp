@@ -9,18 +9,24 @@
 		<div id="content-wrap">
 			<div id="main">
 				<h2>Friends</h2>
-					<c:forEach items="{friendsList}" var="friend">
-						<table border="3">
-						<tr>
-							<td rowspan="2" align="center"> <img src="${friend.imageURL}" alt="${friend.name}'s picture" /> </td>
-							<td align="center"> ${friend.name} </td>
-						</tr>
-						<tr>
-							<td align="center">${friend.description}</td>
-						</tr>
-					</table>
-					</c:forEach>
-					
+					<c:if test="${empty friendsList}">
+						Sorry, you have no friends!
+					<c:choose>
+						<c:when test="${!empty friendsList}">
+							<c:forEach items="{friendsList}" var="friend">
+								<table border="3">
+									<tr>
+										<td rowspan="2" align="center"> <img src="${friend.imageURL}" alt="${friend.name}'s picture" /> </td>
+										<td align="center"> ${friend.name} </td>
+									</tr>
+									<tr>
+										<td align="center">${friend.description}</td>
+									</tr>
+								</table>
+							</c:forEach>
+						</c:when>
+					</c:choose>
+					</c:if>
 </div> <!--  main --> 
 		</div> <!-- content-wrap -->	
 					

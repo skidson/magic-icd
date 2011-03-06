@@ -23,11 +23,7 @@ public class UserController {
 	@RequestMapping("asdfuser")
 	public ModelAndView userPage() {
 		JsonItem test = magicService.showUser(1);
-		User user = new User(test.getAsString("username"));
-		user.setDescription(test.getAsString("description"));
-		user.setImageURL(test.getAsString("photo"));
-		user.setName(test.getAsString("name"));
-		return new ModelAndView("account", "user", user);
+		return new ModelAndView("account");
 	}
 }
 
