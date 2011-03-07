@@ -175,9 +175,35 @@ public class CoffeeShopService implements MagicService {
 		return (new JsonParser(compileInputStream(request))).parse().get(0).getAsJsonItem("user");
 	}
 	
-	public JsonItem searchUser(String query) {
+	public List<User> searchUser(String query) {
 		String request = "users/search?q=" + query;
-		return (new JsonParser(compileInputStream(request))).parse().get(0);
+		Iterator<JsonItem> iterator = (new JsonParser(compileInputStream(request))).parse().iterator();
+		List<User> list = new ArrayList<User>();
+		while (iterator.hasNext()) {
+			JsonItem match = iterator.next().getAsJsonItem("user");
+			
+			String name, username, description, photo;
+			Integer experience, points;
+			try {
+				name = match.getAsString("name");
+				username = match.getAsString("username");
+				description = match.getAsString("description");
+				photo = match.getAsString("photo");
+				try {
+					experience = match.getAsInteger("experience");
+					points = match.getAsInteger("points");
+				} catch (NumberFormatException e) {
+					experience = 0;
+					points = 0;
+				}
+			} catch (NullPointerException e) {
+				continue;
+			}
+			User user = new User(name, username, description, photo,
+					experience, points);
+			list.add(user);
+		}
+		return list;
 	}
 
 	public void setMagicRestTemplate(OAuthRestTemplate magicRestTemplate) {
