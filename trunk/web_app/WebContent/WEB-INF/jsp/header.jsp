@@ -14,11 +14,22 @@
 <!-- menu -->	
 <div  id="menu">
 	<ul>
-		<li <c:if test="${directory == 'home'}" >id="current"</c:if>><a href="<c:url value="/magic/home"/>">Home</a></li>
-		<li <c:if test="${directory == 'friends'}" >id="current"</c:if>> <a href="<c:url value="/magic/friends"/>">Friends</a></li>
-		<li <c:if test="${directory == 'bits'}" >id="current"</c:if>> <a href="<c:url value="/magic/bits"/>">Bits</a></li>
-		<li <c:if test="${directory == 'inbox'}" >id="current"</c:if>> <a href="<c:url value="/magic/inbox"/>">Inbox</a></li>
-		<li <c:if test="${directory == 'account'}" >id="current"</c:if> class="last"> <a href="<c:url value="/magic/account"/>">Account</a></li>
-
+		<c:choose>
+			<c:when test="${user.linked}">
+				<li <c:if test="${directory == 'home'}" >id="current"</c:if>><a href="<c:url value="/magic/home"/>">Home</a></li>
+				<li <c:if test="${directory == 'friends'}" >id="current"</c:if>> <a href="<c:url value="/magic/friends"/>">Friends</a></li>
+				<li <c:if test="${directory == 'bits'}" >id="current"</c:if>> <a href="<c:url value="/magic/bits"/>">Bits</a></li>
+				<li <c:if test="${directory == 'inbox'}" >id="current"</c:if>> <a href="<c:url value="/magic/inbox"/>">Inbox</a></li>
+				<li <c:if test="${directory == 'account'}" >id="current"</c:if> class="last"> <a href="<c:url value="/magic/account"/>">Account</a></li>
+			</c:when>
+				
+			<c:otherwise>
+				<li <c:if test="${directory == 'home'}" >id="current"</c:if>><a href="<c:url value="/basic/home"/>">Home</a></li>
+				<li <c:if test="${directory == 'friends'}" >id="current"</c:if>> <a href="<c:url value="/basic/friends"/>">Friends</a></li>
+				<li <c:if test="${directory == 'bits'}" >id="current"</c:if>> <a href="<c:url value="/basic/bits"/>">Bits</a></li>
+				<li <c:if test="${directory == 'inbox'}" >id="current"</c:if>> <a href="<c:url value="/basic/inbox"/>">Inbox</a></li>
+				<li <c:if test="${directory == 'account'}" >id="current"</c:if> class="last"> <a href="<c:url value="/basic/account"/>">Account</a></li>
+			</c:otherwise>
+		</c:choose>
 	</ul>
 </div>			

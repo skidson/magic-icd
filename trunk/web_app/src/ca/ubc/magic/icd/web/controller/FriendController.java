@@ -20,9 +20,16 @@ import ca.ubc.magic.icd.web.services.UserService;
 public class FriendController {
 	@Autowired
 	private MagicService magicService;
+	
+	@RequestMapping("/basic/friends")
+	public ModelAndView basicFriends() {
+		Map<String, Object> model = new HashMap<String, Object>();
+		UserService.addUserContext(model);
+		return new ModelAndView("friends", model);
+	}
 
 	@RequestMapping("/magic/friends")
-	public ModelAndView friendPage() {
+	public ModelAndView magicFriends() {
 		Map<String, Object> model = new HashMap<String, Object>();
 		UserService.addUserContext(model);
 		

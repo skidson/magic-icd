@@ -19,18 +19,27 @@ import ca.ubc.magic.icd.web.services.UserService;
 public class AccountController {
 	@Autowired
 	MagicService magicService;
+	
+	@RequestMapping("/basic/account")
+	public ModelAndView basicAccount() {
+		Map<String, Object> model = new HashMap<String, Object>();
+		UserService.addUserContext(model);
+		return new ModelAndView("account", model);
+	}
+	
     @RequestMapping("/magic/account")
-    public ModelAndView accountPage() {
+    public ModelAndView magicAccount() {
     	Map<String, Object> model = new HashMap<String, Object>();
+    	UserService.linkMagic(true);
 		UserService.addUserContext(model);
 		
-		JsonItem userInfo = magicService.showUser();
-		System.out.println(userInfo.toString());
+//		JsonItem userInfo = magicService.showUser();
+		/*System.out.println(userInfo.toString());
 		User user = new User(userInfo.getAsString("name"), userInfo.getAsString("username")
 				, userInfo.getAsString("description")
 				, userInfo.getAsInteger("experience")
 				, userInfo.getAsInteger("points"));
-		model.put("magicUser", user);
+		model.put("magicUser", user);*/
 		return new ModelAndView("account", model);
     }
     
