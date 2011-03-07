@@ -27,7 +27,7 @@ public class SearchController {
 		Map<String, Object> model = new HashMap<String, Object>();
 		UserService.addUserContext(model);
 		
-		List<User> searchResults = magicService.showFriends();
+		List<User> searchResults = magicService.searchUser(search);
 		model.put("searchResults", searchResults);
 		return new ModelAndView("searchResult", model);
 	}

@@ -100,12 +100,13 @@ public class CoffeeShopService implements MagicService {
 			JsonItem friend = iterator.next().getAsJsonItem("user");
 			
 			String name, username, description, photo;
-			Integer experience, points;
+			Integer experience, points, id;
 			try {
 				name = friend.getAsString("name");
 				username = friend.getAsString("username");
 				description = friend.getAsString("description");
 				photo = friend.getAsString("photo");
+				id = friend.getAsInteger("id");
 				try {
 					experience = friend.getAsInteger("experience");
 					points = friend.getAsInteger("points");
@@ -116,7 +117,7 @@ public class CoffeeShopService implements MagicService {
 			} catch (NullPointerException e) {
 				continue;
 			}
-			User user = new User(name, username, description, photo,
+			User user = new User(name, username, description, photo, id,
 					experience, points);
 			list.add(user);
 		}
@@ -131,12 +132,13 @@ public class CoffeeShopService implements MagicService {
 			JsonItem friend = iterator.next().getAsJsonItem("user");
 			
 			String name, username, description, photo;
-			Integer experience, points;
+			Integer experience, points, userID;
 			try {
 				name = friend.getAsString("name");
 				username = friend.getAsString("username");
 				description = friend.getAsString("description");
 				photo = friend.getAsString("photo");
+				userID = friend.getAsInteger("id");
 				try {
 					experience = friend.getAsInteger("experience");
 					points = friend.getAsInteger("points");
@@ -147,7 +149,7 @@ public class CoffeeShopService implements MagicService {
 			} catch (NullPointerException e) {
 				continue;
 			}
-			User user = new User(name, username, description, photo,
+			User user = new User(name, username, description, photo, userID,
 					experience, points);
 			list.add(user);
 		}
@@ -183,12 +185,13 @@ public class CoffeeShopService implements MagicService {
 			JsonItem match = iterator.next().getAsJsonItem("user");
 			
 			String name, username, description, photo;
-			Integer experience, points;
+			Integer experience, points, userID;
 			try {
 				name = match.getAsString("name");
 				username = match.getAsString("username");
 				description = match.getAsString("description");
 				photo = match.getAsString("photo");
+				userID = match.getAsInteger("id");
 				try {
 					experience = match.getAsInteger("experience");
 					points = match.getAsInteger("points");
@@ -199,7 +202,7 @@ public class CoffeeShopService implements MagicService {
 			} catch (NullPointerException e) {
 				continue;
 			}
-			User user = new User(name, username, description, photo,
+			User user = new User(name, username, description, photo, userID,
 					experience, points);
 			list.add(user);
 		}

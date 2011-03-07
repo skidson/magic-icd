@@ -22,7 +22,7 @@
 							<c:forEach items="${searchResults}" var="user">
 								<tr>
 									<td rowSpan="2" align="center"> <img src="${user.imageURL}" alt="${user.name}'s picture" /> </td>
-									<td> <b><a href="<c:url value="/magic/userPage"/>">${user.name}</a></b> </td>
+									<td> <b><a href="<c:url value="/magic/userPage?userID=${user.id}"/>">${user.name}</a></b> </td>
 								</tr>
 								<tr> <td>${user.description}</td> </tr>
 							</c:forEach>
