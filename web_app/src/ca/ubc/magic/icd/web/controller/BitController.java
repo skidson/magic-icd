@@ -61,8 +61,8 @@ public class BitController {
     	Bit bit = new Bit(bitInfo.getAsJsonItem("bit").getAsString(MagicService.NAME),
     			bitInfo.getAsJsonItem("bit").getAsString(MagicService.DESCRIPTION),
     			bitInfo.getAsJsonItem("bit").getAsString(MagicService.QR_IMAGE_URL),
-    			3,
-    			1,
+    			bitInfo.getAsJsonItem("bit").getAsInteger(MagicService.BITS_TYPE_ID),
+    			bitInfo.getAsJsonItem("bit").getAsInteger(MagicService.PLACES_ID),
     			bitID);
     	
     	model.put("bit", bit);

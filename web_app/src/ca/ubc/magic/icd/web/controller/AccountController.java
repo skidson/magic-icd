@@ -77,4 +77,22 @@ public class AccountController {
 		return new ModelAndView("register");
 	}
     
+    @RequestMapping("/basic/forgotPassword")
+    public ModelAndView forgottenPassword(){
+    	Map<String, Object> model = new HashMap<String, Object>();
+		UserService.addUserContext(model);
+    	
+    	return new ModelAndView("changePassword", model);
+    }
+    
+    @RequestMapping("/basic/changePassword")
+    public ModelAndView changePassword(@RequestParam("oldPassword") String oldPW,
+    									@RequestParam("newPassword") String newPW,
+    									@RequestParam("confirmPassword") String confirmPW){
+    	Map<String, Object> model = new HashMap<String, Object>();
+		UserService.addUserContext(model);
+    	//check and change PW
+    	return new ModelAndView("changePassword", model);
+    }
+    
 }
