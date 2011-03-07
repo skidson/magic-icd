@@ -3,6 +3,7 @@ package ca.ubc.magic.icd.web.services;
 import java.util.List;
 
 import ca.ubc.magic.icd.web.json.JsonItem;
+import ca.ubc.magic.icd.web.model.User;
 
 public interface MagicService {
 	public static final int BIT = 1;
@@ -45,9 +46,9 @@ public interface MagicService {
 	
 	public void destroyFriend(int id);
 	
-	public List<JsonItem> showFriends();
+	public List<User> showFriends();
 	
-	public List<JsonItem> showFriends(int id);
+	public List<User> showFriends(int id);
 	
 	public JsonItem showUser();
 	
