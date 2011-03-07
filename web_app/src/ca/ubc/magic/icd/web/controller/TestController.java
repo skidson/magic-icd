@@ -22,9 +22,10 @@ public class TestController {
 		Map<String, Object> model = new HashMap<String, Object>();
 		UserService.addUserContext(model);
 		
-		JsonItem userInfo = magicService.showUser(1);
-		System.out.println(userInfo.getAsString("username"));
-		System.out.println(userInfo.getAsInteger("id"));
+		JsonItem userInfo = magicService.showUser(2);
+		System.out.println(userInfo.getAsString("username") + "\n");
+		/*System.out.println(userInfo.getAsInteger("id"));
+		System.out.println(userInfo.getAsString("experience"));*/
 		
 		return new ModelAndView("home", model);
 	}
