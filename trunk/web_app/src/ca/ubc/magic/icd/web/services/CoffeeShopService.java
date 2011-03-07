@@ -18,13 +18,13 @@ public class CoffeeShopService implements MagicService {
 
 	@Override
 	public JsonItem showBit(int id) {
-		String request = "bit/show?id=" + id;
+		String request = "bits/show?id=" + id;
 		return (new JsonParser(compileInputStream(request))).parse().get(0);
 	}
 
 	@Override
 	public JsonItem createBit(int type, String name, String description) {
-		String request = "bit/create?bits_types=" + type + "&name="
+		String request = "bits/create?bits_types=" + type + "&name="
 			+ name + "&description=" + description;
 		return (new JsonParser(compileInputStream(request))).parse().get(0);
 	}
@@ -40,32 +40,32 @@ public class CoffeeShopService implements MagicService {
 	 */
 	@Override
 	public JsonItem createBit(int type, String name, String description, int place) {
-		String request = "bit/create?bits_types=" + type + "&name="
+		String request = "bits/create?bits_types=" + type + "&name="
 			+ name + "&description=" + description + "&places_id=" + place;
 		return (new JsonParser(compileInputStream(request))).parse().get(0);
 	}
 
 	@Override
 	public JsonItem updateBitName(int id, String name) {
-		String request = "bit/update?id=" + id + "&name=" + name;
+		String request = "bits/update?id=" + id + "&name=" + name;
 		return (new JsonParser(compileInputStream(request))).parse().get(0);
 	}
 
 	@Override
 	public JsonItem updateBitDescription(int id, String description) {
-		String request = "bit/update?id=" + id + "&desription=" + description;
+		String request = "bits/update?id=" + id + "&desription=" + description;
 		return (new JsonParser(compileInputStream(request))).parse().get(0);
 	}
 
 	@Override
 	public JsonItem updateBitType(int id, int type) {
-		String request = "bit/update?id=" + id + "&bits_types_id=" + type;
+		String request = "bits/update?id=" + id + "&bits_types_id=" + type;
 		return (new JsonParser(compileInputStream(request))).parse().get(0);
 	}
 
 	@Override
 	public JsonItem updateBitPlace(int id, int place) {
-		String request = "bit/update?id=" + id + "&places_id=" + place;
+		String request = "bits/update?id=" + id + "&places_id=" + place;
 		return (new JsonParser(compileInputStream(request))).parse().get(0);
 	}
 	
@@ -86,7 +86,7 @@ public class CoffeeShopService implements MagicService {
 
 	@Override
 	public void destroyFriend(int id) {
-		String request = "friend/destroy?id=" + id;
+		String request = "friends/destroy?id=" + id;
 		(new JsonParser(compileInputStream(request))).parse();
 	}
 	
@@ -116,7 +116,7 @@ public class CoffeeShopService implements MagicService {
 	 * @see MagicService
 	 */
 	public JsonItem showUser() {
-		String request = "user/show";
+		String request = "users/show";
 		return (new JsonParser(compileInputStream(request))).parse().get(0).getAsJsonItem("user");
 	}
 	
@@ -127,12 +127,12 @@ public class CoffeeShopService implements MagicService {
 	 * @see MagicService
 	 */
 	public JsonItem showUser(int id) {
-		String request = "user/show?id=" + id;
+		String request = "users/show?id=" + id;
 		return (new JsonParser(compileInputStream(request))).parse().get(0).getAsJsonItem("user");
 	}
 	
 	public JsonItem searchUser(String query) {
-		String request = "friends/search?q=" + query;
+		String request = "users/search?q=" + query;
 		return (new JsonParser(compileInputStream(request))).parse().get(0);
 	}
 
@@ -161,7 +161,6 @@ public class CoffeeShopService implements MagicService {
 	}
 	
 	private InputStream compileInputStream(String request) {
-//		getMagicRestTemplate().getResource().getAdditionalParameters().put("oauth_callback", "http://localhost:8010/web_app/basic/callback?oauth_verifier=lol");
 		return new ByteArrayInputStream(getMagicRestTemplate()
 				.getForObject(URI.create(getMagicURLPattern() + request), byte[].class));
 	}
