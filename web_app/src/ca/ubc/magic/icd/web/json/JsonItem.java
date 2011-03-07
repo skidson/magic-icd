@@ -45,7 +45,6 @@ public class JsonItem extends FeedItem {
 	}
 	
 	public String getAsString(String key) {
-		System.out.println(this.attributes.get(key));
 		return (String) this.attributes.get(key);
 	}
 	
