@@ -8,27 +8,40 @@
 		<%@ include file="/WEB-INF/jsp/header.jsp" %>
 		<div id="content-wrap">
 			<div id="main">
-			<h2>Create Bit</h2><br>
-			<table><form method="post" action="bitSearch.html">
-				<tr>
-					<td><b>Name: </b></td><td><input type="text" size="30" name="in_name" /></td>
-					<td><b>Type: </b></td><td><input type="text" size="30" name="in_type" /></td>
-					<td><c:if test="${!empty bit.imageURL}"> <img src="${bit.imageURL}" /> </c:if></td>
-				</tr>
-				<tr colSpan="2">
-					<b>Description: </b> <p>${bit.description}</p>
-				</tr>
-			</form></table>
-			
+				<h2>Create Bit</h2><br>
+				<form method="post" action="bitSearch.html"><table>
+					<tr><td><b>Name: </b></td><td><input type="text" size="30" name="in_name" /></td></tr>
+					<tr><td><b>Type: </b></td>
+					<td>
+						<select name="in_type" size="1">
+							<option value="1">Miscellaneous</option>
+							<option value="2">Place</option>
+							<option value="3">Table</option>
+							<option value="4">Drink</option>
+							<option value="5">Food</option>
+							<option value="6">Display</option>
+							<option value="7">Content</option>
+							<option value="8">Person</option>
+						</select>
+					</td></tr>
+					<tr><td><b>Location: </b></td>
+					<td>
+						<select name="in_type" size="1">
+							<option value="1">None</option>
+							<option value="2">Vancouver</option>
+						</select>
+					</td></tr>
+					<tr>
+						<td valign="top"><b>Description: </b></td>
+						<td><textarea name="in_description" cols=40 rows=6></textarea></td>
+					</tr>
+				</table>
+				<center><input class="button" value=" Submit " type="submit"/></center><br>
+				</form>
 			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	
-					
-		<div id="footer">
-			<%@ include file="/WEB-INF/jsp/footer.jsp" %>
-		</div>	
-
-	<!-- wrap ends here -->
-	</div>
+		<%@ include file="/WEB-INF/jsp/footer.jsp" %>
+	</div> <!-- wrap -->
 
 </body>
 </html>

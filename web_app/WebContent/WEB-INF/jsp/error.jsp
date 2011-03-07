@@ -11,13 +11,8 @@
 				<br><br><center><font color="red" size="12">${error}</font></center><br><br>
 			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	
-					
-		<div id="footer">
-			<%@ include file="/WEB-INF/jsp/footer.jsp" %>
-		</div>	
-
-	<!-- wrap ends here -->
-	</div>
+		<%@ include file="/WEB-INF/jsp/footer.jsp" %>
+	</div> <!-- wrap -->
 
 </body>
 </html>

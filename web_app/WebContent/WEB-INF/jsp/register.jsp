@@ -9,9 +9,7 @@
 		<div id="content-wrap">
 			<div id="main">
 				<h2>Register</h2>
-				
 				<center><font color="red">${error}</font></center>
-				
 				<table><form method="POST" action="register.html">
 					<tr><td>First name: <font color="red">*</font></td><td><input type="text" size="30" name="in_firstName" /></td></tr>
 					<tr><td>Last name: <font color="red">*</font></td><td><input type="text" size="30" name="in_lastName" /></td></tr>
@@ -23,14 +21,8 @@
 					<tr><td><input class="button" value="          Create Account          " type="submit" /></td></tr>
 				</form></table>
 			</div> <!-- main -->
-		
 		</div> <!-- content-wrap -->
-					
-		<div id="footer">
-			<%@ include file="/WEB-INF/jsp/footer.jsp" %>
-		</div>	<!-- footer -->
-
+		<%@ include file="/WEB-INF/jsp/footer.jsp" %>
 	</div> <!-- wrap -->
-
 </body>
 </html>

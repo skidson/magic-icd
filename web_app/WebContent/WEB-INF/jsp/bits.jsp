@@ -31,24 +31,19 @@
 					<input class="button" value=" Search " type="submit" /></center>
 				</form></tr></table>
 				
-				<div style="float:right; margin-right:20px">
-					<b>Can't find a bit?</b>
-					<form method="get" action="/basic/createBit">
-						<input class="button" value=" Create Bit " type="submit"/>
+				<c:if test="${user.linked}">
+					<form method="get" action="createBit">
+						<table align=right><tr>
+							<td><b>Can't find a bit? </b></td>
+							<td><input class="button" value=" Create Bit " type="submit"/></td>
+						</tr></table>
 					</form>
-				</div>
-				
-				<a href="<c:url value="/magic/createBit?bit_type_id=4&name=coffee&description=mmmmmgood&place_id=5"/>">CREATE A BIT Z0MG</a>
+				</c:if>
 				
 			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	
-					
-		<div id="footer">
-			<%@ include file="/WEB-INF/jsp/footer.jsp" %>
-		</div>	
-
-	<!-- wrap ends here -->
-	</div>
+		<%@ include file="/WEB-INF/jsp/footer.jsp" %>
+	</div> <!-- wrap -->
 
 </body>
 </html>

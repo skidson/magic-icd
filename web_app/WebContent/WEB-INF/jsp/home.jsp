@@ -19,30 +19,12 @@
 					</tr>
 				</table>
 				
-				<a href="<c:url value="/magic/test" />">TEST CONTROLLER</a>
-				
-				<!-- <table border="2">
-					<tr>
-						<td rowspan="2" align="center"> <img src="${user2.imageURL}" alt="${user2.name}'s picture" /> </td>
-						<td align="center"> ${user2.name} </td>
-					</tr>
-					<tr>
-						<td align="center">${user2.description}</td>
-					</tr>
-				</table> -->
-				
-				
-				
+				<a href="<c:url value="/magic/test" />">TEST CONTROLLER</a>	
 				
 			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	
-					
-		<div id="footer">
-			<%@ include file="/WEB-INF/jsp/footer.jsp" %>
-		</div>	
-
-	<!-- wrap ends here -->
-	</div>
+		<%@ include file="/WEB-INF/jsp/footer.jsp" %>
+	</div> <!-- wrap -->
 
 </body>
 </html>
