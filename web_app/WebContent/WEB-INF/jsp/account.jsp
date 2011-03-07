@@ -12,17 +12,17 @@
 				
 				<c:choose>
 					<c:when test="${user.linked}">
-						<table border="3">
+						<table>
 							<tr>
-								<td rowspan="2" align="center"> <img src="${magicUser.imageURL}" alt="${magicUser.name}'s picture" /> </td>
-								<td align="center"> ${magicUser.name} </td>
+								<td rowSpan="2" align="center"> <img src="${profile.imageURL}" alt="${profile.name}'s picture" /> </td>
+								<td> ${profile.name} </td>
 							</tr>
 							<tr>
-								<td align="center">${magicUser.description}</td>
+								<td>${profile.description}</td>
 							</tr>
 							<tr>
-								<td align="center"> EXP: ${magicUser.exp}</td>
-								<td align="center"> Points: ${magicUser.points}</td>	
+								<td align="center"> <b>EXP: </b>${profile.exp}</td>
+								<td> <b>Points: </b>${profile.points}</td>	
 							</tr>
 						</table>
 					

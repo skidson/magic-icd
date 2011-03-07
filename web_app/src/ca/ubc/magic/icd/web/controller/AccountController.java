@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import ca.ubc.magic.icd.web.json.JsonItem;
 import ca.ubc.magic.icd.web.model.User;
 import ca.ubc.magic.icd.web.services.MagicService;
 import ca.ubc.magic.icd.web.services.UserService;
@@ -31,6 +32,14 @@ public class AccountController {
     	Map<String, Object> model = new HashMap<String, Object>();
     	UserService.linkMagic(true);
 		UserService.addUserContext(model);
+		JsonItem profile = magicService.showUser();
+		User user = new User(profile.getAsString("name"), 
+				profile.getAsString("username"),
+				profile.getAsString("description"),
+				profile.getAsString("photo"),
+				profile.getAsInteger("experience"),
+				profile.getAsInteger("points"));
+		model.put("profile", user);
 		return new ModelAndView("account", model);
     }
     

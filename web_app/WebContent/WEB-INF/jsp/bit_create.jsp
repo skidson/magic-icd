@@ -9,7 +9,7 @@
 		<div id="content-wrap">
 			<div id="main">
 				<h2>Create Bit</h2><br>
-				<form method="post" action="bitSearch.html"><table>
+				<form method="post" action="createBit"><table>
 					<tr><td><b>Name: </b></td><td><input type="text" size="30" name="in_name" /></td></tr>
 					<tr><td><b>Type: </b></td>
 					<td>
@@ -26,7 +26,7 @@
 					</td></tr>
 					<tr><td><b>Location: </b></td>
 					<td>
-						<select name="in_type" size="1">
+						<select name="in_place" size="1">
 							<option value="1">None</option>
 							<option value="2">Vancouver</option>
 						</select>

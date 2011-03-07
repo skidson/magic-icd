@@ -14,13 +14,13 @@
 							Sorry, you have no friends!
 						</c:when>
 						<c:otherwise>
-							<table border="3">
-							<c:forEach items="{friendsList}" var="friend">
+							<table>
+							<c:forEach items="${friendsList}" var="friend">
 								<tr>
 									<td rowSpan="2" align="center"> <img src="${friend.imageURL}" alt="${friend.name}'s picture" /> </td>
-									<td align="center"> ${friend.name} </td>
+									<td> <b>${friend.name}</b> </td>
 								</tr>
-								<tr> <td align="center">${friend.description}</td> </tr>
+								<tr> <td>${friend.description}</td> </tr>
 							</c:forEach>
 							</table>
 						</c:otherwise>
