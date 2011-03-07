@@ -19,7 +19,7 @@ import ca.ubc.magic.icd.web.services.UserService;
 public class AccountController {
 	@Autowired
 	MagicService magicService;
-    @RequestMapping("/basic/account")
+    @RequestMapping("/magic/account")
     public ModelAndView accountPage() {
     	Map<String, Object> model = new HashMap<String, Object>();
 		UserService.addUserContext(model);

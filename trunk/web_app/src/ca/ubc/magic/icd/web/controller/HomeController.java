@@ -18,7 +18,7 @@ public class HomeController {
 	@Autowired
 	private MagicService magicService;
 
-	@RequestMapping("/basic/home")
+	@RequestMapping("/magic/home")
 	public ModelAndView homePage() {
 		Map<String, Object> model = new HashMap<String, Object>();
 		UserService.addUserContext(model);
