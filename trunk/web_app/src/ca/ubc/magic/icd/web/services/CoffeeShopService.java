@@ -90,17 +90,23 @@ public class CoffeeShopService implements MagicService {
 		(new JsonParser(compileInputStream(request))).parse();
 	}
 	
+	// TODO fix this
 	public List<JsonItem> showFriends() {
 		String request = "friends/show";
+		List<JsonItem> raw = (new JsonParser(compileInputStream(request))).parse();
+		List<JsonItem> users = new ArrayList<JsonItem>();
+		for (JsonItem user : raw)
+			users.add(user.getAsJsonItem("user"));
 		return new JsonParser(compileInputStream(request)).parse();
 	}
 	
+	// TODO fix this
 	public List<JsonItem> showFriends(int id) {
 		String request = "friends/show?id=" + id;
 		List<JsonItem> raw = (new JsonParser(compileInputStream(request))).parse();
 		List<JsonItem> users = new ArrayList<JsonItem>();
 		for (JsonItem user : raw)
-			users.add(raw.get(0).getAsJsonItem("user"));
+			users.add(user.getAsJsonItem("user"));
 		return users;
 	}
 	
@@ -162,8 +168,8 @@ public class CoffeeShopService implements MagicService {
 	
 	public static int getPlaceID(String place) {
 		for (int i = 0; i < PLACES.length; i++)
-			if (place.matches(PLACES[i]))
-				return i;
+			if (place.equalsIgnoreCase(PLACES[i]))
+				return i+1;
 		return 0;
 	}
 

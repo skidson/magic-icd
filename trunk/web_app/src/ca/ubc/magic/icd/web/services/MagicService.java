@@ -23,7 +23,7 @@ public interface MagicService {
 	public static final String GEOLONG = "geolong";
 	public static final String GEOLAT = "geolat";
 	
-	public static final String[] PLACES = {"None", "Utopia, Nowhere", "Vancouver, BC"};
+	public static final String[] PLACES = {"Utopia, Nowhere", "Vancouver, BC"};
 	
 	public JsonItem createBit(int type, String name, String description);
 	

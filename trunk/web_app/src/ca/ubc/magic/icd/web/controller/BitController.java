@@ -80,9 +80,9 @@ public class BitController {
     }
     
     @RequestMapping(value = "/magic/createBit", method = RequestMethod.POST)
-    public ModelAndView createBit(  @RequestParam("in_name") int type, 
-    								@RequestParam("in_type") String name, 
-    								@RequestParam("in_descrption") String description, 
+    public ModelAndView createBit(  @RequestParam("in_name") String name, 
+    								@RequestParam("in_type") int type, 
+    								@RequestParam("in_description") String description, 
     								@RequestParam("in_place") String place){
     	Map<String, Object>	 model = new HashMap<String, Object>();
     	UserService.addUserContext(model);
@@ -100,5 +100,13 @@ public class BitController {
     			bitInfo.getAsJsonItem("bit").getAsInteger(MagicService.ID));
     	model.put("bit", bit);
     	return new ModelAndView("bit", model);
+    }
+    
+    @RequestMapping(value = "/magic/createBit", method = RequestMethod.GET)
+    public ModelAndView createBit() {
+    	Map<String, Object>	 model = new HashMap<String, Object>();
+    	UserService.addUserContext(model);
+    	
+    	return new ModelAndView("bit_create", model);
     }
 }

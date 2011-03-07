@@ -9,39 +9,25 @@
 		<div id="content-wrap">
 			<div id="main">
 				<h2>Friends</h2>
-			<c:forEach items="{friendsList}" var="friend">
-			
-								<table border="3">
-									<tr>
-										<td rowspan="2" align="center"> <img src="${friend.imageURL}" alt="${friend.name}'s picture" /> </td>
-										<td align="center"> ${friend.username} </td>
-									</tr>
-									<tr>
-										<td align="center">${friend.description}</td>
-									</tr>
-								</table>
-			</c:forEach>
-				
-				
-				
-					<c:if test="${empty friendsList}">
-						Sorry, you have no friends!
-						<a href="<c:url value="/magic/createFriend?friendID=1"/>">Click here to make one! ^_^</a>
 					<c:choose>
-						<c:when test="${!empty friendsList}">
-							
+						<c:when test="${empty friendsList}">
+							Sorry, you have no friends!
 						</c:when>
+						<c:otherwise>
+							<table border="3">
+							<c:forEach items="{friendsList}" var="friend">
+								<tr>
+									<td rowSpan="2" align="center"> <img src="${friend.imageURL}" alt="${friend.name}'s picture" /> </td>
+									<td align="center"> ${friend.name} </td>
+								</tr>
+								<tr> <td align="center">${friend.description}</td> </tr>
+							</c:forEach>
+							</table>
+						</c:otherwise>
 					</c:choose>
-					</c:if>
-</div> <!--  main --> 
+			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	
-					
-		<div id="footer">
-			<%@ include file="/WEB-INF/jsp/footer.jsp" %>
-		</div>	
-
-	<!-- wrap ends here -->
-	</div>
-
+		<%@ include file="/WEB-INF/jsp/footer.jsp" %>
+	</div> <!--  wrap -->
 </body>
 </html>

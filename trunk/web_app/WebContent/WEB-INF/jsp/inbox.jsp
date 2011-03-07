@@ -16,12 +16,7 @@
 				</table>
 			</div> <!-- main -->
 		</div> <!-- content-wrap -->
-					
-		<div id="footer">
-			<%@ include file="/WEB-INF/jsp/footer.jsp" %>
-		</div>	<!-- footer -->
-
+		<%@ include file="/WEB-INF/jsp/footer.jsp" %>
 	</div> <!-- wrap -->
-
 </body>
 </html>
