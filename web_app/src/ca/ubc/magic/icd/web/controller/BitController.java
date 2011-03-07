@@ -91,7 +91,7 @@ public class BitController {
     	if (place.equals("none"))
     		bitInfo = magicService.createBit(type, name, description);
     	else
-    		bitInfo = magicService.createBit(type, name, description, CoffeeShopService.getPlaceID(place));
+    		bitInfo = magicService.createBit(type, name, description);
     	Bit bit = new Bit(bitInfo.getAsString(MagicService.NAME),
     			bitInfo.getAsJsonItem("bit").getAsString(MagicService.DESCRIPTION),
     			bitInfo.getAsJsonItem("bit").getAsString(MagicService.QR_IMAGE_URL),

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-	private String name, username, description;
-	private int exp;
-	private int points;
-	private String imageURL;
+	private String name = "", username = "", description = "";
+	private int exp = 0;
+	private int points = 0;
+	private String imageURL = "";
 	private List<String> friends;
 	private List<Bit> bits;
 	private boolean linked;
