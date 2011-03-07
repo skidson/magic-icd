@@ -54,6 +54,6 @@ public interface MagicService {
 	
 	public JsonItem showUser(int id);
 	
-	public JsonItem searchUser(String query);
+	public List<User> searchUser(String query);
 	
 }
