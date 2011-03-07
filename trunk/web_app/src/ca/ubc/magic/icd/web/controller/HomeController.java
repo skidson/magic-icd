@@ -23,7 +23,7 @@ public class HomeController {
 		Map<String, Object> model = new HashMap<String, Object>();
 		UserService.addUserContext(model);
 		
-		/*JsonItem user1info = magicService.showUser(1);
+		JsonItem user1info = magicService.showUser(1);
 		System.out.println(user1info.toString());
 		JsonItem user2info = magicService.showUser(2);
 		System.out.println(user2info.toString());
@@ -31,12 +31,12 @@ public class HomeController {
 //								, user1info.getAsString("description")
 //								, user1info.getAsInteger("experience")
 //								, user1info.getAsInteger("points"));
-		User user2 = new User(user2info.getAsJsonItem("user").getAsString("name"), user2info.getAsJsonItem("user").getAsString("username")
-								, user2info.getAsJsonItem("user").getAsString("description")
-								, user2info.getAsJsonItem("user").getAsInteger("experience")
-								, user2info.getAsJsonItem("user").getAsInteger("points"));
+		User user2 = new User(user2info.getAsString("name"), user2info.getAsString("username")
+								, user2info.getAsString("description")
+								, user2info.getAsInteger("experience")
+								, user2info.getAsInteger("points"));
 	//	model.put("user1", user1);
-		model.put("user2", user2);*/
+		model.put("user2", user2);
 		return new ModelAndView("home", model);
 	}
 	

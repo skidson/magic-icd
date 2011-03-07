@@ -31,15 +31,12 @@
 					</c:when>
 					
 					<c:otherwise>
-						<form method="get" action="/magic/account">
-							<table><tr>
-								<td><b>Have a MAGIC account? Link it to your CoffeeShop account for this session!</b></td>
-								<td><input class="button" value=" Link your MAGIC account " type="submit"/></td>
-							</tr></table>
-						</form>
+						<a href="<c:url value="/magic/account" />">LINK TO MAGIC</a>
 					</c:otherwise>
 				</c:choose>
+				Linked to magic: ${user.linked} <br>
 				
+				<a href="<c:url value="/basic/forgotPassword"/>">Forgot your password?</a>
 			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	
 					

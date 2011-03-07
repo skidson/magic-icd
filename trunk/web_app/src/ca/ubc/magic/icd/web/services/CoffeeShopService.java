@@ -80,7 +80,7 @@ public class CoffeeShopService implements MagicService {
 	
 	@Override
 	public void createFriend(int id) {
-		String request = "friend/create?id=" + id;
+		String request = "friends/create?id=" + id;
 		(new JsonParser(compileInputStream(request))).parse();
 	}
 
