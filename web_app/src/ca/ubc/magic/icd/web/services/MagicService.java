@@ -1,6 +1,5 @@
 package ca.ubc.magic.icd.web.services;
 
-import java.io.InputStream;
 import java.util.List;
 
 import ca.ubc.magic.icd.web.json.JsonItem;
@@ -23,6 +22,8 @@ public interface MagicService {
 	public static final String BITS_TYPE_ID = "bits_type_id";
 	public static final String GEOLONG = "geolong";
 	public static final String GEOLAT = "geolat";
+	
+	public static final String[] PLACES = {"None", "Utopia, Nowhere", "Vancouver, BC"};
 	
 	public JsonItem createBit(int type, String name, String description);
 	
@@ -53,9 +54,5 @@ public interface MagicService {
 	public JsonItem showUser(int id);
 	
 	public JsonItem searchUser(String query);
-	
-	// debug
-	public List<String> getSparklrPhotoIds();
-	public InputStream loadSparklrPhoto(String id);
 	
 }

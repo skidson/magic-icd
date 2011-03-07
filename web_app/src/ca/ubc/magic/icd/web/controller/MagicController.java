@@ -37,7 +37,7 @@ public class MagicController {
 		return new ModelAndView("account", "magicuser", magicService.showUser(1).toString());
 	}
 	
-	@RequestMapping("/sparklr/photos.jsp")
+	/*@RequestMapping("/sparklr/photos.jsp")
 	public ModelAndView getSparklrPhotoList() {
 		Map<String, String> test = ((CoffeeShopService)magicService).getSparklrRestTemplate().getResource().getAdditionalParameters();
 		if (test == null) {
@@ -69,5 +69,5 @@ public class MagicController {
 				return e.getMessage();
 			}
 		}	
-	}
+	}*/
 }

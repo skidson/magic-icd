@@ -31,6 +31,11 @@
 					<input class="button" value=" Search " type="submit" /></center>
 				</form></tr></table>
 				
+				<div style="float:right; margin-right:20px">
+					<b>Can't find a bit?</b>
+					<input class="button" value=" Create Bit " type="submit" action="/basic/createBit"/>
+				</div>
+				
 				<a href="<c:url value="/magic/createBit?bit_type_id=4&name=coffee&description=mmmmmgood&place_id=5"/>">CREATE A BIT Z0MG</a>
 				
 			</div> <!--  main --> 

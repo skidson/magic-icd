@@ -280,7 +280,7 @@ input.button {
 #main {
 	float: left;
 	width: 98%;
-	padding: 0; margin: 5px 0 0 5px;
+	padding: 0; margin: 10px 10px 10px 10px;
 	display: inline;
 }
 #main h2 {

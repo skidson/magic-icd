@@ -68,9 +68,7 @@ public class JsonItem extends FeedItem {
 	public String toString() {
 		Iterator<Map.Entry<String, Object>> iterator = attributes.entrySet().iterator();
 		StringBuilder builder = new StringBuilder();
-		int i = 0;
 		while (iterator.hasNext()) {
-			i++;
 			Map.Entry<String, Object> pairs = iterator.next();
 			builder.append(pairs.getKey() + ": " + pairs.getValue() + "\n");
 		}
