@@ -23,9 +23,9 @@ public class TestController {
 		UserService.addUserContext(model);
 		
 		JsonItem userInfo = magicService.showUser(2);
-		System.out.println(userInfo.getAsString("username") + "\n");
-		/*System.out.println(userInfo.getAsInteger("id"));
-		System.out.println(userInfo.getAsString("experience"));*/
+		System.out.println(userInfo.getAsString("username"));
+		System.out.println(userInfo.getAsInteger("id"));
+		System.out.println(userInfo.getAsInteger("experience"));
 		
 		return new ModelAndView("home", model);
 	}
