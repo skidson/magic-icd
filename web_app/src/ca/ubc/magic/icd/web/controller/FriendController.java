@@ -35,13 +35,6 @@ public class FriendController {
 		UserService.addUserContext(model);
 		
 		List<User> friendsList = magicService.showFriends();
-		
-		for(User user: friendsList){
-			System.out.println("Username:" + user.getUsername());
-			System.out.println("name:" + user.getName());
-			System.out.println("description:" + user.getDescription());
-			System.out.println("photo:" + user.getImageURL() + "\n");
-		}
 		model.put("friendsList", friendsList);
 		return new ModelAndView("friends", model);
 	}

@@ -25,6 +25,16 @@
 							</table>
 						</c:otherwise>
 					</c:choose>
+					
+				<h2>Looking for someone?</h2><br>
+				<table>
+					<tr>
+						<form method="post" action="/web_app/magic/userSearch">
+						<center><b>Username or name to search for: </b><input type="text" size="40" name="searchQuery" />
+						<input class="button" value=" Search " type="submit" /></center>
+						</form>
+					</tr>
+				</table>
 			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	
 		<%@ include file="/WEB-INF/jsp/footer.jsp" %>

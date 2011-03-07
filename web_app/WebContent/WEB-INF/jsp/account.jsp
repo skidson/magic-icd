@@ -39,7 +39,7 @@
 						</form>
 					</c:otherwise>
 				</c:choose>
-				
+				<a href="<c:url value="/basic/forgotPassword"/>">Forgot your password?</a>
 			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	
 		<%@ include file="/WEB-INF/jsp/footer.jsp" %>
