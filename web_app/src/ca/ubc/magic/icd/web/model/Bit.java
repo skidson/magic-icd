@@ -13,10 +13,11 @@ public class Bit {
 	
 	public Bit() {}
 	
-	public Bit(String name, String description, int bit_type_id, int places_id, int id){
+	public Bit(String name, String description, String imageURL, int bit_type_id, int places_id, int id){
 		this.id = id;
 		this.name = name;
 		this.description = description;
+		this.imageURL = imageURL;
 		this.placeID = places_id;
 		this.typeID = bit_type_id;
 	}

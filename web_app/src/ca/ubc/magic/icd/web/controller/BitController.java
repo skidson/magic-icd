@@ -24,24 +24,25 @@ public class BitController {
 	private MagicService magicService;
 	
     @RequestMapping("/basic/bits")
-    public ModelAndView showList() {
+    public ModelAndView basicBits() {
     	Map<String, Object> model = new HashMap<String, Object>();
 		UserService.addUserContext(model);
     	
 		// Dummy values until we can connect to broker
     	List<Bit> bitsList = new ArrayList<Bit>();
     	bitsList.add(new Bit("Coffee", "A delicious drink. Brewed from Columbian beans at a perfect temperature " +
-    			" and topped off with a swirl of whipped cream. MMmmmmm.", CoffeeShopService.DRINK, 1, 1));
-    	bitsList.add(new Bit("Ham & Cheese Panini", "A delicious meal", CoffeeShopService.FOOD, 1, 2));
+    			" and topped off with a swirl of whipped cream. MMmmmmm.", "", CoffeeShopService.DRINK, 1, 1));
+    	bitsList.add(new Bit("Ham & Cheese Panini", "A delicious meal", "", CoffeeShopService.FOOD, 1, 2));
     	
     	model.put("bitsList", bitsList);
     	return new ModelAndView("bits", model);
     }
     
     @RequestMapping("/magic/bits")
-    public ModelAndView bitsPage() {
+    public ModelAndView magicBits() {
     	Map<String, Object> model = new HashMap<String, Object>();
 		UserService.addUserContext(model);
+		
     	
 		// Dummy values until we can connect to broker
     	List<Bit> bitsList = new ArrayList<Bit>();
@@ -57,8 +58,9 @@ public class BitController {
     	
     	JsonItem bitInfo = magicService.showBit(bitID); // TODO sanitize this input
     	System.out.println(bitInfo.toString());
-    	Bit bit = new Bit(bitInfo.getAsString(MagicService.NAME),
-    			bitInfo.getAsString(MagicService.DESCRIPTION),
+    	Bit bit = new Bit(bitInfo.getAsJsonItem("bit").getAsString(MagicService.NAME),
+    			bitInfo.getAsJsonItem("bit").getAsString(MagicService.DESCRIPTION),
+    			bitInfo.getAsJsonItem("bit").getAsString(MagicService.QR_IMAGE_URL),
     			3,
     			1,
     			bitID);
@@ -91,10 +93,11 @@ public class BitController {
     	else
     		bitInfo = magicService.createBit(type, name, description, CoffeeShopService.getPlaceID(place));
     	Bit bit = new Bit(bitInfo.getAsString(MagicService.NAME),
-    			bitInfo.getAsString(MagicService.DESCRIPTION),
-    			bitInfo.getAsInteger(MagicService.BITS_TYPE_ID),
-    			bitInfo.getAsInteger(MagicService.PLACES_ID),
-    			bitInfo.getAsInteger(MagicService.ID));
+    			bitInfo.getAsJsonItem("bit").getAsString(MagicService.DESCRIPTION),
+    			bitInfo.getAsJsonItem("bit").getAsString(MagicService.QR_IMAGE_URL),
+    			bitInfo.getAsJsonItem("bit").getAsInteger(MagicService.BITS_TYPE_ID),
+    			bitInfo.getAsJsonItem("bit").getAsInteger(MagicService.PLACES_ID),
+    			bitInfo.getAsJsonItem("bit").getAsInteger(MagicService.ID));
     	model.put("bit", bit);
     	return new ModelAndView("bit", model);
     }

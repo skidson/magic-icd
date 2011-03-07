@@ -19,7 +19,7 @@ public class HomeController {
 	private MagicService magicService;
 
 	@RequestMapping("/magic/home")
-	public ModelAndView homePage() {
+	public ModelAndView magicHome() {
 		Map<String, Object> model = new HashMap<String, Object>();
 		UserService.addUserContext(model);
 		
@@ -31,12 +31,19 @@ public class HomeController {
 //								, user1info.getAsString("description")
 //								, user1info.getAsInteger("experience")
 //								, user1info.getAsInteger("points"));
-		User user2 = new User(user2info.getAsString("name"), user2info.getAsString("username")
-								, user2info.getAsString("description")
-								, user2info.getAsInteger("experience")
-								, user2info.getAsInteger("points"));
+		User user2 = new User(user2info.getAsJsonItem("user").getAsString("name"), user2info.getAsJsonItem("user").getAsString("username")
+								, user2info.getAsJsonItem("user").getAsString("description")
+								, user2info.getAsJsonItem("user").getAsInteger("experience")
+								, user2info.getAsJsonItem("user").getAsInteger("points"));
 	//	model.put("user1", user1);
 		model.put("user2", user2);
+		return new ModelAndView("home", model);
+	}
+	
+	@RequestMapping("/basic/home")
+	public ModelAndView basicHome() {
+		Map<String, Object> model = new HashMap<String, Object>();
+		UserService.addUserContext(model);
 		return new ModelAndView("home", model);
 	}
 

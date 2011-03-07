@@ -10,6 +10,7 @@ public class User {
 	private String imageURL;
 	private List<String> friends;
 	private List<Bit> bits;
+	private boolean linked;
 	
 	public User(){}
 	
@@ -46,8 +47,8 @@ public class User {
 	}
 	
 	public List<Bit> getBits(){
-		Bit mocha = new Bit("Mocha", "Pretty good", 4, 2, 3);
-		Bit cappuccino = new Bit("Cappuccino", "good", 4, 1, 5);
+		Bit mocha = new Bit("Mocha", "Pretty good", "", 4, 2, 3);
+		Bit cappuccino = new Bit("Cappuccino", "good", "", 4, 1, 5);
 		bits.add(mocha);
 		bits.add(cappuccino);
 		return bits;
@@ -95,5 +96,13 @@ public class User {
 
 	public String getImageURL() {
 		return imageURL;
+	}
+
+	public void setLinked(boolean linked) {
+		this.linked = linked;
+	}
+
+	public boolean isLinked() {
+		return linked;
 	}
 }

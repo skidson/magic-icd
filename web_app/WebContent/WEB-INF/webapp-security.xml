@@ -35,7 +35,6 @@
 	
 	<oauth:consumer resource-details-service-ref="resourceDetails" oauth-failure-page="/basic/error">
 		<oauth:url pattern="/magic/**" resources="magicBroker" />
-		<oauth:url pattern="/sparklr/**" resources="sparklrPhotos" />
 	</oauth:consumer>
 	
 	<oauth:resource-details-service id="resourceDetails">
@@ -45,15 +44,6 @@
 		                request-token-url="http://kimberly.magic.ubc.ca:8080/1/request_token"
 		                user-authorization-url="http://kimberly.magic.ubc.ca:8080/1/authorize"
 		                access-token-url="http://kimberly.magic.ubc.ca:8080/1/access_token">
-		            <!--   	user-authorization-callback-param="oauth_callback">
-			<oauth:addtionalParameter name="oauth_callback" value="http://localhost:8010/web_app/basic/callback"/> -->  
-        </oauth:resource>
-        <oauth:resource id="sparklrPhotos"
-                    key="tonr-consumer-key"
-                    secret="SHHHHH!!!!!!!!!!"
-                    request-token-url="http://localhost:8080/sparklr/oauth/request_token"
-                    user-authorization-url="http://localhost:8080/sparklr/oauth/confirm_access"
-                    access-token-url="http://localhost:8080/sparklr/oauth/access_token">
         </oauth:resource>
 	</oauth:resource-details-service>
 	
