@@ -14,12 +14,13 @@ public class User {
 	
 	public User(){}
 	
-	public User(String name, String username, String description, int exp, int points){
+	public User(String name, String username, String description, String imageURL, int exp, int points){
 		this.name = name;
 		this.username = username;
 		this.description = description;
 		this.exp = exp;
 		this.points = points;
+		this.imageURL = imageURL;
 		friends = new ArrayList<String>();
 		bits = new ArrayList<Bit>();
 	}

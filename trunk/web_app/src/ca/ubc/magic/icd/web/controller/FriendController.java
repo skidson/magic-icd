@@ -37,13 +37,14 @@ public class FriendController {
 		Iterator<JsonItem> iterator = magicService.showFriends().iterator();
 		List<User> friendsList = new ArrayList<User>();
 		while (iterator.hasNext()) {
-			JsonItem currentUser = iterator.next();
-			if(currentUser != null){
-				User user = new User(currentUser.getAsJsonItem("user").getAsString("name"), currentUser.getAsJsonItem("user").getAsString("username")
-						, currentUser.getAsJsonItem("user").getAsString("description")
-						, 1
-						, 1);
-				user.setImageURL(currentUser.getAsJsonItem("user").getAsString("photo"));
+			JsonItem friend = iterator.next().getAsJsonItem("user");
+			if (friend != null) {
+				User user = new User(friend.getAsString("name"), 
+						friend.getAsString("username"),
+						friend.getAsString("description"),
+						friend.getAsString("photo"),
+						friend.getAsInteger("experience"),
+						friend.getAsInteger("points"));
 				friendsList.add(user);
 			}
 			
@@ -54,7 +55,7 @@ public class FriendController {
 			System.out.println("description:" + user.getDescription());
 			System.out.println("photo:" + user.getImageURL() + "\n");
 		}
-		model.put("friendList", friendsList);
+		model.put("friendsList", friendsList);
 		return new ModelAndView("friends", model);
 	}
 	
