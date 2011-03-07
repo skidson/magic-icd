@@ -1,5 +1,7 @@
 package ca.ubc.magic.icd.web.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,10 +44,17 @@ public class BitController {
     public ModelAndView magicBits() {
     	Map<String, Object> model = new HashMap<String, Object>();
 		UserService.addUserContext(model);
-		
     	
-		// Dummy values until we can connect to broker
+		int i = 1;
     	List<Bit> bitsList = new ArrayList<Bit>();
+    	while (true) {
+    		JsonItem bitInfo = magicService.showBit(i);
+    		if (bitInfo == null)
+    			break;
+    		Bit bit = new Bit(bitInfo);
+    		bitsList.add(bit);
+    		i++;
+    	}
     	
     	model.put("bitsList", bitsList);
     	return new ModelAndView("bits", model);
@@ -56,12 +65,11 @@ public class BitController {
     	Map<String, Object> model = new HashMap<String, Object>();
 		UserService.addUserContext(model);
     	
-    	JsonItem bitInfo = magicService.showBit(bitID); // TODO sanitize this input
-    	System.out.println(bitInfo.toString());
+    	JsonItem bitInfo = magicService.showBit(bitID);
     	Bit bit = new Bit(bitInfo.getAsJsonItem("bit").getAsString(MagicService.NAME),
     			bitInfo.getAsJsonItem("bit").getAsString(MagicService.DESCRIPTION),
     			bitInfo.getAsJsonItem("bit").getAsString(MagicService.QR_IMAGE_URL),
-    			bitInfo.getAsJsonItem("bit").getAsInteger(MagicService.BITS_TYPE_ID),
+    			bitInfo.getAsJsonItem("bit").getAsInteger(MagicService.BITS_TYPES_ID),
     			bitInfo.getAsJsonItem("bit").getAsInteger(MagicService.PLACES_ID),
     			bitID);
     	
@@ -87,15 +95,21 @@ public class BitController {
     	Map<String, Object>	 model = new HashMap<String, Object>();
     	UserService.addUserContext(model);
     	
+    	try {
+    		name = URLEncoder.encode(name, MagicService.ENCODING);
+			description = URLEncoder.encode(description, MagicService.ENCODING);
+		} catch (UnsupportedEncodingException e) {}
+    	
     	JsonItem bitInfo = null;
     	if (place.equals("none"))
     		bitInfo = magicService.createBit(type, name, description);
     	else
-    		bitInfo = magicService.createBit(type, name, description);
-    	Bit bit = new Bit(bitInfo.getAsString(MagicService.NAME),
+    		bitInfo = magicService.createBit(type, name, description, place);
+    	
+    	Bit bit = new Bit(bitInfo.getAsJsonItem("bit").getAsString(MagicService.NAME),
     			bitInfo.getAsJsonItem("bit").getAsString(MagicService.DESCRIPTION),
     			bitInfo.getAsJsonItem("bit").getAsString(MagicService.QR_IMAGE_URL),
-    			bitInfo.getAsJsonItem("bit").getAsInteger(MagicService.BITS_TYPE_ID),
+    			bitInfo.getAsJsonItem("bit").getAsInteger(MagicService.BITS_TYPES_ID),
     			bitInfo.getAsJsonItem("bit").getAsInteger(MagicService.PLACES_ID),
     			bitInfo.getAsJsonItem("bit").getAsInteger(MagicService.ID));
     	model.put("bit", bit);

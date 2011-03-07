@@ -26,7 +26,7 @@ public class CoffeeShopService implements MagicService {
 
 	@Override
 	public JsonItem createBit(int type, String name, String description) {
-		String request = "bits/create?bits_types=" + type + "&name="
+		String request = "bits/create?bits_types_id=" + type + "&name="
 			+ name + "&description=" + description;
 		return (new JsonParser(compileInputStream(request))).parse().get(0);
 	}
@@ -41,9 +41,9 @@ public class CoffeeShopService implements MagicService {
 	 * @see MagicService
 	 */
 	@Override
-	public JsonItem createBit(int type, String name, String description, int place) {
-		String request = "bits/create?bits_types=" + type + "&name="
-			+ name + "&description=" + description + "&places_id=" + place;
+	public JsonItem createBit(int type, String name, String description, String place) {
+		String request = "bits/create?bits_types_id=" + type + "&name="
+			+ name + "&description=" + description + "&places_id=" + getPlaceID(place);
 		return (new JsonParser(compileInputStream(request))).parse().get(0);
 	}
 
@@ -76,7 +76,7 @@ public class CoffeeShopService implements MagicService {
 	 * @param id ID number for the bit to check into the current user.
 	 */
 	public JsonItem checkin(int id) {
-		String request = "checkin/bit?id=" + id;
+		String request = "checkins/bit?id=" + id;
 		return (new JsonParser(compileInputStream(request))).parse().get(0);
 	}
 	
@@ -238,9 +238,9 @@ public class CoffeeShopService implements MagicService {
 				.getForObject(URI.create(getMagicURLPattern() + request), byte[].class));
 	}
 	
-	public static int getPlaceID(String place) {
+	private static int getPlaceID(String place) {
 		for (int i = 0; i < PLACES.length; i++)
-			if (place.equalsIgnoreCase(PLACES[i]))
+			if ((PLACES[i].contains(place)))
 				return i+1;
 		return 0;
 	}

@@ -1,6 +1,8 @@
 package ca.ubc.magic.icd.web.model;
 
+import ca.ubc.magic.icd.web.json.JsonItem;
 import ca.ubc.magic.icd.web.services.CoffeeShopService;
+import ca.ubc.magic.icd.web.services.MagicService;
 
 public class Bit {
 	private String name;
@@ -20,6 +22,15 @@ public class Bit {
 		this.imageURL = imageURL;
 		this.placeID = places_id;
 		this.typeID = bit_type_id;
+	}
+	
+	public Bit(JsonItem bitInfo) {
+		this(bitInfo.getAsJsonItem("bit").getAsString(MagicService.NAME),
+				bitInfo.getAsJsonItem("bit").getAsString(MagicService.DESCRIPTION),
+				bitInfo.getAsJsonItem("bit").getAsString(MagicService.QR_IMAGE_URL),
+				bitInfo.getAsJsonItem("bit").getAsInteger(MagicService.BITS_TYPES_ID),
+				bitInfo.getAsJsonItem("bit").getAsInteger(MagicService.PLACES_ID),
+				bitInfo.getAsJsonItem("bit").getAsInteger(MagicService.ID));
 	}
 	
 	public void setName(String name){
@@ -102,6 +113,11 @@ public class Bit {
 
 	public String getImageURL() {
 		return imageURL;
+	}
+	
+	public String toString() {
+		return ("name: " + name + "\ntype: " + getType() + "\nid:" + id + "\nplaceID: + "
+			+ placeID + "\nimageURL: " + imageURL + "\nDescription: " + description);
 	}
 	
 }

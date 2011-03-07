@@ -13,7 +13,7 @@
 			http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
         
     <context:component-scan base-package="ca.ubc.magic.icd.web.controller"/>
-        
+    
 	<bean id="handlerMapping" class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
 		<property name="alwaysUseFullPath" value = "true" />
 	</bean>
@@ -30,6 +30,8 @@
 			</list>
 		</property>
 	</bean>
+	
+	<bean id="linked" class="ca.ubc.magic.icd.web.model.Linked" scope="session" />
 	
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver">

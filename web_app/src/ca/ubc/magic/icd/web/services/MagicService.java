@@ -20,15 +20,16 @@ public interface MagicService {
 	public static final String PLACES_ID = "places_id";
 	public static final String DESCRIPTION = "description";
 	public static final String NAME = "name";
-	public static final String BITS_TYPE_ID = "bits_type_id";
+	public static final String BITS_TYPES_ID = "bits_types_id";
 	public static final String GEOLONG = "geolong";
 	public static final String GEOLAT = "geolat";
 	
 	public static final String[] PLACES = {"Utopia, Nowhere", "Vancouver, BC"};
+	public static final String ENCODING = "UTF-8";
 	
 	public JsonItem createBit(int type, String name, String description);
 	
-	public JsonItem createBit(int type, String name, String description, int place);
+	public JsonItem createBit(int type, String name, String description, String place);
 	
 	public JsonItem showBit(int id);
 	
