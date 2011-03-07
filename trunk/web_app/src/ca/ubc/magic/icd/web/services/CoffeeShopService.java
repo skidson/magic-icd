@@ -4,12 +4,14 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.security.oauth.consumer.OAuthRestTemplate;
 
 import ca.ubc.magic.icd.web.json.JsonItem;
 import ca.ubc.magic.icd.web.json.JsonParser;
+import ca.ubc.magic.icd.web.model.User;
 
 public class CoffeeShopService implements MagicService {
 	private String magicURLPattern;
@@ -90,24 +92,66 @@ public class CoffeeShopService implements MagicService {
 		(new JsonParser(compileInputStream(request))).parse();
 	}
 	
-	// TODO fix this
-	public List<JsonItem> showFriends() {
+	public List<User> showFriends() {
 		String request = "friends/show";
-		List<JsonItem> raw = (new JsonParser(compileInputStream(request))).parse();
-		List<JsonItem> users = new ArrayList<JsonItem>();
-		for (JsonItem user : raw)
-			users.add(user.getAsJsonItem("user"));
-		return new JsonParser(compileInputStream(request)).parse();
+		Iterator<JsonItem> iterator = (new JsonParser(compileInputStream(request))).parse().iterator();
+		List<User> list = new ArrayList<User>();
+		while (iterator.hasNext()) {
+			JsonItem friend = iterator.next().getAsJsonItem("user");
+			
+			String name, username, description, photo;
+			Integer experience, points;
+			try {
+				name = friend.getAsString("name");
+				username = friend.getAsString("username");
+				description = friend.getAsString("description");
+				photo = friend.getAsString("photo");
+				try {
+					experience = friend.getAsInteger("experience");
+					points = friend.getAsInteger("points");
+				} catch (NumberFormatException e) {
+					experience = 0;
+					points = 0;
+				}
+			} catch (NullPointerException e) {
+				continue;
+			}
+			User user = new User(name, username, description, photo,
+					experience, points);
+			list.add(user);
+		}
+		return list;
 	}
 	
-	// TODO fix this
-	public List<JsonItem> showFriends(int id) {
+	public List<User> showFriends(int id) {
 		String request = "friends/show?id=" + id;
-		List<JsonItem> raw = (new JsonParser(compileInputStream(request))).parse();
-		List<JsonItem> users = new ArrayList<JsonItem>();
-		for (JsonItem user : raw)
-			users.add(user.getAsJsonItem("user"));
-		return users;
+		Iterator<JsonItem> iterator = (new JsonParser(compileInputStream(request))).parse().iterator();
+		List<User> list = new ArrayList<User>();
+		while (iterator.hasNext()) {
+			JsonItem friend = iterator.next().getAsJsonItem("user");
+			
+			String name, username, description, photo;
+			Integer experience, points;
+			try {
+				name = friend.getAsString("name");
+				username = friend.getAsString("username");
+				description = friend.getAsString("description");
+				photo = friend.getAsString("photo");
+				try {
+					experience = friend.getAsInteger("experience");
+					points = friend.getAsInteger("points");
+				} catch (NumberFormatException e) {
+					experience = 0;
+					points = 0;
+				}
+			} catch (NullPointerException e) {
+				continue;
+			}
+			User user = new User(name, username, description, photo,
+					experience, points);
+			list.add(user);
+		}
+		return list;
 	}
 	
 	/**
