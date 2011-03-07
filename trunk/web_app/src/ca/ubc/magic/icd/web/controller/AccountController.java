@@ -37,6 +37,7 @@ public class AccountController {
 				profile.getAsString("username"),
 				profile.getAsString("description"),
 				profile.getAsString("photo"),
+				profile.getAsInteger("id"),
 				profile.getAsInteger("experience"),
 				profile.getAsInteger("points"));
 		model.put("profile", user);

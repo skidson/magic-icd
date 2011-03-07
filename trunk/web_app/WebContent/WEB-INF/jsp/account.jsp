@@ -27,7 +27,7 @@
 						</table>
 					
 						CHECKIN TEST:
-						<a href="<c:url value="/magic/checkinBit?id=1"/>">Checkin to bit 1 </a>
+						<a href="<c:url value="http://kimberly.magic.ubc.ca:8080/1/bits/create?bit_types_id=1&name=coffee&description=yum"/>">Create a coffee </a>
 					</c:when>
 					
 					<c:otherwise>
