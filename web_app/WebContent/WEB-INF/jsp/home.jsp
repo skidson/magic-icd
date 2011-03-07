@@ -19,7 +19,9 @@
 					</tr>
 				</table>
 				
-				<table border="2">
+				<a href="<c:url value="/magic/test" />">TEST CONTROLLER</a>
+				
+				<!-- <table border="2">
 					<tr>
 						<td rowspan="2" align="center"> <img src="${user2.imageURL}" alt="${user2.name}'s picture" /> </td>
 						<td align="center"> ${user2.name} </td>
@@ -27,7 +29,7 @@
 					<tr>
 						<td align="center">${user2.description}</td>
 					</tr>
-				</table>
+				</table> -->
 				
 				
 				

@@ -4,9 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.security.oauth.consumer.OAuthRestTemplate;
 
@@ -26,7 +24,7 @@ public class CoffeeShopService implements MagicService {
 
 	@Override
 	public JsonItem createBit(int type, String name, String description) {
-		String request = "create?bits_types=" + type + "&name="
+		String request = "bit/create?bits_types=" + type + "&name="
 			+ name + "&description=" + description;
 		return (new JsonParser(compileInputStream(request))).parse().get(0);
 	}
@@ -106,14 +104,25 @@ public class CoffeeShopService implements MagicService {
 		return users;
 	}
 	
+	/**
+	 * Fetches the current user's data from the MAGIC Broker database.
+	 * @return a JsonItem representing the "user".
+	 * @see MagicService
+	 */
 	public JsonItem showUser() {
 		String request = "user/show";
-		return (new JsonParser(compileInputStream(request))).parse().get(0);
+		return (new JsonParser(compileInputStream(request))).parse().get(0).getAsJsonItem("user");
 	}
 	
+	/**
+	 * Fetches the user's data from the MAGIC Broker database.
+	 * @param id the ID of the user whose data to fetch from the MAGIC Broker database.
+	 * @return a JsonItem representing the "user".
+	 * @see MagicService
+	 */
 	public JsonItem showUser(int id) {
 		String request = "user/show?id=" + id;
-		return (new JsonParser(compileInputStream(request))).parse().get(0);
+		return (new JsonParser(compileInputStream(request))).parse().get(0).getAsJsonItem("user");
 	}
 	
 	public JsonItem searchUser(String query) {

@@ -41,7 +41,7 @@ public class JsonItem extends FeedItem {
 	}
 	
 	public Integer getAsInteger(String key) {
-		return (Integer) this.attributes.get(key);
+		return Integer.parseInt((String)this.attributes.get(key));
 	}
 	
 	public String getAsString(String key) {
