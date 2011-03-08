@@ -9,12 +9,9 @@ import java.util.List;
 
 import org.springframework.security.oauth.consumer.OAuthRestTemplate;
 
-import com.lowagie.text.pdf.AcroFields.Item;
-
 import ca.ubc.magic.icd.web.json.JsonItem;
 import ca.ubc.magic.icd.web.json.JsonParser;
 import ca.ubc.magic.icd.web.model.Bit;
-import ca.ubc.magic.icd.web.model.MagicItem;
 import ca.ubc.magic.icd.web.model.User;
 
 public class CoffeeShopService implements MagicService {

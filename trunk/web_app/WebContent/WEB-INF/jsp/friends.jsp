@@ -9,7 +9,11 @@
 		<div id="content-wrap">
 			<div id="main">
 				<h2>Friends</h2>
+				
 					<c:choose>
+						<c:when test="${!linked.magic}">
+							<br><center>We can't see your friends! Have you linked up with your <a href="<c:url value="/basic/account" />">MAGIC account?</a></center><br>
+						</c:when>
 						<c:when test="${empty friendsList}">
 							Sorry, you have no friends!
 						</c:when>
