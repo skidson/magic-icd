@@ -11,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ca.ubc.magic.icd.web.json.JsonItem;
 import ca.ubc.magic.icd.web.model.LinkManager;
-import ca.ubc.magic.icd.web.model.Linked;
 import ca.ubc.magic.icd.web.model.User;
 import ca.ubc.magic.icd.web.services.MagicService;
 import ca.ubc.magic.icd.web.services.UserService;

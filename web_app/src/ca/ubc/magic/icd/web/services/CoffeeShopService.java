@@ -9,8 +9,12 @@ import java.util.List;
 
 import org.springframework.security.oauth.consumer.OAuthRestTemplate;
 
+import com.lowagie.text.pdf.AcroFields.Item;
+
 import ca.ubc.magic.icd.web.json.JsonItem;
 import ca.ubc.magic.icd.web.json.JsonParser;
+import ca.ubc.magic.icd.web.model.Bit;
+import ca.ubc.magic.icd.web.model.MagicItem;
 import ca.ubc.magic.icd.web.model.User;
 
 public class CoffeeShopService implements MagicService {
@@ -205,6 +209,101 @@ public class CoffeeShopService implements MagicService {
 			User user = new User(name, username, description, photo, userID,
 					experience, points);
 			list.add(user);
+		}
+		return list;
+	}
+	
+	/**
+	 * Creates a link between the identified user and a bit in the MAGIC Broker database.
+	 * @param id the identification number of the bit to link to.
+	 * @return a JsonItem representing the link, containing all the linked "bit" and "user" items.
+	 */
+	public JsonItem createLink(int id) {
+		String request = "links/create?id=" + id;
+		return (new JsonParser(compileInputStream(request))).parse().get(0);
+	}
+	
+	public JsonItem destroyLink(int id) {
+		String request = "links/destroy?id=" + id;
+		return (new JsonParser(compileInputStream(request))).parse().get(0);
+	}
+	
+	public List<User> showUserLinks() {
+		String request = "links/show";
+		Iterator<JsonItem> iterator = (new JsonParser(compileInputStream(request))).parse().iterator();
+		List<User> list = new ArrayList<User>();
+		while (iterator.hasNext()) {
+			JsonItem match = iterator.next();
+			try {
+				User user = null;
+				if (match.containsKey("user"))
+					user = new User(match);
+				else
+					continue;
+				list.add(user);
+			} catch (NullPointerException e) {
+				continue;
+			}
+		}
+		return list;
+	}
+	
+	public List<User> showUserLinks(int id) {
+		String request = "links/show?id=" + id;
+		Iterator<JsonItem> iterator = (new JsonParser(compileInputStream(request))).parse().iterator();
+		List<User> list = new ArrayList<User>();
+		while (iterator.hasNext()) {
+			JsonItem match = iterator.next();
+			try {
+				User user = null;
+				if (match.containsKey("user"))
+					user = new User(match);
+				else
+					continue;
+				list.add(user);
+			} catch (NullPointerException e) {
+				continue;
+			}
+		}
+		return list;
+	}
+	
+	public List<Bit> showBitLinks() {
+		String request = "links/show";
+		Iterator<JsonItem> iterator = (new JsonParser(compileInputStream(request))).parse().iterator();
+		List<Bit> list = new ArrayList<Bit>();
+		while (iterator.hasNext()) {
+			JsonItem match = iterator.next();
+			try {
+				Bit bit = null;
+				if (match.containsKey("bit"))
+					bit = new Bit(match);
+				else
+					continue;
+				list.add(bit);
+			} catch (NullPointerException e) {
+				continue;
+			}
+		}
+		return list;
+	}
+	
+	public List<Bit> showBitLinks(int id) {
+		String request = "links/show?id=" + id;
+		Iterator<JsonItem> iterator = (new JsonParser(compileInputStream(request))).parse().iterator();
+		List<Bit> list = new ArrayList<Bit>();
+		while (iterator.hasNext()) {
+			JsonItem match = iterator.next();
+			try {
+				Bit bit = null;
+				if (match.containsKey("bit"))
+					bit = new Bit(match);
+				else
+					continue;
+				list.add(bit);
+			} catch (NullPointerException e) {
+				continue;
+			}
 		}
 		return list;
 	}
