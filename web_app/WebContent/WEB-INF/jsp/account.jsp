@@ -11,7 +11,7 @@
 				<h2>Account</h2>
 				
 				<c:choose>
-					<c:when test="${user.linked}">
+					<c:when test="${linked.magic}">
 						<table>
 							<tr>
 								<td rowSpan="2" align="center"> <img src="${profile.imageURL}" alt="${profile.name}'s picture" /> </td>
@@ -39,7 +39,9 @@
 						</form>
 					</c:otherwise>
 				</c:choose>
-				<a href="<c:url value="/basic/forgotPassword"/>">Forgot your password?</a>
+				
+				linked.magic = ${linked.magic}
+				
 			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	
 		<%@ include file="/WEB-INF/jsp/footer.jsp" %>

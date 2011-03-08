@@ -31,7 +31,14 @@
 		</property>
 	</bean>
 	
-	<bean id="linked" class="ca.ubc.magic.icd.web.model.Linked" scope="session" />
+	<bean id="linked" class="ca.ubc.magic.icd.web.model.Linked" scope="session">
+		<property name="magic" value="false"/>
+		<aop:scoped-proxy/>
+	</bean>
+	
+	<bean id="linkManager" class="ca.ubc.magic.icd.web.model.LinkManager">
+		<property name="linked" ref="linked"/>
+	</bean>
 	
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver">

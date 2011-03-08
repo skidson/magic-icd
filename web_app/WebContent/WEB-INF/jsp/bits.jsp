@@ -31,7 +31,7 @@
 					<input class="button" value=" Search " type="submit" /></center>
 				</form></tr></table>
 				
-				<c:if test="${user.linked}">
+				<c:if test="${linked.magic}">
 					<form method="get" action="createBit">
 						<table align=right><tr>
 							<td><b>Can't find a bit? </b></td>
