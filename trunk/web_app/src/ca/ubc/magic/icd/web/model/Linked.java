@@ -3,22 +3,16 @@ package ca.ubc.magic.icd.web.model;
 import java.io.Serializable;;
 
 public class Linked implements Serializable {
-	private String magic = "false";
+	private static final long serialVersionUID = 3494464632450103033L;
+	private boolean magic;
 	
 	public Linked() {}
-
-	public void setMagic(String magic) {
-		this.magic = magic;
-	}
 	
 	public void setMagic(boolean linked) {
-		if (linked)
-			magic = "true";
-		else
-			magic = "false";
+		magic = linked;
 	}
 
-	public String isMagic() {
+	public boolean isMagic() {
 		return magic;
 	}
 

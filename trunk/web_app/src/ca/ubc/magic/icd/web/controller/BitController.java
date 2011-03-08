@@ -16,19 +16,24 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ca.ubc.magic.icd.web.json.JsonItem;
 import ca.ubc.magic.icd.web.model.Bit;
+import ca.ubc.magic.icd.web.model.LinkManager;
 import ca.ubc.magic.icd.web.services.CoffeeShopService;
 import ca.ubc.magic.icd.web.services.MagicService;
 import ca.ubc.magic.icd.web.services.UserService;
  
 @Controller
 public class BitController {
+	private static final int BITS_PER_PAGE = 20;
+	
 	@Autowired
 	private MagicService magicService;
 	
+	@Autowired 
+	private LinkManager linkManager;
+	
     @RequestMapping("/basic/bits")
     public ModelAndView basicBits() {
-    	Map<String, Object> model = new HashMap<String, Object>();
-		UserService.addUserContext(model);
+    	Map<String, Object> model = UserService.initUserContext(linkManager);
     	
 		// Dummy values until we can connect to broker
     	List<Bit> bitsList = new ArrayList<Bit>();
@@ -42,18 +47,17 @@ public class BitController {
     
     @RequestMapping("/magic/bits")
     public ModelAndView magicBits() {
-    	Map<String, Object> model = new HashMap<String, Object>();
-		UserService.addUserContext(model);
+    	Map<String, Object> model = UserService.initUserContext(linkManager);
     	
-		int i = 1;
     	List<Bit> bitsList = new ArrayList<Bit>();
-    	while (true) {
-    		JsonItem bitInfo = magicService.showBit(i);
-    		if (bitInfo == null)
-    			break;
-    		Bit bit = new Bit(bitInfo);
-    		bitsList.add(bit);
-    		i++;
+    	for(int i = 1; i < BITS_PER_PAGE; i++) {
+    		try {
+	    		JsonItem bitInfo = magicService.showBit(i);
+	    		Bit bit = new Bit(bitInfo);
+	    		bitsList.add(bit);
+    		} catch (Exception e) {
+    			continue;
+    		}
     	}
     	
     	model.put("bitsList", bitsList);
@@ -62,25 +66,15 @@ public class BitController {
     
     @RequestMapping("/magic/bit")
     public ModelAndView showBit(@RequestParam("id") int bitID) {
-    	Map<String, Object> model = new HashMap<String, Object>();
-		UserService.addUserContext(model);
-    	
-    	JsonItem bitInfo = magicService.showBit(bitID);
-    	Bit bit = new Bit(bitInfo.getAsJsonItem("bit").getAsString(MagicService.NAME),
-    			bitInfo.getAsJsonItem("bit").getAsString(MagicService.DESCRIPTION),
-    			bitInfo.getAsJsonItem("bit").getAsString(MagicService.QR_IMAGE_URL),
-    			bitInfo.getAsJsonItem("bit").getAsInteger(MagicService.BITS_TYPES_ID),
-    			bitInfo.getAsJsonItem("bit").getAsInteger(MagicService.PLACES_ID),
-    			bitID);
-    	
+    	Map<String, Object> model = UserService.initUserContext(linkManager);
+    	Bit bit = new Bit(magicService.showBit(bitID));
     	model.put("bit", bit);
     	return new ModelAndView("bit", model);
     }
     
     @RequestMapping("/magic/checkinBit")
     public ModelAndView checkIn(@RequestParam("id") int bitID){
-    	Map<String, Object>	 model = new HashMap<String, Object>();
-    	UserService.addUserContext(model);
+    	Map<String, Object> model = UserService.initUserContext(linkManager);
     	
     	JsonItem checkinInfo = magicService.checkin(bitID);
     	System.out.println(checkinInfo.toString());
@@ -92,8 +86,7 @@ public class BitController {
     								@RequestParam("in_type") int type, 
     								@RequestParam("in_description") String description, 
     								@RequestParam("in_place") String place){
-    	Map<String, Object>	 model = new HashMap<String, Object>();
-    	UserService.addUserContext(model);
+    	Map<String, Object> model = UserService.initUserContext(linkManager);
     	
     	try {
     		name = URLEncoder.encode(name, MagicService.ENCODING);
@@ -106,20 +99,14 @@ public class BitController {
     	else
     		bitInfo = magicService.createBit(type, name, description, place);
     	
-    	Bit bit = new Bit(bitInfo.getAsJsonItem("bit").getAsString(MagicService.NAME),
-    			bitInfo.getAsJsonItem("bit").getAsString(MagicService.DESCRIPTION),
-    			bitInfo.getAsJsonItem("bit").getAsString(MagicService.QR_IMAGE_URL),
-    			bitInfo.getAsJsonItem("bit").getAsInteger(MagicService.BITS_TYPES_ID),
-    			bitInfo.getAsJsonItem("bit").getAsInteger(MagicService.PLACES_ID),
-    			bitInfo.getAsJsonItem("bit").getAsInteger(MagicService.ID));
+    	Bit bit = new Bit(bitInfo);
     	model.put("bit", bit);
     	return new ModelAndView("bit", model);
     }
     
     @RequestMapping(value = "/magic/createBit", method = RequestMethod.GET)
     public ModelAndView createBit() {
-    	Map<String, Object>	 model = new HashMap<String, Object>();
-    	UserService.addUserContext(model);
+    	Map<String, Object> model = UserService.initUserContext(linkManager);
     	
     	return new ModelAndView("bit_create", model);
     }

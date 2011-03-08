@@ -1,6 +1,5 @@
 package ca.ubc.magic.icd.web.controller;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ca.ubc.magic.icd.web.json.JsonItem;
+import ca.ubc.magic.icd.web.model.LinkManager;
+import ca.ubc.magic.icd.web.model.Linked;
 import ca.ubc.magic.icd.web.model.User;
 import ca.ubc.magic.icd.web.services.MagicService;
 import ca.ubc.magic.icd.web.services.UserService;
@@ -20,18 +21,18 @@ public class AccountController {
 	@Autowired
 	MagicService magicService;
 	
+	@Autowired
+	LinkManager linkManager;
+	
 	@RequestMapping("/basic/account")
 	public ModelAndView basicAccount() {
-		Map<String, Object> model = new HashMap<String, Object>();
-		UserService.addUserContext(model);
+		Map<String, Object> model = UserService.initUserContext(linkManager);
 		return new ModelAndView("account", model);
 	}
 	
     @RequestMapping("/magic/account")
     public ModelAndView magicAccount() {
-    	Map<String, Object> model = new HashMap<String, Object>();
-    	UserService.linkMagic(true);
-		UserService.addUserContext(model);
+    	Map<String, Object> model = UserService.initUserContext(linkManager);
 		JsonItem profile = magicService.showUser();
 		User user = new User(profile.getAsString("name"), 
 				profile.getAsString("username"),
@@ -41,6 +42,10 @@ public class AccountController {
 				profile.getAsInteger("experience"),
 				profile.getAsInteger("points"));
 		model.put("profile", user);
+		
+		linkManager.linkMagic(true);
+		model.put("linked", linkManager.getLinked());
+		
 		return new ModelAndView("account", model);
     }
     
@@ -80,8 +85,7 @@ public class AccountController {
     
     @RequestMapping("/basic/forgotPassword")
     public ModelAndView forgottenPassword(){
-    	Map<String, Object> model = new HashMap<String, Object>();
-		UserService.addUserContext(model);
+    	Map<String, Object> model = UserService.initUserContext(linkManager);
     	
     	return new ModelAndView("changePassword", model);
     }
@@ -90,8 +94,7 @@ public class AccountController {
     public ModelAndView changePassword(@RequestParam("oldPassword") String oldPW,
     									@RequestParam("newPassword") String newPW,
     									@RequestParam("confirmPassword") String confirmPW){
-    	Map<String, Object> model = new HashMap<String, Object>();
-		UserService.addUserContext(model);
+    	Map<String, Object> model = UserService.initUserContext(linkManager);
     	//check and change PW
     	return new ModelAndView("changePassword", model);
     }

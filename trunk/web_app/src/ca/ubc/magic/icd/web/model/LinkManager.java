@@ -1,18 +1,21 @@
 package ca.ubc.magic.icd.web.model;
 
+import org.springframework.stereotype.Service;
+
+@Service("linkManager")
 public class LinkManager {
-	private Linked status;
+	private Linked linked;
 	
-	public void linkMagic(boolean linked) {
-		status.setMagic(linked);
+	public void linkMagic(boolean link) {
+		linked.setMagic(link);
 	}
 
-	public Linked getStatus() {
-		return status;
+	public Linked getLinked() {
+		return linked;
 	}
 
-	public void setStatus(Linked status) {
-		this.status = status;
+	public void setLinked(Linked linked) {
+		this.linked = linked;
 	}
 	
 }

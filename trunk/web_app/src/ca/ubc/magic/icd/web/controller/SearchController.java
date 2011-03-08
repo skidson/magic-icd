@@ -1,6 +1,5 @@
 package ca.ubc.magic.icd.web.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import ca.ubc.magic.icd.web.model.LinkManager;
 import ca.ubc.magic.icd.web.model.User;
 import ca.ubc.magic.icd.web.services.MagicService;
 import ca.ubc.magic.icd.web.services.UserService;
@@ -18,11 +18,13 @@ import ca.ubc.magic.icd.web.services.UserService;
 public class SearchController {
 	@Autowired
 	private MagicService magicService;
+	
+	@Autowired
+	private LinkManager linkManager;
 
 	@RequestMapping("/magic/userSearch")
 	public ModelAndView userSearch(@RequestParam("searchQuery") String search) {
-		Map<String, Object> model = new HashMap<String, Object>();
-		UserService.addUserContext(model);
+		Map<String, Object> model = UserService.initUserContext(linkManager);
 		
 		List<User> searchResults = magicService.searchUser(search);
 		model.put("searchResults", searchResults);
