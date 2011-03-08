@@ -29,16 +29,16 @@ public class User extends MagicItem {
 	}
 	
 	public User(JsonItem userInfo) {
-		super(userInfo.getAsJsonItem("user").getAsInteger(MagicService.ID),
-				userInfo.getAsJsonItem("user").getAsString(MagicService.NAME),
-				userInfo.getAsJsonItem("user").getAsString(MagicService.DESCRIPTION));
+		super(userInfo.getAsInteger(MagicService.ID),
+				userInfo.getAsString(MagicService.NAME),
+				userInfo.getAsString(MagicService.DESCRIPTION));
 		
-		this.username = userInfo.getAsJsonItem("user").getAsString(MagicService.USERNAME);
-		this.imageURL = userInfo.getAsJsonItem("user").getAsString(MagicService.PHOTO);
+		this.username = userInfo.getAsString(MagicService.USERNAME);
+		this.imageURL = userInfo.getAsString(MagicService.PHOTO);
 		
 		try {
-			this.exp = userInfo.getAsJsonItem("user").getAsInteger(MagicService.EXPERIENCE);
-			this.points = userInfo.getAsJsonItem("user").getAsInteger(MagicService.POINTS);
+			this.exp = userInfo.getAsInteger(MagicService.EXPERIENCE);
+			this.points = userInfo.getAsInteger(MagicService.POINTS);
 		} catch (NumberFormatException e) {
 			this.exp = 0;
 			this.points = 0;

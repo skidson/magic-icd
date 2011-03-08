@@ -16,7 +16,7 @@
      			</c:forEach>
      			</table> <br>
      			<h2>Search</h2><br>
-     			<table><tr><form method="post" action="bitSearch.html">
+     			<table><tr><form method="post" action="/web_app/magic/bitSearch">
 					<center><b>Keyword: </b><input type="text" size="40" name="searchQuery" />
 					<select name="searchFilter" size="1">
 						<option value="all">All</option>
