@@ -3,6 +3,7 @@ package ca.ubc.magic.icd.web.services;
 import java.util.List;
 
 import ca.ubc.magic.icd.web.json.JsonItem;
+import ca.ubc.magic.icd.web.model.Bit;
 import ca.ubc.magic.icd.web.model.User;
 
 public interface MagicService {
@@ -23,6 +24,11 @@ public interface MagicService {
 	public static final String BITS_TYPES_ID = "bits_types_id";
 	public static final String GEOLONG = "geolong";
 	public static final String GEOLAT = "geolat";
+	
+	public static final String USERNAME = "username";
+	public static final String EXPERIENCE = "experience";
+	public static final String POINTS = "points";
+	public static final String PHOTO = "photo";
 	
 	public static final String[] PLACES = {"Utopia, Nowhere", "Vancouver, BC"};
 	public static final String ENCODING = "UTF-8";
@@ -56,5 +62,17 @@ public interface MagicService {
 	public JsonItem showUser(int id);
 	
 	public List<User> searchUser(String query);
+	
+	public JsonItem createLink(int id);
+	
+	public JsonItem destroyLink(int id);
+	
+	public List<User> showUserLinks(); 
+	
+	public List<User> showUserLinks(int id);
+	
+	public List<Bit> showBitLinks(); 
+	
+	public List<Bit> showBitLinks(int id); 
 	
 }

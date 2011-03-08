@@ -3,7 +3,6 @@ package ca.ubc.magic.icd.web.controller;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ca.ubc.magic.icd.web.json.JsonItem;
 import ca.ubc.magic.icd.web.model.Bit;
 import ca.ubc.magic.icd.web.model.LinkManager;
+import ca.ubc.magic.icd.web.model.User;
 import ca.ubc.magic.icd.web.services.CoffeeShopService;
 import ca.ubc.magic.icd.web.services.MagicService;
 import ca.ubc.magic.icd.web.services.UserService;
@@ -69,6 +69,13 @@ public class BitController {
     	Map<String, Object> model = UserService.initUserContext(linkManager);
     	Bit bit = new Bit(magicService.showBit(bitID));
     	model.put("bit", bit);
+    	
+    	List<User> userLinks = magicService.showUserLinks(bitID);
+    	List<User> bitLinks = magicService.showUserLinks(bitID);
+    	
+    	model.put("userLinks", userLinks);
+    	model.put("bitLinks", bitLinks);
+    	
     	return new ModelAndView("bit", model);
     }
     

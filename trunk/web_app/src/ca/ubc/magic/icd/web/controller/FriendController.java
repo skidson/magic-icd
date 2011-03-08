@@ -1,6 +1,5 @@
 package ca.ubc.magic.icd.web.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

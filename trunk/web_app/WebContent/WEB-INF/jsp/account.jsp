@@ -25,9 +25,6 @@
 								<td> <b>Points: </b>${profile.points}</td>	
 							</tr>
 						</table>
-					
-						CHECKIN TEST:
-						<a href="<c:url value="http://kimberly.magic.ubc.ca:8080/1/bits/create?bit_types_id=1&name=coffee&description=yum"/>">Create a coffee </a>
 					</c:when>
 					
 					<c:otherwise>
@@ -39,8 +36,6 @@
 						</form>
 					</c:otherwise>
 				</c:choose>
-				
-				linked.magic = ${linked.magic}
 				
 			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	

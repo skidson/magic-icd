@@ -3,23 +3,24 @@ package ca.ubc.magic.icd.web.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class User {
-	private String name, username, description;
+import ca.ubc.magic.icd.web.json.JsonItem;
+import ca.ubc.magic.icd.web.services.MagicService;
+
+public class User extends MagicItem {
+	private String username;
 	private int exp;
 	private int points;
-	private int id;
 	private String imageURL;
 	private List<String> friends;
 	private List<Bit> bits;
-	private boolean linked;
 	
-	public User(){}
+	public User() {
+		super();
+	}
 	
 	public User(String name, String username, String description, String imageURL, int id, int exp, int points){
-		this.name = name;
-		this.id = id;
+		super(id, name, description);
 		this.username = username;
-		this.description = description;
 		this.exp = exp;
 		this.points = points;
 		this.imageURL = imageURL;
@@ -27,30 +28,24 @@ public class User {
 		bits = new ArrayList<Bit>();
 	}
 	
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public void setName(String name){
-		this.name = name;
-	}
-	
-	public String getName(){
-		return this.name;
-	}
-	
-	public void setFriends(List<String> friends){
-		this.friends = friends;
-	}
-	
-	public List<String> getFriends(){
-		friends.add("Ricard Simmons");
-		friends.add("Justin Bieber");
-		return this.friends;
+	public User(JsonItem userInfo) {
+		super(userInfo.getAsJsonItem("user").getAsInteger(MagicService.ID),
+				userInfo.getAsJsonItem("user").getAsString(MagicService.NAME),
+				userInfo.getAsJsonItem("user").getAsString(MagicService.DESCRIPTION));
+		
+		this.username = userInfo.getAsJsonItem("user").getAsString(MagicService.USERNAME);
+		this.imageURL = userInfo.getAsJsonItem("user").getAsString(MagicService.PHOTO);
+		
+		try {
+			this.exp = userInfo.getAsJsonItem("user").getAsInteger(MagicService.EXPERIENCE);
+			this.points = userInfo.getAsJsonItem("user").getAsInteger(MagicService.POINTS);
+		} catch (NumberFormatException e) {
+			this.exp = 0;
+			this.points = 0;
+		}
+		
+		friends = new ArrayList<String>();
+		bits = new ArrayList<Bit>();
 	}
 	
 	public void setBits(List<Bit> bits){
@@ -77,14 +72,6 @@ public class User {
 		this.username = username;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
 	public int getExp() {
 		return exp;
 	}
@@ -107,13 +94,5 @@ public class User {
 
 	public String getImageURL() {
 		return imageURL;
-	}
-
-	public void setLinked(boolean linked) {
-		this.linked = linked;
-	}
-
-	public boolean isLinked() {
-		return linked;
 	}
 }

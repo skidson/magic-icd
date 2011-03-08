@@ -40,7 +40,7 @@ public class JsonItem extends FeedItem {
 		return (List<JsonItem>)attributes.get(key);
 	}
 	
-	public Integer getAsInteger(String key) {
+	public Integer getAsInteger(String key) throws NumberFormatException {
 		return Integer.parseInt((String)this.attributes.get(key));
 	}
 	
