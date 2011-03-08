@@ -2,7 +2,9 @@ package ca.ubc.magic.icd.web.services;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -28,7 +30,7 @@ public class CoffeeShopService implements MagicService {
 	@Override
 	public JsonItem createBit(int type, String name, String description) {
 		String request = "bits/create?bits_types_id=" + type + "&name="
-			+ name + "&description=" + description;
+			+ encode(name) + "&description=" + encode(description);
 		return (new JsonParser(compileInputStream(request))).parse().get(0);
 	}
 	
@@ -44,7 +46,7 @@ public class CoffeeShopService implements MagicService {
 	@Override
 	public JsonItem createBit(int type, String name, String description, String place) {
 		String request = "bits/create?bits_types_id=" + type + "&name="
-			+ name + "&description=" + description + "&places_id=" + getPlaceID(place);
+			+ encode(name) + "&description=" + encode(description) + "&places_id=" + getPlaceID(place);
 		return (new JsonParser(compileInputStream(request))).parse().get(0);
 	}
 
@@ -339,6 +341,14 @@ public class CoffeeShopService implements MagicService {
 			if ((PLACES[i].contains(place)))
 				return i+1;
 		return 0;
+	}
+	
+	private static String encode(String parameter) {
+		try {
+    		return URLEncoder.encode(parameter, MagicService.ENCODING)
+    			.replace("+", "%20").replace("*", "%2A").replace("%7E", "~");
+		} catch (UnsupportedEncodingException e) {}
+		return parameter;
 	}
 
 }

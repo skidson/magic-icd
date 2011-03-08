@@ -86,11 +86,6 @@ public class BitController {
     								@RequestParam("in_place") String place){
     	Map<String, Object> model = UserService.initUserContext(linkManager);
     	
-    	try {
-    		name = URLEncoder.encode(name, MagicService.ENCODING);
-			description = URLEncoder.encode(description, MagicService.ENCODING);
-		} catch (UnsupportedEncodingException e) {}
-    	
     	JsonItem bitInfo = null;
     	if (place.equals("none"))
     		bitInfo = magicService.createBit(type, name, description);
