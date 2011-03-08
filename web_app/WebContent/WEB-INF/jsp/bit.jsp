@@ -14,8 +14,8 @@
 					<td><b>Type: </b> ${bit.type}</td>
 					<td><c:if test="${!empty bit.imageURL}"> <img src="${bit.imageURL}" /> </c:if></td>
 				</tr>
-				<tr colSpan="2">
-					<b>Description: </b> <p>${bit.description}</p>
+				<tr>
+					<td colSpan="2"><b>Description: </b> <p>${bit.description}</p></td>
 				</tr>
 			</table>
 			

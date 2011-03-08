@@ -17,7 +17,6 @@ import ca.ubc.magic.icd.web.json.JsonItem;
 import ca.ubc.magic.icd.web.model.Bit;
 import ca.ubc.magic.icd.web.model.LinkManager;
 import ca.ubc.magic.icd.web.model.User;
-import ca.ubc.magic.icd.web.services.CoffeeShopService;
 import ca.ubc.magic.icd.web.services.MagicService;
 import ca.ubc.magic.icd.web.services.UserService;
  
@@ -34,14 +33,6 @@ public class BitController {
     @RequestMapping("/basic/bits")
     public ModelAndView basicBits() {
     	Map<String, Object> model = UserService.initUserContext(linkManager);
-    	
-		// Dummy values until we can connect to broker
-    	List<Bit> bitsList = new ArrayList<Bit>();
-    	bitsList.add(new Bit("Coffee", "A delicious drink. Brewed from Columbian beans at a perfect temperature " +
-    			" and topped off with a swirl of whipped cream. MMmmmmm.", "", CoffeeShopService.DRINK, 1, 1));
-    	bitsList.add(new Bit("Ham & Cheese Panini", "A delicious meal", "", CoffeeShopService.FOOD, 1, 2));
-    	
-    	model.put("bitsList", bitsList);
     	return new ModelAndView("bits", model);
     }
     
@@ -114,7 +105,6 @@ public class BitController {
     @RequestMapping(value = "/magic/createBit", method = RequestMethod.GET)
     public ModelAndView createBit() {
     	Map<String, Object> model = UserService.initUserContext(linkManager);
-    	
     	return new ModelAndView("bit_create", model);
     }
 }
