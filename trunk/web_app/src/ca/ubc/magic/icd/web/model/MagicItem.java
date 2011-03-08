@@ -7,7 +7,7 @@ public abstract class MagicItem {
 	
 	public MagicItem() {}
 	
-	public MagicItem(int id, String description, String name) {
+	public MagicItem(int id, String name, String description) {
 		this.id = id;
 		this.description = description;
 		this.name = name;

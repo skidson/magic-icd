@@ -10,23 +10,30 @@
 			<div id="main">
 				<h2>Search Results</h2>
 					<c:choose>
-						<c:when test="${empty searchResults}">
-							Sorry, no users matched your search. Search another? <br>
+						<c:when test="${empty bitsFound}">
+							Sorry, no matches were found. Search another? <br>
 							<table><tr><form method="post" action="/web_app/magic/userSearch">
-								<center><b>Username or name to search for: </b><input type="text" size="40" name="searchQuery" />
+								<center><b>Keyword: </b><input type="text" size="40" name="searchQuery" />
 								<input class="button" value=" Search " type="submit" /></center>
 							</form></tr></table>
 						</c:when>
 						<c:otherwise>
 							<table>
-							<c:forEach items="${searchResults}" var="user">
+							<c:forEach items="${usersFound}" var="result">
 								<tr>
-									<td rowSpan="2" align="center"> <img src="${user.imageURL}" alt="${user.name}'s picture" /> </td>
-									<td> <b><a href="<c:url value="/magic/userPage?userID=${user.id}"/>">${user.name}</a></b> </td>
+									<td rowSpan="2" align="center"> <img src="${result.imageURL}" alt="${result.name}'s picture" /> </td>
+									<td> <b><a href="<c:url value="/magic/userPage?userID=${result.id}"/>">${result.name}</a></b> </td>
 								</tr>
-								<tr> <td>${user.description}</td> </tr>
+								<tr> <td>${result.description}</td> </tr>
 							</c:forEach>
 							</table>
+							
+							<table>
+								<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+								<c:forEach var="bit" items="${bitsFound}">
+				        			<tr><td><a href="<c:url value ="/magic/bit?id=${bit.id}"/>">${bit.name}</a></td><td>${bit.type}</td><td>${bit.description}</td></tr>
+				     			</c:forEach>
+     						</table> <br>
 						</c:otherwise>
 					</c:choose>
 			</div> <!--  main --> 
