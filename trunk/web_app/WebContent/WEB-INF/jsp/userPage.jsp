@@ -4,7 +4,7 @@
 
 <body>
 	<div id="wrap">
-		<c:set var="directory" value="account"/>
+		<c:set var="directory" value="friends"/>
 		<%@ include file="/WEB-INF/jsp/header.jsp" %>			
 		<div id="content-wrap">
 			<div id="main">
@@ -36,23 +36,29 @@
 						</form>
 					</c:otherwise>
 				</c:choose>
-				<h2> ${friend.name} likes :</h2>
-				<table>
-				<tr><th>Name</th><th>Type</th><th>Description</th></tr>
-				<c:forEach var="bit" items="${linkedBits}">
-        			<tr><td><a href="<c:url value ="/magic/bit?id=${bit.id}"/>">${bit.name}</a></td><td>${bit.type}</td><td>${bit.description}</td></tr>
-     			</c:forEach>
-     			</table>
-     			
-     			<h2> ${friend.name} has some friends! :</h2>
-     			
-     			<table>
-					<tr>
-						<td rowSpan="2" align="center"> <img src="${randomFriend.imageURL}" alt="${randomFriend.name}'s picture" /> </td>
-						<td> <b><a href="<c:url value="/magic/userPage?userID=${randomFriend.id}"/>">${randomFriend.name}</a></b> </td>
-					</tr>
-					<tr> <td>${randomFriend.description}</td> </tr>
-				</table>
+				
+				
+				<c:choose>
+					<c:when test="${not empty linkedBits}">
+						<h2> ${friend.name} likes :</h2>
+						<table> <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+							<c:forEach var="bit" items="${linkedBits}">
+			        			<tr><td><a href="<c:url value ="/magic/bit?id=${bit.id}"/>">${bit.name}</a></td><td>${bit.type}</td><td>${bit.description}</td></tr>
+			     			</c:forEach>
+		     			</table>
+     				</c:when>
+     				
+     				<c:when test="${not empty randomFriend}">
+		     			<h2> ${friend.name} has some friends! :</h2>
+		     			
+		     			<table> <tr>
+								<td rowSpan="2" align="center"> <img src="${randomFriend.imageURL}" alt="${randomFriend.name}'s picture" /> </td>
+								<td> <b><a href="<c:url value="/magic/userPage?userID=${randomFriend.id}"/>">${randomFriend.name}</a></b> </td>
+							</tr>
+							<tr> <td>${randomFriend.description}</td> </tr>
+						</table>
+					</c:when>
+				</c:choose>
 			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	
 		<%@ include file="/WEB-INF/jsp/footer.jsp" %>

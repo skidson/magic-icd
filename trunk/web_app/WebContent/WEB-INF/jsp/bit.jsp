@@ -18,7 +18,44 @@
 					<td colSpan="2"><b>Description: </b> <p>${bit.description}</p></td>
 				</tr>
 			</table>
+			<c:if test="${empty userLinks}">
+				<a href="<c:url value="/magic/linkBit?bitID=${bit.id}"/>">Link to this bit!</a>
+			</c:if>
 			
+			<c:forEach items="${usersLinks}" var="linkedUser">
+				<c:if test="${user.username ne linkedUser.username}">
+					<a href="<c:url value="/magic/linkBit?bitID=${bit.id}"/>">Link to this bit!</a>
+				</c:if>
+			</c:forEach>
+			
+			<c:choose>
+				<c:when test="${not empty userLinks}">
+					<h2>This bit is linked to the following users</h2>
+					<table>
+						<c:forEach items="${usersLinks}" var="linkedUser">
+							<c:if test="${user.username ne linkedUser.username}">
+								<tr>
+									<td rowSpan="2" align="center"> <img src="${linkedUser.imageURL}" alt="${linkedUser.name}'s picture" /> </td>
+									<td> <b><a href="<c:url value="/magic/userPage?userID=${linkedUser.id}"/>">${linkedUser.name}</a></b> </td>
+								</tr>
+								<tr> <td>${user.description}</td> </tr>
+							</c:if>
+						</c:forEach>
+					</table><br>
+				</c:when>
+			</c:choose>
+				
+			<c:choose>
+				<c:when test="${not empty bitLinks}">
+					<h2>This bit is linked to the following bits</h2>
+						<table>
+							<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+							<c:forEach var="linkedBit" items="${bitLinks}">
+			        			<tr><td><a href="<c:url value ="/magic/bit?id=${linkedBit.id}"/>">${linkedBit.name}</a></td><td>${linkedBit.type}</td><td>${linkedBit.description}</td></tr>
+			     			</c:forEach>
+		     			</table>
+		     	</c:when>
+		     </c:choose>
 			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	
 		<%@ include file="/WEB-INF/jsp/footer.jsp" %>

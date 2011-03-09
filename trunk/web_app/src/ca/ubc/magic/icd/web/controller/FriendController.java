@@ -42,7 +42,7 @@ public class FriendController {
 	public ModelAndView createFriend(@RequestParam("friendID") int id){
 		Map<String, Object> model = UserService.initUserContext(linkManager);
 		magicService.createFriend(id);
-		return new ModelAndView("friends", model);
+		return new ModelAndView("redirect:/magic/friends", model);
 	}
 	
 	@RequestMapping("magic/userPage")
@@ -52,11 +52,14 @@ public class FriendController {
 		User friend = new User(magicService.showUser(id));
 		List<Bit> linkedBits = magicService.showBitLinks(id);
 		List<User> friends = magicService.showFriends(id);
-		User randomFriend = friends.get(r.nextInt(friends.size()));
-		
+		if(friends.size() > 0) {
+			User randomFriend = friends.get(r.nextInt(friends.size()));	
+			model.put("randomFriend", randomFriend);
+		}
+		if(linkedBits.size() > 0){
+			model.put("linkedBits", linkedBits);
+		}
 		model.put("friend", friend);
-		model.put("linkedBits", linkedBits);
-		model.put("randomFriend", randomFriend);
 		return new ModelAndView("userPage", model);
 	}
 	
