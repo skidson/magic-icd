@@ -10,6 +10,14 @@
 			<div id="main">
 				<h2>Home</h2>
 				<br>
+				
+				<table>
+					<c:forEach var="friend" items="${friends}">
+						<tr><td><a href="<c:url value="magic/userPage?userID=${friend.id}"/>">${friend.name}</a> is linked to INSERT BIT LOOP HERE </td></tr>
+					</c:forEach>
+				</table>
+				
+				
 				<table>
 					<tr>
 						<form method="post" action="userSearch.html">

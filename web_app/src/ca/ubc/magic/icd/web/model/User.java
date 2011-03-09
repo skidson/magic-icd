@@ -53,10 +53,6 @@ public class User extends MagicItem {
 	}
 	
 	public List<Bit> getBits(){
-		Bit mocha = new Bit("Mocha", "Pretty good", "", 4, 2, 3);
-		Bit cappuccino = new Bit("Cappuccino", "good", "", 4, 1, 5);
-		bits.add(mocha);
-		bits.add(cappuccino);
 		return bits;
 	}
 	
