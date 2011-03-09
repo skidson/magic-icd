@@ -11,12 +11,19 @@
 				<h2>Your Bits</h2>
 				<c:choose>
 					<c:when test="${linked.magic}">
-						<table>
-						<tr><th>Name</th><th>Type</th><th>Description</th></tr>
-						<c:forEach var="bit" items="${bitsList}">
-		        			<tr><td><a href="<c:url value ="/magic/bit?id=${bit.id}"/>">${bit.name}</a></td><td>${bit.type}</td><td>${bit.description}</td></tr>
-		     			</c:forEach>
-		     			</table> <br>
+						<c:choose>
+							<c:when test="${empty bitsList}">
+								Sorry you have no bits!
+							</c:when>
+							<c:otherwise>
+								<table>
+								<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+								<c:forEach var="bit" items="${bitsList}">
+				        			<tr><td><a href="<c:url value ="/magic/bit?id=${bit.id}"/>">${bit.name}</a></td><td>${bit.type}</td><td>${bit.description}</td></tr>
+				     			</c:forEach>
+				     			</table> <br>
+				     		</c:otherwise>
+				     	</c:choose>
 		     			<h2>Search</h2><br>
 		     			<table><tr><form method="post" action="bitSearch.html">
 							<center><b>Keyword: </b><input type="text" size="40" name="searchQuery" />

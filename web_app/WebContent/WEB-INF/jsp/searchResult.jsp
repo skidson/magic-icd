@@ -10,7 +10,7 @@
 			<div id="main">
 				<h2>Search Results</h2>
 					<c:choose>
-						<c:when test="${empty bitsFound}">
+						<c:when test="${empty bitsFound && empty usersFound}">
 							Sorry, no matches were found. Search another? <br>
 							<table><tr><form method="post" action="/web_app/magic/userSearch">
 								<center><b>Keyword: </b><input type="text" size="40" name="searchQuery" />
@@ -18,22 +18,32 @@
 							</form></tr></table>
 						</c:when>
 						<c:otherwise>
-							<table>
-							<c:forEach items="${usersFound}" var="result">
-								<tr>
-									<td rowSpan="2" align="center"> <img src="${result.imageURL}" alt="${result.name}'s picture" /> </td>
-									<td> <b><a href="<c:url value="/magic/userPage?userID=${result.id}"/>">${result.name}</a></b> </td>
-								</tr>
-								<tr> <td>${result.description}</td> </tr>
-							</c:forEach>
-							</table>
-							
-							<table>
-								<tr><th>Name</th><th>Type</th><th>Description</th></tr>
-								<c:forEach var="bit" items="${bitsFound}">
-				        			<tr><td><a href="<c:url value ="/magic/bit?id=${bit.id}"/>">${bit.name}</a></td><td>${bit.type}</td><td>${bit.description}</td></tr>
-				     			</c:forEach>
-     						</table> <br>
+							<c:choose>
+								<c:when test="${not empty usersFound}">
+									<table>
+									<c:forEach items="${usersFound}" var="result">
+										<tr>
+											<td rowSpan="2" align="center"> <img src="${result.imageURL}" alt="${result.name}'s picture" /> </td>
+											<td> <b><a href="<c:url value="/magic/userPage?userID=${result.id}"/>">${result.name}</a></b> </td>
+											<td align="right">
+											<c:if test="${magicUser.username ne result.username}">
+												<a href="<c:url value="/magic/createFriend?friendID=${result.id}"/>">Become a friend!</a></td>
+											</c:if>
+											</td>
+										</tr>
+										<tr> <td>${result.description}</td> </tr>
+									</c:forEach>
+									</table>
+								</c:when>
+								<c:when test="${!empty bitsFound}">
+									<table>
+										<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+										<c:forEach var="bit" items="${bitsFound}">
+						        			<tr><td><a href="<c:url value ="/magic/bit?id=${bit.id}"/>">${bit.name}</a></td><td>${bit.type}</td><td>${bit.description}</td></tr>
+						     			</c:forEach>
+		     						</table> <br>
+		     					</c:when>
+		     				</c:choose>
 						</c:otherwise>
 					</c:choose>
 			</div> <!--  main --> 

@@ -33,13 +33,7 @@ public class AccountController {
     public ModelAndView magicAccount() {
     	Map<String, Object> model = UserService.initUserContext(linkManager);
 		JsonItem profile = magicService.showUser();
-		User user = new User(profile.getAsString("name"), 
-				profile.getAsString("username"),
-				profile.getAsString("description"),
-				profile.getAsString("photo"),
-				profile.getAsInteger("id"),
-				profile.getAsInteger("experience"),
-				profile.getAsInteger("points"));
+		User user = new User(profile);
 		model.put("profile", user);
 		
 		linkManager.linkMagic(true);

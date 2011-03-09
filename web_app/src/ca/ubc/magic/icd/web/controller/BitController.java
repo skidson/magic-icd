@@ -41,15 +41,8 @@ public class BitController {
     	Map<String, Object> model = UserService.initUserContext(linkManager);
     	
     	List<Bit> bitsList = new ArrayList<Bit>();
-    	for(int i = 1; i < BITS_PER_PAGE; i++) {
-    		try {
-	    		JsonItem bitInfo = magicService.showBit(i);
-	    		Bit bit = new Bit(bitInfo);
-	    		bitsList.add(bit);
-    		} catch (Exception e) {
-    			continue;
-    		}
-    	}
+    	bitsList = magicService.showBitLinks();
+    	System.out.println(bitsList.toString());
     	
     	model.put("bitsList", bitsList);
     	return new ModelAndView("bits", model);
@@ -62,7 +55,9 @@ public class BitController {
     	model.put("bit", bit);
     	
     	List<User> userLinks = magicService.showUserLinks(bitID);
-    	List<User> bitLinks = magicService.showUserLinks(bitID);
+    	System.out.println(userLinks.toString());
+    	List<Bit> bitLinks = magicService.showBitLinks(bitID);
+    	System.out.println(bitLinks.toString());
     	
     	model.put("userLinks", userLinks);
     	model.put("bitLinks", bitLinks);
@@ -101,5 +96,13 @@ public class BitController {
     public ModelAndView createBit() {
     	Map<String, Object> model = UserService.initUserContext(linkManager);
     	return new ModelAndView("bit_create", model);
+    }
+    
+    @RequestMapping("magic/linkBit")
+    public ModelAndView linkToBit(@RequestParam("bitID") int id){
+    	Map<String, Object> model = UserService.initUserContext(linkManager);
+    	
+    	magicService.createLink(id);
+    	return new ModelAndView("redirect:/magic/bits", model);
     }
 }

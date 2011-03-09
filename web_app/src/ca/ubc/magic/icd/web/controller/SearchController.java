@@ -30,6 +30,9 @@ public class SearchController {
 		Map<String, Object> model = UserService.initUserContext(linkManager);
 		
 		List<User> searchResults = magicService.searchUser(search);
+		JsonItem profile = magicService.showUser();
+		User magicUser = new User(profile);
+		model.put("magicUser", magicUser);
 		model.put("usersFound", searchResults);
 		return new ModelAndView("searchResult", model);
 	}
@@ -57,6 +60,9 @@ public class SearchController {
     			continue;
     		}
     	}
+		JsonItem profile = magicService.showUser();
+		User magicUser = new User(profile);
+		model.put("magicUser", magicUser);
 		model.put("bitsFound", matchedBits);
 		return new ModelAndView("searchResult", model);
 	}
