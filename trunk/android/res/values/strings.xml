@@ -23,4 +23,6 @@
     <string name="encoder_lblCategory2">Category2:</string>
     <string name="encoder_lblURL">URL:</string>
     
+    <string name="coffeeshop_header">CoffeeShop</string>
+    
 </resources>

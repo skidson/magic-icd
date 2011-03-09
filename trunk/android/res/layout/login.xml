@@ -1,52 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/login_layout"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:gravity="center">
-
-	<TextView android:id="@+id/login_lblUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18px"
-        android:text="@string/login_lblUsername"/>
-        
-    <EditText android:id="@+id/login_txtUsername"
-        android:layout_width="fill_parent"
-        android:layout_height="30dip"
-        android:background="@android:drawable/editbox_background"
-        android:layout_toRightOf="@id/login_lblUsername"
-        android:layout_alignTop="@id/login_lblUsername"/>
-        
-    <TextView android:id="@+id/login_lblPassword"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_below="@id/login_lblUsername"
-	    android:layout_marginTop="20dip"
-	    android:textSize="18px"
-	    android:text="@string/login_lblPassword"/>
+		android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:orientation="vertical"
+	    android:gravity="top"
+	    android:background="#ffffff">
 	    
-    <EditText android:id="@+id/login_txtPassword"
-        android:layout_width="fill_parent"
-        android:layout_height="30dip"
-        android:background="@android:drawable/editbox_background"
-        android:layout_below="@id/login_txtUsername"
-        android:layout_toRightOf="@id/login_lblPassword"
-        android:layout_alignTop="@id/login_lblPassword"/>
-        
-    <Button android:id="@+id/login_btnLogin"
-        android:layout_width="100dip"
-        android:layout_height="45dip"
-        android:layout_marginTop="20dip"
-        android:layout_below="@id/login_lblPassword"
-        android:layout_alignParentLeft="true"
-        android:text="@string/login_btnLogin" />
-        
-    <Button android:id="@+id/login_btnClear"
-        android:layout_width="100dip"
-        android:layout_height="45dip"
-        android:layout_toRightOf="@id/login_btnLogin"
-        android:layout_alignTop="@id/login_btnLogin"
-        android:text="@string/login_btnClear" />
+	    <RelativeLayout android:id="@+id/coffeeshop_header"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:gravity="left"
+		    android:background="@drawable/img_header_background">
+		    	
+		    <ImageView
+		    	android:layout_height="wrap_content"
+		    	android:layout_width="wrap_content"
+		    	android:layout_centerVertical="true"
+		    	android:layout_marginLeft="10sp"
+		    	android:scaleType="fitCenter"
+		    	android:src="@drawable/img_header"/>
 
+	    </RelativeLayout>
+	    
+	    <RelativeLayout android:id="@+id/coffeeshop_footer"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentBottom="true"
+		    android:background="@drawable/img_footer_background"/>
+	    
+		<RelativeLayout android:id="@+id/login_layout"
+		    android:layout_height="wrap_content"
+	    	android:layout_width="fill_parent"
+	    	android:layout_below="@id/coffeeshop_header"
+	    	android:layout_above="@id/coffeeshop_footer"
+		    android:gravity="center">
+		
+			<TextView android:id="@+id/login_lblUsername"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textSize="18px"
+		        android:text="@string/login_lblUsername"
+		        android:layout_marginLeft="10sp"/>
+		        
+		    <EditText android:id="@+id/login_txtUsername"
+		        android:layout_width="fill_parent"
+		        android:layout_height="30dip"
+		        android:background="@android:drawable/editbox_background"
+		        android:layout_toRightOf="@id/login_lblUsername"
+		        android:layout_alignBaseline="@id/login_lblUsername"
+		        android:layout_margin="10sp"/>
+		        
+		    <TextView android:id="@+id/login_lblPassword"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_below="@id/login_lblUsername"
+			    android:layout_alignLeft="@id/login_lblUsername"
+			    android:layout_marginTop="20dip"
+			    android:textSize="18px"
+			    android:text="@string/login_lblPassword"/>
+			    
+		    <EditText android:id="@+id/login_txtPassword"
+		        android:layout_width="fill_parent"
+		        android:layout_height="30dip"
+		        android:background="@android:drawable/editbox_background"
+		        android:layout_below="@id/login_txtUsername"
+		        android:layout_toRightOf="@id/login_lblPassword"
+		        android:layout_alignTop="@id/login_lblPassword"
+		        android:layout_alignLeft="@id/login_txtUsername"
+		        android:layout_alignRight="@id/login_txtUsername"/>
+		        
+		    <Button android:id="@+id/login_btnLogin"
+		        android:layout_width="100dip"
+		        android:layout_height="45dip"
+		        android:layout_marginTop="20dip"
+		        android:layout_below="@id/login_lblPassword"
+		        android:layout_centerHorizontal="true"
+		        android:text="@string/login_btnLogin" />
+		
+		</RelativeLayout>
+	    
 </RelativeLayout>
