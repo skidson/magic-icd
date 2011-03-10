@@ -64,6 +64,46 @@
 		    	android:text="@string/home_btnEncode"/>
 				
 		</RelativeLayout>
+		
+		<RelativeLayout android:id="@+id/coffeeshop_profile"
+		    android:layout_width="300px"
+		    android:layout_height="125px"
+		    android:layout_above="@id/coffeeshop_footer"
+		    android:layout_marginBottom="10sp"
+		    android:layout_centerHorizontal="true"
+		    android:gravity="left"
+		    android:background="@drawable/img_profile">
+		    
+		    <ImageView android:id="@+id/coffeeshop_portrait"
+		    	android:layout_width="100px"
+		    	android:layout_height="100px"
+		    	android:layout_margin="13px"
+		    	android:scaleType="fitCenter"
+		    	android:src="@drawable/img_portrait"/>
+		    	
+	    	<TextView android:id="@+id/coffeeshop_username" 
+	    		android:layout_width="167px"
+	    		android:layout_height="wrap_content"
+	    		android:layout_marginTop="13px"
+	    		android:layout_toRightOf="@id/coffeeshop_portrait"
+	    		android:text="skidson"
+	    		android:textSize="20px"
+	    		android:textColor="#000000"
+	    		android:textStyle="bold"/>
+	    		
+    		<ProgressBar android:id="@+id/coffeeshop_progress"
+    			android:layout_width="158px"
+    			android:layout_height="20px"
+    			android:layout_below="@id/coffeeshop_username"
+    			android:layout_alignLeft="@id/coffeeshop_username"
+    			android:layout_marginTop="45px"
+    			android:progress="75"
+    			android:max="100"
+    			android:indeterminate="false"
+    			style="?android:attr/progressBarStyleHorizontal"/>
+    			
+	    </RelativeLayout>
+			
 	    
 </RelativeLayout>
 
