@@ -63,4 +63,13 @@ public class FriendController {
 		return new ModelAndView("userPage", model);
 	}
 	
+	@RequestMapping("magic/destroyFriend")
+	public ModelAndView destroyFriend(@RequestParam("friendID") int id){
+		Map<String, Object> model = UserService.initUserContext(linkManager);
+		
+		magicService.destroyFriend(id);
+		
+		return new ModelAndView("redirect:/magic/friends", model);
+	}
+	
 }

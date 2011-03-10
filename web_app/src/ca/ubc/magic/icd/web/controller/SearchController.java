@@ -30,10 +30,21 @@ public class SearchController {
 		Map<String, Object> model = UserService.initUserContext(linkManager);
 		
 		List<User> searchResults = magicService.searchUser(search);
+		List<User> currentFriends = magicService.showFriends();
+		List<User> alreadyFriends = new ArrayList<User>();
 		JsonItem profile = magicService.showUser();
 		User magicUser = new User(profile);
+		
 		model.put("magicUser", magicUser);
 		model.put("usersFound", searchResults);
+		
+		for(User user : currentFriends){
+			for(User searchedUser : searchResults){
+				if(user.getUsername().equals(searchedUser.getUsername())) alreadyFriends.add(user);
+			}
+		}
+		alreadyFriends.add(magicUser);
+		model.put("alreadyFriends", alreadyFriends);
 		return new ModelAndView("searchResult", model);
 	}
 

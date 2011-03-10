@@ -228,7 +228,7 @@ public class CoffeeShopService implements MagicService {
 	}
 	
 	public List<User> showUserLinks() {
-		String request = "links/show";
+		String request = "links/users";
 		Iterator<JsonItem> iterator = (new JsonParser(compileInputStream(request))).parse().iterator();
 		List<User> list = new ArrayList<User>();
 		while (iterator.hasNext()) {
@@ -248,7 +248,7 @@ public class CoffeeShopService implements MagicService {
 	}
 	
 	public List<User> showUserLinks(int id) {
-		String request = "links/show?id=" + id;
+		String request = "links/users?id=" + id;
 		Iterator<JsonItem> iterator = (new JsonParser(compileInputStream(request))).parse().iterator();
 		List<User> list = new ArrayList<User>();
 		while (iterator.hasNext()) {
