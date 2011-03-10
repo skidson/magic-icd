@@ -22,7 +22,7 @@
 				<a href="<c:url value="/magic/linkBit?bitID=${bit.id}"/>">Link to this bit!</a>
 			</c:if>
 			
-			<c:forEach items="${usersLinks}" var="linkedUser">
+			<c:forEach items="${userLinks}" var="linkedUser">
 				<c:if test="${user.username ne linkedUser.username}">
 					<a href="<c:url value="/magic/linkBit?bitID=${bit.id}"/>">Link to this bit!</a>
 				</c:if>
@@ -32,7 +32,7 @@
 				<c:when test="${not empty userLinks}">
 					<h2>This bit is linked to the following users</h2>
 					<table>
-						<c:forEach items="${usersLinks}" var="linkedUser">
+						<c:forEach items="${userLinks}" var="linkedUser">
 							<c:if test="${user.username ne linkedUser.username}">
 								<tr>
 									<td rowSpan="2" align="center"> <img src="${linkedUser.imageURL}" alt="${linkedUser.name}'s picture" /> </td>

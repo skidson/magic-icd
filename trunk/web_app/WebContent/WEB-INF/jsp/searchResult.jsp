@@ -26,12 +26,18 @@
 											<td rowSpan="2" align="center"> <img src="${result.imageURL}" alt="${result.name}'s picture" /> </td>
 											<td> <b><a href="<c:url value="/magic/userPage?userID=${result.id}"/>">${result.name}</a></b> </td>
 											<td align="right">
-											<c:if test="${magicUser.username ne result.username}">
-												<a href="<c:url value="/magic/createFriend?friendID=${result.id}"/>">Become a friend!</a></td>
+											<c:forEach items="${alreadyFriends}" var="friend"> 
+												<c:if test="${friend.username eq result.username}">
+													<c:set var="flag" value="matched"/>
+												</c:if>
+											</c:forEach>
+											<c:if test="${flag ne 'matched'}">
+												<a href="<c:url value="/magic/createFriend?friendID=${result.id}"/>">Become a friend!</a>
 											</c:if>
 											</td>
 										</tr>
 										<tr> <td>${result.description}</td> </tr>
+										<c:set var="flag" value="reset"/>
 									</c:forEach>
 									</table>
 								</c:when>
