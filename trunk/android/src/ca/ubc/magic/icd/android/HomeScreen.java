@@ -1,17 +1,11 @@
 package ca.ubc.magic.icd.android;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 public class HomeScreen extends Activity {
     /** Called when the activity is first created. */
@@ -20,12 +14,29 @@ public class HomeScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
         
-        Button btnScan = (Button)findViewById(R.id.home_btnScan);
-        btnScan.setOnClickListener(new OnClickListener() {
+        // TODO pull photo, username, points, and exp
+        // TODO update coffeeshop_portrait, coffeeshop_username, coffeeshop_points, coffeeshop_exp
+        
+        Button btnCheckin = (Button)findViewById(R.id.home_btnCheckin);
+        btnCheckin.setOnClickListener(new OnClickListener() {
         	public void onClick(View view) {
         		Intent intent = new Intent("com.google.zxing.client.android.SCAN");
         		intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
         		startActivityForResult(intent, 0);
+        	}
+        });
+        
+        Button btnFriends = (Button) findViewById(R.id.home_btnFriends);
+        btnFriends.setOnClickListener(new OnClickListener() {
+        	public void onClick(View view) {
+        		
+        	}
+        });
+        
+        Button btnBits = (Button) findViewById(R.id.home_btnBits);
+        btnBits.setOnClickListener(new OnClickListener() {
+        	public void onClick(View view) {
+        		startActivity(new Intent(HomeScreen.this, Bit.class));
         	}
         });
         

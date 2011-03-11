@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ICD</string>
+    <string name="app_name">CoffeeShop</string>
     
-    <string name="home_btnScan">Scan</string>
-    <string name="home_btnLogin">Login</string>
-    <string name="home_btnEncode">Encode</string>
+    <string name="home_btnFriends">Friends</string>
+    <string name="home_btnCheckin">Checkin</string>
+    <string name="home_btnBits">Bits</string>
     
 	<string name="login_lblUsername">Username:</string>
     <string name="login_lblPassword">Password:</string>
