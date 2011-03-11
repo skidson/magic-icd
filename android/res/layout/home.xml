@@ -6,7 +6,8 @@
 	    android:gravity="top"
 	    android:background="#ffffff">
 	    
-	    <RelativeLayout android:id="@+id/coffeeshop_header"
+	    <!-- Header -->
+	    <RelativeLayout android:id="@+id/home_header"
 		    android:layout_width="fill_parent"
 		    android:layout_height="wrap_content"
 		    android:gravity="left"
@@ -22,158 +23,132 @@
 
 	    </RelativeLayout>
 	    
-	    <RelativeLayout android:id="@+id/coffeeshop_footer"
+	    <!-- Footer -->
+	    <RelativeLayout android:id="@+id/home_footer"
 		    android:layout_width="fill_parent"
 		    android:layout_height="wrap_content"
 		    android:layout_alignParentBottom="true"
 		    android:background="@drawable/img_footer_background"/>
 		    
-		<RelativeLayout
-	    	android:layout_height="wrap_content"
-	    	android:layout_width="fill_parent"
-	    	android:layout_centerInParent="true">
-	    	
-	    	<Button android:id="@+id/home_btnLogin"
-		    	android:layout_width="wrap_content"
-		    	android:layout_height="wrap_content"
-		    	android:layout_margin="5sp"
-		    	android:layout_centerHorizontal="true"
-		    	android:drawableTop="@drawable/ic_menu_agenda"
-		    	android:background="@drawable/btn_selector"
-		    	android:textColor="#EEEEEE"
-		    	android:text="@string/home_btnLogin"/>
-		    	
-		    <Button android:id="@+id/home_btnScan"
-		    	android:layout_width="wrap_content"
-		    	android:layout_height="wrap_content"
-		    	android:layout_margin="5sp"
-		    	android:drawableTop="@drawable/ic_menu_view"
-		    	android:background="@drawable/btn_selector"
-		    	android:layout_toLeftOf="@id/home_btnLogin"
-		    	android:textColor="#EEEEEE"
-		    	android:text="@string/home_btnScan"/>
-		    	
-		    <Button android:id="@+id/home_btnEncode"
-		    	android:layout_width="wrap_content"
-		    	android:layout_height="wrap_content"
-		    	android:layout_margin="5sp"
-		    	android:drawableTop="@drawable/ic_menu_slideshow"
-		    	android:background="@drawable/btn_selector"
-		    	android:layout_toRightOf="@id/home_btnLogin"
-		    	android:textColor="#EEEEEE"
-		    	android:text="@string/home_btnEncode"/>
-				
-		</RelativeLayout>
-		
-		<RelativeLayout android:id="@+id/coffeeshop_profile"
+		<!-- Profile -->
+		<RelativeLayout android:id="@+id/home_profile"
 		    android:layout_width="300px"
 		    android:layout_height="125px"
-		    android:layout_above="@id/coffeeshop_footer"
-		    android:layout_marginBottom="10sp"
+		    android:layout_above="@id/home_footer"
+		    android:layout_marginBottom="30sp"
 		    android:layout_centerHorizontal="true"
 		    android:gravity="left"
 		    android:background="@drawable/img_profile">
 		    
-		    <ImageView android:id="@+id/coffeeshop_portrait"
+		    <ImageView android:id="@+id/home_portrait"
 		    	android:layout_width="100px"
 		    	android:layout_height="100px"
 		    	android:layout_margin="13px"
 		    	android:scaleType="fitCenter"
 		    	android:src="@drawable/img_portrait"/>
 		    	
-	    	<TextView android:id="@+id/coffeeshop_username" 
+	    	<TextView android:id="@+id/home_username" 
 	    		android:layout_width="167px"
 	    		android:layout_height="wrap_content"
 	    		android:layout_marginTop="13px"
-	    		android:layout_toRightOf="@id/coffeeshop_portrait"
-	    		android:text="skidson"
+	    		android:layout_toRightOf="@id/home_portrait"
+	    		android:text="username"
 	    		android:textSize="20px"
 	    		android:textColor="#000000"
 	    		android:textStyle="bold"/>
 	    		
-    		<ProgressBar android:id="@+id/coffeeshop_progress"
+	    	<TextView android:id="@+id/home_points" 
+	    		android:layout_width="167px"
+	    		android:layout_height="wrap_content"
+	    		android:layout_marginTop="1px"
+	    		android:layout_below="@id/home_username"
+	    		android:layout_alignLeft="@id/home_username"
+	    		android:text="25 points"
+	    		android:textSize="16px"
+	    		android:textColor="#000000"/>
+	    		
+	    	<TextView android:id="@+id/home_exp" 
+	    		android:layout_width="167px"
+	    		android:layout_height="wrap_content"
+	    		android:layout_marginTop="1px"
+	    		android:layout_below="@id/home_points"
+	    		android:layout_alignLeft="@id/home_username"
+	    		android:text="75/100 EXP"
+	    		android:textSize="16px"
+	    		android:textColor="#000000"/>
+	    		
+	    	<ProgressBar android:id="@+id/home_expBar"
     			android:layout_width="158px"
     			android:layout_height="20px"
-    			android:layout_below="@id/coffeeshop_username"
-    			android:layout_alignLeft="@id/coffeeshop_username"
-    			android:layout_marginTop="45px"
+    			android:layout_below="@id/home_exp"
+    			android:layout_alignLeft="@id/home_username"
+    			android:layout_marginBottom="5px"
     			android:progress="75"
     			android:max="100"
     			android:indeterminate="false"
     			style="?android:attr/progressBarStyleHorizontal"/>
-    			
+	    		
 	    </RelativeLayout>
-			
-	    
+		    
+		<!-- Buttons -->
+		<RelativeLayout
+	    	android:layout_height="wrap_content"
+	    	android:layout_width="fill_parent"
+	    	android:layout_below="@id/home_header"
+	    	android:layout_marginTop="50sp"
+	    	android:layout_centerHorizontal="true">
+	    	
+		    <Button android:id="@+id/home_btnFriends"
+		    	android:layout_width="wrap_content"
+		    	android:layout_height="wrap_content"
+		    	android:layout_margin="5sp"
+		    	android:background="@drawable/btn_friends_selector"
+		    	android:layout_centerHorizontal="true" />
+		    <TextView
+		    	android:layout_width="wrap_content"
+		    	android:layout_height="wrap_content"
+		    	android:layout_below="@id/home_btnFriends"
+		    	android:layout_alignLeft="@id/home_btnFriends"
+		    	android:layout_marginLeft="7sp"
+		    	android:textColor="#000000"
+		    	android:textStyle="bold"
+		    	android:textSize="18px"
+		    	android:text="@string/home_btnFriends"/>
+		    	
+		    <Button android:id="@+id/home_btnCheckin"
+		    	android:layout_width="wrap_content"
+		    	android:layout_height="wrap_content"
+		    	android:layout_margin="5sp"
+		    	android:layout_below="@id/home_header"
+		    	android:background="@drawable/btn_checkin_selector"
+		    	android:layout_toLeftOf="@id/home_btnFriends"/>
+		    <TextView
+		    	android:layout_width="wrap_content"
+		    	android:layout_height="wrap_content"
+		    	android:layout_below="@id/home_btnCheckin"
+		    	android:layout_alignLeft="@id/home_btnCheckin"
+		    	android:textColor="#000000"
+		    	android:textStyle="bold"
+		    	android:textSize="18px"
+		    	android:text="@string/home_btnCheckin"/>
+		    	
+		    <Button android:id="@+id/home_btnBits"
+		    	android:layout_width="wrap_content"
+		    	android:layout_height="wrap_content"
+		    	android:layout_margin="5sp"
+		    	android:background="@drawable/btn_bits_selector"
+		    	android:layout_toRightOf="@id/home_btnFriends"/>
+		    <TextView
+		    	android:layout_width="wrap_content"
+		    	android:layout_height="wrap_content"
+		    	android:layout_below="@id/home_btnBits"
+		    	android:layout_alignLeft="@id/home_btnBits"
+		    	android:layout_marginLeft="23sp"
+		    	android:textColor="#000000"
+		    	android:textStyle="bold"
+		    	android:textSize="18px"
+		    	android:text="@string/home_btnBits"/>
+				
+		</RelativeLayout>
+		
 </RelativeLayout>
-
-<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent"
-	    android:orientation="vertical"
-	    android:gravity="top"
-	    android:background="#819b9b">
-	    
-	<ImageView
-	    	android:layout_height="wrap_content"
-	    	android:layout_width="wrap_content"
-	    	android:scaleType="centerCrop"
-	    	android:src="@drawable/img_header"/>
-
-	<LinearLayout
-	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent"
-	    android:orientation="vertical"
-	    android:gravity="bottom">
-	    
-	      <ViewFlipper android:id="@+id/home_viewFlipper"
-	    	android:layout_width="fill_parent"
-	    	android:layout_height="wrap_content"
-	    	android:layout_margin="10sp"/> 
-	    	
-	     <TextView android:id="@+id/home_txtResult"
-	    	android:layout_width="wrap_content"
-	    	android:layout_height="wrap_content"
-	    	android:layout_margin="10sp"
-	    	android:textColor="#EEEEEE"
-	    	android:textSize="18px"/>
-		    	
-	    <RelativeLayout
-	    	android:layout_width="fill_parent"
-	    	android:layout_height="wrap_content"
-	    	android:layout_marginBottom="10sp">
-	    	
-		    <Button android:id="@+id/home_btnLogin"
-		    	android:layout_width="wrap_content"
-		    	android:layout_height="wrap_content"
-		    	android:layout_margin="5sp"
-		    	android:layout_centerHorizontal="true"
-		    	android:drawableTop="@drawable/ic_menu_agenda"
-		    	android:background="@drawable/btn_selector"
-		    	android:textColor="#EEEEEE"
-		    	android:text="@string/home_btnLogin"/>
-		    	
-		    <Button android:id="@+id/home_btnScan"
-		    	android:layout_width="wrap_content"
-		    	android:layout_height="wrap_content"
-		    	android:layout_margin="5sp"
-		    	android:drawableTop="@drawable/ic_menu_view"
-		    	android:background="@drawable/btn_selector"
-		    	android:layout_toLeftOf="@id/home_btnLogin"
-		    	android:textColor="#EEEEEE"
-		    	android:text="@string/home_btnScan"/>
-		    	
-		    <Button android:id="@+id/home_btnEncode"
-		    	android:layout_width="wrap_content"
-		    	android:layout_height="wrap_content"
-		    	android:layout_margin="5sp"
-		    	android:drawableTop="@drawable/ic_menu_slideshow"
-		    	android:background="@drawable/btn_selector"
-		    	android:layout_toRightOf="@id/home_btnLogin"
-		    	android:textColor="#EEEEEE"
-		    	android:text="@string/home_btnEncode"/>
-		    	
-	    </RelativeLayout>
-	
-	</LinearLayout>	
-</LinearLayout>-->
