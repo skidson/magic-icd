@@ -21,10 +21,6 @@
 					</tr>
 				</table>
 				
-				<a href="<c:url value="/sparklr/photos.jsp"/>">Load sparklr photos</a><br>
-				<a href="<c:url value="/magic/user"/>">Load magic user</a>
-				
-				
 			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	
 					
