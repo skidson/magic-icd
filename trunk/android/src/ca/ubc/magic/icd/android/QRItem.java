@@ -167,7 +167,7 @@ public class QRItem {
 	 * @throws IOException
 	 */
 	public Drawable getImageDrawable(int size) throws MalformedURLException, IOException {
-		String chl = "MAGIC:" + this.toString();
+		String chl = this.toString();
 //		String chl = "MAGIC:name:French Vanilla;object:Coffee;category:Food;category2:Drink\nurl:http://skidson.com/magic"; // debug
 		String chs = size + "x" + size, choe = "ISO-8859-1", chld = "L";
 		return getImageDrawable(chl, chs, choe, chld);

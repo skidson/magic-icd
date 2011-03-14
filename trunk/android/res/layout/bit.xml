@@ -6,6 +6,7 @@
 	    android:gravity="top"
 	    android:background="#ffffff">
 	    
+	    <!-- Header -->
 	    <RelativeLayout android:id="@+id/coffeeshop_header"
 		    android:layout_width="fill_parent"
 		    android:layout_height="wrap_content"
@@ -22,12 +23,14 @@
 
 	    </RelativeLayout>
 	    
+	    <!-- Footer -->
 	    <RelativeLayout android:id="@+id/coffeeshop_footer"
 		    android:layout_width="fill_parent"
 		    android:layout_height="wrap_content"
 		    android:layout_alignParentBottom="true"
 		    android:background="@drawable/img_footer_background"/>
 	    
+	    <!-- Body -->
 	    <RelativeLayout
 	    	android:layout_height="wrap_content"
 	    	android:layout_width="fill_parent"
@@ -66,8 +69,9 @@
 		    	android:layout_width="wrap_content"
 		    	android:layout_height="wrap_content"
 		    	android:layout_margin="20sp"
-		    	android:layout_alignParentBottom="true"
+		    	android:layout_marginBottom="30sp"
 		    	android:layout_alignParentRight="true"
+		    	android:layout_above="@id/coffeeshop_footer"
 		    	android:background="@drawable/btn_checkin_selector"/>
 	    <TextView
 	    	android:layout_width="wrap_content"
