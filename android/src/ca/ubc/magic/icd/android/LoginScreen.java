@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class CoffeeShop extends Activity {
+public class LoginScreen extends Activity {
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,8 @@ public class CoffeeShop extends Activity {
         btnLogin.setOnClickListener(new OnClickListener() {
         	public void onClick(View view) {
         		// TODO verify credentials
-        		startActivity(new Intent(CoffeeShop.this, HomeScreen.class));
+        		
+        		startActivity(new Intent(LoginScreen.this, HomeScreen.class));
         	}
         });
     }
