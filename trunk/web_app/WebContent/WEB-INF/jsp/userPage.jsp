@@ -47,8 +47,9 @@
 			     			</c:forEach>
 		     			</table>
      				</c:when>
-     				
-     				<c:when test="${not empty randomFriend}">
+				</c:choose>
+				<c:choose>
+					<c:when test="${not empty randomFriend}">
 		     			<h2> ${friend.name} has some friends! :</h2>
 		     			
 		     			<table> <tr>

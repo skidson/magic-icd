@@ -52,8 +52,10 @@ public class FriendController {
 		User friend = new User(magicService.showUser(id));
 		List<Bit> linkedBits = magicService.showBitLinks(id);
 		List<User> friends = magicService.showFriends(id);
+		System.out.println(friends.toString());
 		if(friends.size() > 0) {
-			User randomFriend = friends.get(r.nextInt(friends.size()));	
+			User randomFriend = friends.get(r.nextInt(friends.size()));
+			System.out.println(randomFriend.getName());
 			model.put("randomFriend", randomFriend);
 		}
 		if(linkedBits.size() > 0){
