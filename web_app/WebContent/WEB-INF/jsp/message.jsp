@@ -8,14 +8,17 @@
 		<%@ include file="/WEB-INF/jsp/header.jsp" %>
 		<div id="content-wrap">
 			<div id="main">
-				<h2>Inbox</h2> 
+				<h2>Message</h2> 
 				<br />
-				<table> <th>Messages</th>
-					<tr><td><a href="<c:url value="/magic/viewMessage?message_id=1"/>">Hey, Magic</a></td></tr>
-					<tr><td><a href="<c:url value="/magic/viewMessage?message_id=2"/>">Want to go out for a coffee?</a></td></tr>
-				</table>
-				<a href="composeMessage.htm?username=" " "><button> Compose Message </button></a>
-				
+				<form method="post" action="sendMessage.htm">
+					<table>
+
+						<tr><td>To: </td><td><input type="text" size="60" name="in_recipient" value=${replyName}></td></tr>
+						<tr><td>Subject: </td><td><input type="text" size="60" name="in_subject" value=${reply.subject}></td></tr>
+						<tr><td colspan="2"><center><textarea name="in_text"></textarea></center></td></tr>
+						<tr><td colspan="2"><center><input class="button" value="       Send       " type="submit" /></center></td></tr>
+					</table>
+				</form>	
 			</div> <!-- main -->
 		</div> <!-- content-wrap -->
 		<%@ include file="/WEB-INF/jsp/footer.jsp" %>

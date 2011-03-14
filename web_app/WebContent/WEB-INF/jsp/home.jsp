@@ -10,25 +10,41 @@
 			<div id="main">
 				<h2>Home</h2>
 				<br>
-				
-				<table>
-					<c:forEach var="friend" items="${friends}">
-						<tr><td><a href="<c:url value="magic/userPage?userID=${friend.id}"/>">${friend.name}</a> is linked to INSERT BIT LOOP HERE </td></tr>
-					</c:forEach>
-				</table>
-				
-				
-				<table>
-					<tr>
-						<form method="post" action="userSearch.html">
-						<center><input type="text" size="40" name="searchQuery" />
-						<input class="button" value=" Search " type="submit" /></center>
+				<c:choose>
+					<c:when test="${linked.magic}">
+						<c:choose>
+							<c:when test="${not empty friends}">
+								<table>
+									<c:set var="bitCheck" value="fail"/>
+									<c:forEach var="friend" items="${friends}">
+										<c:if test="${not empty friend.bits}">
+											<c:set var="bitCheck" value="pass"/>
+											<c:forEach var="friendLink" items="${friend.bits}">
+												<tr><td><a href="<c:url value="magic/userPage?userID=${friend.id}"/>">${friend.name}</a> is linked to <a href="<c:url value ="/magic/bit?id=${bit.id}"/>">${friendLink.name}</a> </td></tr>
+											</c:forEach>
+										</c:if>
+									</c:forEach>
+									<c:if test="${bitCheck eq 'fail'}">
+										Sorry, all your friends are rather boring and are not connected to anything!
+									</c:if>
+								</table>
+							</c:when>
+							<c:otherwise>
+								Sorry you have no friends, go to the friends page to search for some people you may know!
+							</c:otherwise>
+						</c:choose>
+					</c:when>
+					<c:otherwise>
+						<center><img src="http://www.magic.ubc.ca/496/pmwiki/uploads/New/tablenow.jpg"></img></center><br>
+						<form method="get" action="/web_app/magic/home">
+							<table><tr>
+								<td><b>Have a MAGIC account? Link it to your CoffeeShop account for this session!</b></td>
+								<td><input class="button" value=" Link your MAGIC account " type="submit"/></td>
+							</tr></table>
 						</form>
-					</tr>
-				</table>
-				
-				<a href="<c:url value="/magic/test" />">TEST CONTROLLER</a>	
-				
+					</c:otherwise>
+				</c:choose>
+								
 			</div> <!--  main --> 
 		</div> <!-- content-wrap -->	
 		<%@ include file="/WEB-INF/jsp/footer.jsp" %>

@@ -26,9 +26,9 @@ public class HomeController {
 	public ModelAndView magicHome() {
 		Map<String, Object> model = UserService.initUserContext(linkManager);
 		List<User> friends = magicService.showFriends();
-		/*for(User user : friends){
+		for(User user : friends){
 			user.setBits(magicService.showBitLinks(user.getId()));
-		}*/
+		}
 		model.put("friends", friends);
 		return new ModelAndView("home", model);
 	}
