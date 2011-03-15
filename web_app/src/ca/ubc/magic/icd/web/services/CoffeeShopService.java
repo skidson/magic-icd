@@ -57,9 +57,9 @@ public class CoffeeShopService implements MagicService {
 	}
 
 	@Override
-	public JsonItem updateBitDescription(int id, String description) {
-		String request = "bits/update?id=" + id + "&desription=" + description;
-		return (new JsonParser(compileInputStream(request))).parse().get(0);
+	public void updateBitDescription(int id, String description) {
+		String request = "bits/update?id=" + id + "&description=" + encode(description);
+		new JsonParser(compileInputStream(request)).parse();
 	}
 
 	@Override
@@ -227,27 +227,8 @@ public class CoffeeShopService implements MagicService {
 		return (new JsonParser(compileInputStream(request))).parse().get(0);
 	}
 	
-	public List<User> showUserLinks() {
-		String request = "links/users";
-		Iterator<JsonItem> iterator = (new JsonParser(compileInputStream(request))).parse().iterator();
-		List<User> list = new ArrayList<User>();
-		while (iterator.hasNext()) {
-			JsonItem match = iterator.next();
-			try {
-				User user = null;
-				if (match.containsKey("user"))
-					user = new User(match);
-				else
-					continue;
-				list.add(user);
-			} catch (NullPointerException e) {
-				continue;
-			}
-		}
-		return list;
-	}
 	
-	public List<User> showUserLinks(int id) {
+	public List<User> showUserLinkedToBit(int id) {
 		String request = "links/users?id=" + id;
 		Iterator<JsonItem> iterator = (new JsonParser(compileInputStream(request))).parse().iterator();
 		List<User> list = new ArrayList<User>();
@@ -267,7 +248,7 @@ public class CoffeeShopService implements MagicService {
 		return list;
 	}
 	
-	public List<Bit> showBitLinks() {
+	public List<Bit> showBitLinksOfUser() {
 		String request = "links/show";
 		Iterator<JsonItem> iterator = (new JsonParser(compileInputStream(request))).parse().iterator();
 		List<Bit> list = new ArrayList<Bit>();
@@ -287,7 +268,7 @@ public class CoffeeShopService implements MagicService {
 		return list;
 	}
 	
-	public List<Bit> showBitLinks(int id) {
+	public List<Bit> showBitLinksOfUser(int id) {
 		String request = "links/show?id=" + id;
 		Iterator<JsonItem> iterator = (new JsonParser(compileInputStream(request))).parse().iterator();
 		List<Bit> list = new ArrayList<Bit>();

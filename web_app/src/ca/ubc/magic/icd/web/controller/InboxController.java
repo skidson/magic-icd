@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ca.ubc.magic.icd.web.model.LinkManager;
+import ca.ubc.magic.icd.web.model.Message;
 import ca.ubc.magic.icd.web.services.UserService;
  
 @Controller
@@ -34,11 +35,11 @@ public class InboxController {
     	Map<String, Object> model = UserService.initUserContext(linkManager);
     	
     	if(id == 1){
-    		String message_contents = "Welcome to the Coffee Shop Client, have a good day!";
-    		model.put("message_contents", message_contents);
+    		Message message = new Message("Welcome to the Coffee Shop Client, have a good day!", "Hey, Magic", id);
+    		model.put("message", message);
     	}else if(id == 2){
-    		String message_contents = "Hey, was just wondering if you wanted to go out for coffe some time. Lemme know!";
-    		model.put("message_contents", message_contents);
+    		Message message = new Message("Hey, was just wondering if you wanted to go out for coffe some time. Lemme know!", "Hey, Magic", id);
+    		model.put("message", message);
     	}
     	return new ModelAndView("message", model);
     }

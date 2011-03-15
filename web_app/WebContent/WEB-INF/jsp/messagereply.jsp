@@ -8,11 +8,17 @@
 		<%@ include file="/WEB-INF/jsp/header.jsp" %>
 		<div id="content-wrap">
 			<div id="main">
-				<h2>${message.title}</h2> 
+				<h2>Message</h2> 
 				<br />
-				${message.contents} <br>
-				<a href="<c:url value="/magic/reply"/>"><button> Reply </button></a>
-				<a href="<c:url value ="/magic/delete?message_id=${message.id}"/>"><button> Delete </button></a>
+				<form method="post" action="sendMessage.htm">
+					<table>
+
+						<tr><td>To: </td><td><input type="text" size="60" name="in_recipient" value=${replyName}></td></tr>
+						<tr><td>Subject: </td><td><input type="text" size="60" name="in_subject" value=${reply.subject}></td></tr>
+						<tr><td colspan="2"><center><textarea name="in_text"></textarea></center></td></tr>
+						<tr><td colspan="2"><center><input class="button" value="       Send       " type="submit" /></center></td></tr>
+					</table>
+				</form>	
 			</div> <!-- main -->
 		</div> <!-- content-wrap -->
 		<%@ include file="/WEB-INF/jsp/footer.jsp" %>

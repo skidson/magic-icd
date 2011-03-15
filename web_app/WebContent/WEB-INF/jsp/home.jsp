@@ -20,7 +20,7 @@
 										<c:if test="${not empty friend.bits}">
 											<c:set var="bitCheck" value="pass"/>
 											<c:forEach var="friendLink" items="${friend.bits}">
-												<tr><td><a href="<c:url value="magic/userPage?userID=${friend.id}"/>">${friend.name}</a> is linked to <a href="<c:url value ="/magic/bit?id=${bit.id}"/>">${friendLink.name}</a> </td></tr>
+												<tr><td><a href="<c:url value="magic/userPage?userID=${friend.id}"/>">${friend.name}</a> is linked to <a href="<c:url value ="/magic/bit?id=${friendLink.id}"/>">${friendLink.name}</a> </td></tr>
 											</c:forEach>
 										</c:if>
 									</c:forEach>
