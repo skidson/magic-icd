@@ -17,15 +17,15 @@
 							</c:when>
 							<c:otherwise>
 								<table>
-								<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+								<tr><th>Name</th><th>Type</th><th>Description</th><th>Update?</th></tr>
 								<c:forEach var="bit" items="${bitsList}">
-				        			<tr><td><a href="<c:url value ="/magic/bit?id=${bit.id}"/>">${bit.name}</a></td><td>${bit.type}</td><td>${bit.description}</td></tr>
+				        			<tr><td><a href="<c:url value ="/magic/bit?id=${bit.id}"/>">${bit.name}</a></td><td>${bit.type}</td><td>${bit.description}</td><td><a href="<c:url value="/magic/updateBit?bitID=${bit.id}"/>">Update this bit!</a></td></tr>
 				     			</c:forEach>
 				     			</table> <br>
 				     		</c:otherwise>
 				     	</c:choose>
 		     			<h2>Search</h2><br>
-		     			<table><tr><form method="post" action="bitSearch.html">
+		     			<table><tr><form method="post" action="bitSearch">
 							<center><b>Keyword: </b><input type="text" size="40" name="searchQuery" />
 							<select name="searchFilter" size="1">
 								<option value="all">All</option>

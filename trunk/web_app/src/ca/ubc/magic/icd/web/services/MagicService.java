@@ -41,7 +41,7 @@ public interface MagicService {
 	
 	public JsonItem updateBitName(int id, String name);
 	
-	public JsonItem updateBitDescription(int id, String description);
+	public void updateBitDescription(int id, String description);
 	
 	public JsonItem updateBitType(int id, int type);
 	
@@ -67,12 +67,10 @@ public interface MagicService {
 	
 	public JsonItem destroyLink(int id);
 	
-	public List<User> showUserLinks(); 
+	public List<User> showUserLinkedToBit(int id);
 	
-	public List<User> showUserLinks(int id);
+	public List<Bit> showBitLinksOfUser(); 
 	
-	public List<Bit> showBitLinks(); 
-	
-	public List<Bit> showBitLinks(int id); 
+	public List<Bit> showBitLinksOfUser(int id); 
 	
 }

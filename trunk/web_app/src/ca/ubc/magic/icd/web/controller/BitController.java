@@ -41,7 +41,7 @@ public class BitController {
     	Map<String, Object> model = UserService.initUserContext(linkManager);
     	
     	List<Bit> bitsList = new ArrayList<Bit>();
-    	bitsList = magicService.showBitLinks();
+    	bitsList = magicService.showBitLinksOfUser();
     	System.out.println(bitsList.toString());
     	
     	model.put("bitsList", bitsList);
@@ -54,11 +54,13 @@ public class BitController {
     	Bit bit = new Bit(magicService.showBit(bitID));
     	model.put("bit", bit);
     	
-    	List<User> userLinks = magicService.showUserLinks(bitID);
-    	System.out.println(userLinks.toString());
-    	List<Bit> bitLinks = magicService.showBitLinks(bitID);
-    	System.out.println(bitLinks.toString());
+		JsonItem profile = magicService.showUser();
+		User magicUser = new User(profile);
+		magicUser.setBits(magicService.showBitLinksOfUser(magicUser.getId()));
+    	List<User> userLinks = magicService.showUserLinkedToBit(bitID);
+    	List<Bit> bitLinks = magicService.showBitLinksOfUser(magicUser.getId());
     	
+    	model.put("magicUser", magicUser);
     	model.put("userLinks", userLinks);
     	model.put("bitLinks", bitLinks);
     	
@@ -104,5 +106,50 @@ public class BitController {
     	
     	magicService.createLink(id);
     	return new ModelAndView("redirect:/magic/bits", model);
+    }
+    
+    @RequestMapping("magic/destroyLink")
+    public ModelAndView destoyLink(@RequestParam("bitID") int id){
+    	Map<String, Object> model = UserService.initUserContext(linkManager);
+    	
+    	magicService.destroyLink(id);
+    	return new ModelAndView("redirect:/magic/bits", model);
+    }
+    
+    
+    @RequestMapping("magic/updateBit")
+    public ModelAndView updateBit(@RequestParam("bitID") int id){
+    	Map<String, Object> model = UserService.initUserContext(linkManager);
+    	
+    	Bit bit = new Bit(magicService.showBit(id));
+    	model.put("bit", bit);
+    	return new ModelAndView("updateBit", model);
+    }
+    
+    @RequestMapping("magic/updateBitDescription")
+    public ModelAndView updateBitDescription(	@RequestParam("bitID") int id,
+    											@RequestParam("in_description") String description){
+    	Map<String, Object> model = UserService.initUserContext(linkManager);
+    	
+    	magicService.updateBitDescription(id, description);
+    	return new ModelAndView("redirect:/magic/updateBit?bitID=" + id, model);
+    }
+    
+    @RequestMapping("magic/updateBitType")
+    public ModelAndView updateBitType(	@RequestParam("bitID") int id,
+    									@RequestParam("in_type") int type){
+    	Map<String, Object> model = UserService.initUserContext(linkManager);
+    	
+    	magicService.updateBitType(id, type);
+    	return new ModelAndView("redirect:/magic/updateBit?bitID=" + id, model);
+    }
+    
+    @RequestMapping("magic/updateBitName")
+    public ModelAndView updateBitName(@RequestParam("bitID") int id,
+    									@RequestParam("in_name") String name){
+    	Map<String, Object> model = UserService.initUserContext(linkManager);
+    	
+    	magicService.updateBitName(id, name);
+    	return new ModelAndView("redirect:/magic/updateBit?bitID=" + id, model);
     }
 }

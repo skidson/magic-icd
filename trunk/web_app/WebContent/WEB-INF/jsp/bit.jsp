@@ -18,15 +18,24 @@
 					<td colSpan="2"><b>Description: </b> <p>${bit.description}</p></td>
 				</tr>
 			</table>
-			<c:if test="${empty userLinks}">
+			<c:if test="${empty magicUser.bits}">
 				<a href="<c:url value="/magic/linkBit?bitID=${bit.id}"/>">Link to this bit!</a>
 			</c:if>
 			
-			<c:forEach items="${userLinks}" var="linkedUser">
-				<c:if test="${user.username ne linkedUser.username}">
-					<a href="<c:url value="/magic/linkBit?bitID=${bit.id}"/>">Link to this bit!</a>
+			<c:set var="test" value="false"/>
+			<c:forEach items="${magicUser.bits}" var="userBit">
+				<c:if test="${bit.id eq userBit.id}">
+					<c:set var="test" value="true"/>
 				</c:if>
 			</c:forEach>
+			<input style="float:right; margin-right:100px" class="button" value="Connect this bit to another!" type="submit"/>
+			<c:if test="${test ne 'true'}">
+				<a href="<c:url value="/magic/linkBit?bitID=${bit.id}"/>">Link to this bit!</a>
+			</c:if>
+			
+			<c:if test="${test eq 'true'}">
+				<a href="<c:url value="/magic/destroyLink?bitID=${bit.id}"/>">Destory the link to this bit!</a>
+			</c:if>
 			
 			<c:choose>
 				<c:when test="${not empty userLinks}">

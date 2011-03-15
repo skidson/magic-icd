@@ -50,7 +50,7 @@ public class FriendController {
 		Map<String, Object> model = UserService.initUserContext(linkManager);
 		Random r = new Random();
 		User friend = new User(magicService.showUser(id));
-		List<Bit> linkedBits = magicService.showBitLinks(id);
+		List<Bit> linkedBits = magicService.showBitLinksOfUser(id);
 		List<User> friends = magicService.showFriends(id);
 		System.out.println(friends.toString());
 		if(friends.size() > 0) {

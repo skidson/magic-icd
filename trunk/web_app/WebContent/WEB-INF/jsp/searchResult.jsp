@@ -4,7 +4,7 @@
 
 <body>
 	<div id="wrap">
-		<c:set var="directory" value="friends"/>
+		<c:set var="directory" value="bits"/>
 		<%@ include file="/WEB-INF/jsp/header.jsp" %>
 		<div id="content-wrap">
 			<div id="main">
