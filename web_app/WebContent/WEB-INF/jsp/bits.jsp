@@ -19,7 +19,7 @@
 								<table>
 								<tr><th>Name</th><th>Type</th><th>Description</th><th>Update?</th></tr>
 								<c:forEach var="bit" items="${bitsList}">
-				        			<tr><td><a href="<c:url value ="/magic/bit?id=${bit.id}"/>">${bit.name}</a></td><td>${bit.type}</td><td>${bit.description}</td><td><a href="<c:url value="/magic/updateBit?bitID=${bit.id}"/>">Update this bit!</a></td></tr>
+				        			<tr><td><a href="<c:url value ="/magic/bit?bitID=${bit.id}"/>">${bit.name}</a></td><td>${bit.type}</td><td>${bit.description}</td><td><a href="<c:url value="/magic/updateBit?bitID=${bit.id}"/>">Update this bit!</a></td></tr>
 				     			</c:forEach>
 				     			</table> <br>
 				     		</c:otherwise>

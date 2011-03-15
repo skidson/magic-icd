@@ -49,29 +49,30 @@ public class BitController {
     }
     
     @RequestMapping("/magic/bit")
-    public ModelAndView showBit(@RequestParam("id") int bitID) {
+    public ModelAndView showBit(@RequestParam("bitID") int id) {
     	Map<String, Object> model = UserService.initUserContext(linkManager);
-    	Bit bit = new Bit(magicService.showBit(bitID));
+    	Bit bit = new Bit(magicService.showBit(id));
     	model.put("bit", bit);
     	
 		JsonItem profile = magicService.showUser();
 		User magicUser = new User(profile);
 		magicUser.setBits(magicService.showBitLinksOfUser(magicUser.getId()));
-    	List<User> userLinks = magicService.showUserLinkedToBit(bitID);
-    	List<Bit> bitLinks = magicService.showBitLinksOfUser(magicUser.getId());
+		List<User> userLinks = magicService.showUserLinkedToBit(id);
+    	List<Bit> bitTies = magicService.showTies(id);
+    	System.out.println(bitTies.toString());
     	
     	model.put("magicUser", magicUser);
     	model.put("userLinks", userLinks);
-    	model.put("bitLinks", bitLinks);
+    	model.put("bitLinks", bitTies);
     	
     	return new ModelAndView("bit", model);
     }
     
     @RequestMapping("/magic/checkinBit")
-    public ModelAndView checkIn(@RequestParam("id") int bitID){
+    public ModelAndView checkIn(@RequestParam("bitID") int id){
     	Map<String, Object> model = UserService.initUserContext(linkManager);
     	
-    	JsonItem checkinInfo = magicService.checkin(bitID);
+    	JsonItem checkinInfo = magicService.checkin(id);
     	System.out.println(checkinInfo.toString());
     	return new ModelAndView("home", model);
     }
@@ -145,11 +146,30 @@ public class BitController {
     }
     
     @RequestMapping("magic/updateBitName")
-    public ModelAndView updateBitName(@RequestParam("bitID") int id,
+    public ModelAndView updateBitName(	@RequestParam("bitID") int id,
     									@RequestParam("in_name") String name){
     	Map<String, Object> model = UserService.initUserContext(linkManager);
     	
     	magicService.updateBitName(id, name);
     	return new ModelAndView("redirect:/magic/updateBit?bitID=" + id, model);
     }
+    
+    @RequestMapping("magic/connectBits")
+    public ModelAndView getConnectPage(@RequestParam("bitID") int id){
+    	Map<String, Object> model = UserService.initUserContext(linkManager);
+    	List<Bit> search = magicService.searchBits("");
+    	model.put("bits", search);
+    	Bit origBit = new Bit(magicService.showBit(id));
+    	model.put("origBit", origBit);
+    	return new ModelAndView("connectBits", model);
+    }
+    
+    @RequestMapping("magic/connectTo")
+    public ModelAndView connectBits(@RequestParam("bitID") int id, @RequestParam("tieID") int tieID){
+    	Map<String, Object> model = UserService.initUserContext(linkManager);
+    	magicService.createTie(id, tieID);
+    	return new ModelAndView("redirect:/magic/bit?bitID=" + id, model);
+    }
+    
+    
 }
