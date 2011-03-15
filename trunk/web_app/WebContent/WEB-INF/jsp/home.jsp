@@ -20,7 +20,7 @@
 										<c:if test="${not empty friend.bits}">
 											<c:set var="bitCheck" value="pass"/>
 											<c:forEach var="friendLink" items="${friend.bits}">
-												<tr><td><a href="<c:url value="magic/userPage?userID=${friend.id}"/>">${friend.name}</a> is linked to <a href="<c:url value ="/magic/bit?id=${friendLink.id}"/>">${friendLink.name}</a> </td></tr>
+												<tr><td><a href="<c:url value="magic/userPage?userID=${friend.id}"/>">${friend.name}</a> is linked to <a href="<c:url value ="/magic/bit?bitID=${friendLink.id}"/>">${friendLink.name}</a> </td></tr>
 											</c:forEach>
 										</c:if>
 									</c:forEach>
@@ -36,12 +36,10 @@
 					</c:when>
 					<c:otherwise>
 						<center><img src="http://www.magic.ubc.ca/496/pmwiki/uploads/New/tablenow.jpg"></img></center><br>
-						<form method="get" action="/web_app/magic/home">
 							<table><tr>
 								<td><b>Have a MAGIC account? Link it to your CoffeeShop account for this session!</b></td>
-								<td><input class="button" value=" Link your MAGIC account " type="submit"/></td>
+								<td align="right"><input class="button" type=button onClick="location.href='/web_app/magic/account'" value='Link your MAGIC account!'/></td>
 							</tr></table>
-						</form>
 					</c:otherwise>
 				</c:choose>
 								

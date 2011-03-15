@@ -28,7 +28,7 @@
 					<c:set var="test" value="true"/>
 				</c:if>
 			</c:forEach>
-			<input style="float:right; margin-right:100px" class="button" value="Connect this bit to another!" type="submit"/>
+			<input style="float:right; margin-right:100px" class="button" type=button onClick="location.href='/web_app/magic/connectBits?bitID=${bit.id}'" value='Connect this bit to another!'/>
 			<c:if test="${test ne 'true'}">
 				<a href="<c:url value="/magic/linkBit?bitID=${bit.id}"/>">Link to this bit!</a>
 			</c:if>
@@ -47,7 +47,7 @@
 									<td rowSpan="2" align="center"> <img src="${linkedUser.imageURL}" alt="${linkedUser.name}'s picture" /> </td>
 									<td> <b><a href="<c:url value="/magic/userPage?userID=${linkedUser.id}"/>">${linkedUser.name}</a></b> </td>
 								</tr>
-								<tr> <td>${user.description}</td> </tr>
+								<tr> <td>${linkedUser.description}</td> </tr>
 							</c:if>
 						</c:forEach>
 					</table><br>

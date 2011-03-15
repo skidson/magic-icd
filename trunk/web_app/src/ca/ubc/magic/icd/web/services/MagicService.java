@@ -73,4 +73,12 @@ public interface MagicService {
 	
 	public List<Bit> showBitLinksOfUser(int id); 
 	
+	public List<Bit> searchBits(String q);
+	
+	public List<Bit> showTies(int id);
+	
+	public JsonItem createTie(int id, int tie);
+	
+	public JsonItem destroyTie(int id, int tie);
+	
 }

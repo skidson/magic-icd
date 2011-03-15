@@ -43,7 +43,7 @@
 						<h2> ${friend.name} likes :</h2>
 						<table> <tr><th>Name</th><th>Type</th><th>Description</th></tr>
 							<c:forEach var="bit" items="${linkedBits}">
-			        			<tr><td><a href="<c:url value ="/magic/bit?id=${bit.id}"/>">${bit.name}</a></td><td>${bit.type}</td><td>${bit.description}</td></tr>
+			        			<tr><td><a href="<c:url value ="/magic/bit?bitID=${bit.id}"/>">${bit.name}</a></td><td>${bit.type}</td><td>${bit.description}</td></tr>
 			     			</c:forEach>
 		     			</table>
      				</c:when>

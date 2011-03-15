@@ -233,17 +233,29 @@ public class CoffeeShopService implements MagicService {
 		Iterator<JsonItem> iterator = (new JsonParser(compileInputStream(request))).parse().iterator();
 		List<User> list = new ArrayList<User>();
 		while (iterator.hasNext()) {
-			JsonItem match = iterator.next();
+			JsonItem userInfo = iterator.next().getAsJsonItem("user");
+			
+			String name, username, description, photo;
+			Integer experience, points, userID;
 			try {
-				User user = null;
-				if (match.containsKey("user"))
-					user = new User(match);
-				else
-					continue;
-				list.add(user);
+				name = userInfo.getAsString("name");
+				username = userInfo.getAsString("username");
+				description = userInfo.getAsString("description");
+				photo = userInfo.getAsString("photo");
+				userID = userInfo.getAsInteger("id");
+				try {
+					experience = userInfo.getAsInteger("experience");
+					points = userInfo.getAsInteger("points");
+				} catch (NumberFormatException e) {
+					experience = 0;
+					points = 0;
+				}
 			} catch (NullPointerException e) {
 				continue;
 			}
+			User user = new User(name, username, description, photo, userID,
+					experience, points);
+			list.add(user);
 		}
 		return list;
 	}
@@ -287,7 +299,57 @@ public class CoffeeShopService implements MagicService {
 		}
 		return list;
 	}
-
+	
+	public JsonItem createTie(int id, int tieTo){
+		String request = "ties/create?id=" + id +"&tie=" + tieTo;
+		return (new JsonParser(compileInputStream(request))).parse().get(0);		
+	}
+	
+	public JsonItem destroyTie(int id, int tieTo){
+		String request = "ties/destroy?id=" + id +"&tie=" + tieTo;
+		return (new JsonParser(compileInputStream(request))).parse().get(0);		
+	}
+	
+	public List<Bit> showTies(int id){
+		String request = "ties/show?id=" + id;
+		Iterator<JsonItem> iterator = (new JsonParser(compileInputStream(request))).parse().iterator();
+		List<Bit> list = new ArrayList<Bit>();
+		while (iterator.hasNext()) {
+			JsonItem match = iterator.next();
+			try {
+				Bit bit = null;
+				if (match.containsKey("bit"))
+					bit = new Bit(match);
+				else
+					continue;
+				list.add(bit);
+			} catch (NullPointerException e) {
+				continue;
+			}
+		}
+		return list;
+	}
+	
+	public List<Bit> searchBits(String query){
+		String request = "bits/search?q=" + query;
+		Iterator<JsonItem> iterator = (new JsonParser(compileInputStream(request))).parse().iterator();
+		List<Bit> list = new ArrayList<Bit>();
+		while (iterator.hasNext()) {
+			JsonItem match = iterator.next();
+			try {
+				Bit bit = null;
+				if (match.containsKey("bit"))
+					bit = new Bit(match);
+				else
+					continue;
+				list.add(bit);
+			} catch (NullPointerException e) {
+				continue;
+			}
+		}
+		return list;
+	}
+	
 	public void setMagicRestTemplate(OAuthRestTemplate magicRestTemplate) {
 		this.magicRestTemplate = magicRestTemplate;
 	}
