@@ -54,7 +54,7 @@ public class FeedItem {
 	
 	/**
 	 * Returns this item's optional source type.
-	 * @param type Type enumeration 
+	 * @param typeID Type enumeration 
 	 * @see Type
 	 */
 	public Type getType() {
