@@ -15,7 +15,12 @@ import ca.ubc.magic.icd.web.model.LinkManager;
 import ca.ubc.magic.icd.web.model.User;
 import ca.ubc.magic.icd.web.services.MagicService;
 import ca.ubc.magic.icd.web.services.UserService;
-
+/**
+ * The Spring Controller that intercepts all URL patterns related to users/friends
+ * Each function passes the specified jsp page name to the View Resolver to render it for the user
+ * @author Jeffrey Payan
+ * @author Stephen Kidson
+ */
 @Controller
 public class FriendController {
 	@Autowired
@@ -24,12 +29,20 @@ public class FriendController {
 	@Autowired
 	private LinkManager linkManager;
 	
+	/**
+	 * 
+	 * 
+	 */
 	@RequestMapping("/basic/friends")
 	public ModelAndView basicFriends() {
 		Map<String, Object> model = UserService.initUserContext(linkManager);
 		return new ModelAndView("friends", model);
 	}
-
+	
+	/**
+	 * 
+	 * 
+	 */
 	@RequestMapping("/magic/friends")
 	public ModelAndView magicFriends() {
 		Map<String, Object> model = UserService.initUserContext(linkManager);
@@ -38,6 +51,11 @@ public class FriendController {
 		return new ModelAndView("friends", model);
 	}
 	
+	/**
+	 * 
+	 * @param id - Request Parameter : friendID
+	 * 
+	 */
 	@RequestMapping("magic/createFriend")
 	public ModelAndView createFriend(@RequestParam("friendID") int id){
 		Map<String, Object> model = UserService.initUserContext(linkManager);
@@ -45,6 +63,11 @@ public class FriendController {
 		return new ModelAndView("redirect:/magic/friends", model);
 	}
 	
+	/**
+	 * 
+	 * @param id - Request Parameter :userID
+	 * 
+	 */
 	@RequestMapping("magic/userPage")
 	public ModelAndView getUserPage(@RequestParam("userID") int id){
 		Map<String, Object> model = UserService.initUserContext(linkManager);
@@ -75,6 +98,11 @@ public class FriendController {
 		return new ModelAndView("userPage", model);
 	}
 	
+	/**
+	 * 
+	 * @param id - Request Parameter : friendID
+	 * 
+	 */
 	@RequestMapping("magic/destroyFriend")
 	public ModelAndView destroyFriend(@RequestParam("friendID") int id){
 		Map<String, Object> model = UserService.initUserContext(linkManager);
