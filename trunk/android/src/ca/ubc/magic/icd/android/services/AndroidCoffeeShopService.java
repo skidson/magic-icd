@@ -24,7 +24,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import ca.ubc.magic.icd.android.User;
+import ca.ubc.magic.icd.android.model.User;
 import ca.ubc.magic.icd.web.json.JsonItem;
 import ca.ubc.magic.icd.web.json.JsonParser;
 

@@ -1,4 +1,4 @@
-package ca.ubc.magic.icd.android;
+package ca.ubc.magic.icd.android.model;
 
 import ca.ubc.magic.icd.android.services.AndroidCoffeeShopService;
 
