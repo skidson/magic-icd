@@ -15,7 +15,7 @@
 						<table>
 							<tr>
 								<td rowSpan="2" align="center"> <img src="${friend.imageURL}" alt="${friend.name}'s picture" /> </td>
-								<td> ${friend.name} </td>
+								<td> ${friend.name} </td> <c:if test="${alreadyFriend eq 'false'}"><td align="right"><a href="<c:url value="/magic/createFriend?friendID=${friend.id}"/>">Become a friend!</a></td></c:if>
 							</tr>
 							<tr>
 								<td>${friend.description}</td>

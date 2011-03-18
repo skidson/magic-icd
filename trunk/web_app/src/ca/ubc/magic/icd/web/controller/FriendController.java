@@ -48,19 +48,29 @@ public class FriendController {
 	@RequestMapping("magic/userPage")
 	public ModelAndView getUserPage(@RequestParam("userID") int id){
 		Map<String, Object> model = UserService.initUserContext(linkManager);
+		String alreadyFriend = "false";
 		Random r = new Random();
 		User friend = new User(magicService.showUser(id));
+		List<User> magicFriends = magicService.showFriends((new User(magicService.showUser())).getId());
 		List<Bit> linkedBits = magicService.showBitLinksOfUser(id);
 		List<User> friends = magicService.showFriends(id);
-		System.out.println(friends.toString());
 		if(friends.size() > 0) {
 			User randomFriend = friends.get(r.nextInt(friends.size()));
-			System.out.println(randomFriend.getName());
 			model.put("randomFriend", randomFriend);
 		}
+		
 		if(linkedBits.size() > 0){
 			model.put("linkedBits", linkedBits);
 		}
+		
+		for(User magicFriend : magicFriends){
+			if (friend.getUsername().equals(magicFriend.getUsername())){
+			alreadyFriend = "true";
+			break;
+			}
+		}
+		
+		model.put("alreadyFriend", alreadyFriend);
 		model.put("friend", friend);
 		return new ModelAndView("userPage", model);
 	}
