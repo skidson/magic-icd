@@ -233,11 +233,12 @@ public class BitController {
     									@RequestParam(value="searchQuery", required = false) String query){
     	
     	Map<String, Object> model = UserService.initUserContext(linkManager);
+    	if(query == null) query = "";
+    	
     	List<Bit> search = magicService.searchBits(query);
     	List<Bit> toReturn = new ArrayList<Bit>();
     	Bit origBit = new Bit(magicService.showBit(id));
     	
-    	if(query == null) query = "";
     	if(page == null) page = 1;
   
     	for (int i = (page-1) * BITS_PER_PAGE; i < search.size() && i < (page-1)*BITS_PER_PAGE+BITS_PER_PAGE; i++)
