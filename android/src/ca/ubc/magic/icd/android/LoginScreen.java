@@ -1,5 +1,6 @@
 package ca.ubc.magic.icd.android;
 
+import ca.ubc.magic.icd.android.services.AndroidCoffeeShopService;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,12 +18,11 @@ public class LoginScreen extends Activity {
         // if not, show Login Screen
         
         setContentView(R.layout.login);
-        
         Button btnLogin = (Button)findViewById(R.id.login_btnLogin);
         btnLogin.setOnClickListener(new OnClickListener() {
         	public void onClick(View view) {
         		// TODO verify credentials
-        		
+        		AndroidCoffeeShopService.getInstance(LoginScreen.this); // initialize the service singleton (user prompted to authorize)
         		startActivity(new Intent(LoginScreen.this, HomeScreen.class));
         	}
         });

@@ -1,6 +1,9 @@
 package ca.ubc.magic.icd.android.services;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -12,21 +15,29 @@ import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
 import oauth.signpost.commonshttp.CommonsHttpOAuthProvider;
 import oauth.signpost.exception.OAuthException;
 
+import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.preference.PreferenceManager;
 import ca.ubc.magic.icd.android.User;
 import ca.ubc.magic.icd.web.json.JsonItem;
 import ca.ubc.magic.icd.web.json.JsonParser;
 
 public class AndroidCoffeeShopService {
+	public static final int BIT = 1;
+	public static final int PLACE = 2;
+	public static final int TABLE = 3;
+	public static final int DRINK = 4;
+	public static final int FOOD = 5;
+	public static final int DISPLAY = 6;
+	public static final int CONTENT = 7;
+	public static final int PERSON = 8;
+	
 	public static final String ID = "id";
 	public static final String QR_IMAGE_URL = "qr_image_url";
 	public static final String PLACES_ID = "places_id";
@@ -39,19 +50,37 @@ public class AndroidCoffeeShopService {
 	private static final String magicURLPattern = "http://kimberly.magic.ubc.ca:8080/1/";
 	private static final String CONSUMER_KEY = "766bec602a9fe2795b43501ea4f9a9c9";
 	private static final String CONSUMER_SECRET = "sad234fdsf243f4ff3f343kj43hj43g4hgf423f";
-	private static final OAuthConsumer consumer = new CommonsHttpOAuthConsumer(
-			"766bec602a9fe2795b43501ea4f9a9c9", 
-			"sad234fdsf243f4ff3f343kj43hj43g4hgf423f");
-	private static final OAuthProvider provider = new CommonsHttpOAuthProvider(
-			magicURLPattern + "request_token",
-			magicURLPattern + "access_token", 
-			magicURLPattern + "authorize");
-	private static boolean authorized = false;
 	
-	public AndroidCoffeeShopService() {}
+	private static OAuthProvider provider;
+	private static OAuthConsumer consumer;
 	
-	public static JsonItem showBit(Context context, int id) {
+	private static AndroidCoffeeShopService instance;
+	
+	@SuppressWarnings("static-access")
+	protected AndroidCoffeeShopService(Context context) {
+		this.instance = this;
+		this.provider = new CommonsHttpOAuthProvider(
+				magicURLPattern + "request_token",
+				magicURLPattern + "access_token", 
+				magicURLPattern + "authorize");
+		this.consumer = new CommonsHttpOAuthConsumer(CONSUMER_KEY, CONSUMER_SECRET);
 		authorize(context);
+	}
+	
+	/**
+	 * Returns the singleton instance of the CoffeeShop Service. If the service has not been constructed yet 
+	 * (by a previous call to this method), a Web Browser intent is launched to prompt the user for authorization.
+	 * @param context the context to register this instance with. May be null for subsequent calls.
+	 * @return the singleton instance of this service.
+	 */
+	public static AndroidCoffeeShopService getInstance(Context context) {
+		if (instance == null)
+			return new AndroidCoffeeShopService(context);
+		else
+			return instance;
+	}
+	
+	public JsonItem showBit(int id) {
 		String request = "bits/show?id=" + id;
 		return (new JsonParser(compileInputStream(request))).parse().get(0);
 	}
@@ -65,6 +94,7 @@ public class AndroidCoffeeShopService {
 			
 			String name, username, description, photo;
 			Integer experience, points, id;
+			
 			try {
 				name = friend.getAsString("name");
 				username = friend.getAsString("username");
@@ -88,10 +118,9 @@ public class AndroidCoffeeShopService {
 		return list;
 	}
 	
-	public static User showUser(Context context) {
-		authorize(context);
-		String request = "users/show";
-		JsonItem userInfo = (new JsonParser(compileInputStream(request))).parse().get(0);
+	public User showUser() {
+		String request = "users/show?";
+		JsonItem userInfo = (new JsonParser(compileInputStream(request))).parse().get(0).getAsJsonItem("user");
 		return new User(userInfo.getAsString("name"), 
 				userInfo.getAsString("username"), 
 				userInfo.getAsString("description"),
@@ -101,29 +130,26 @@ public class AndroidCoffeeShopService {
 				userInfo.getAsInteger("points"));
 	}
 	
-	public JsonItem checkin(Context context, int id) {
-		authorize(context);
+	public JsonItem checkin(int id) {
 		String request = "checkins/bit?id=" + id;
 		return (new JsonParser(compileInputStream(request))).parse().get(0);
 	}
 	
-	private static InputStream compileInputStream(String path) {
+	private InputStream compileInputStream(String path) {
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpGet request = new HttpGet(magicURLPattern + path);
-		InputStream data = null;
+		HttpResponse response = null;
 		try {
 			consumer.sign(request);
-			System.out.println("\n\n\n" + request.toString() + "\n\n\n"); // debug
-			data = httpClient.execute(request).getEntity().getContent();
+			response = httpClient.execute(request);
+			return response.getEntity().getContent();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return data;
+		return null;
 	}
 	
-	private static void authorize(Context context) {
-		if (authorized)
-			return;
+	private void authorize(Context context) {
 		String url = "";
 		try {
 			url = provider.retrieveRequestToken(consumer, CALLBACK_URI);
@@ -137,39 +163,19 @@ public class AndroidCoffeeShopService {
 		context.startActivity(intent);
 	}
 	
-	public static void verify(Context context, Uri uri) {
-		if (authorized)
-			return;
-		if (uri != null && uri.getScheme().equals(CALLBACK_URI)) {
-			final String oauth_verifier = uri.getQueryParameter(OAuth.OAUTH_VERIFIER);
-			
-			try {
-				provider.retrieveAccessToken(consumer, oauth_verifier);
-				SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-				final Editor editor = preferences.edit();
-				editor.putString(OAuth.OAUTH_TOKEN, consumer.getToken());
-				editor.putString(OAuth.OAUTH_TOKEN_SECRET, consumer.getTokenSecret());
-				editor.commit();
-				
-				String token = preferences.getString(OAuth.OAUTH_TOKEN, "");
-				String secret = preferences.getString(OAuth.OAUTH_TOKEN_SECRET, "");
-				consumer.setTokenWithSecret(token, secret);
-			} catch (OAuthException e) {
-				e.printStackTrace();
-			}
-			authorized = true;
+	public void verify(Context context, Uri uri) {
+		final String oauth_verifier = uri.getQueryParameter(OAuth.OAUTH_VERIFIER);
+		try {
+			provider.retrieveAccessToken(consumer, oauth_verifier);
+		} catch (OAuthException e) {
+			e.printStackTrace();
 		}
+		context.startActivity(new Intent(context, context.getClass()));
 	}
 	
-	public static boolean isAuthorized() {
-		return authorized;
+	public static Drawable getImageFromURL(String url) throws MalformedURLException, IOException {
+		InputStream input = (InputStream) new URL(url).getContent();
+		return Drawable.createFromStream(input, "src name");
 	}
 	
-	private OAuthConsumer getConsumer(SharedPreferences preferences) {
-		String token = preferences.getString(OAuth.OAUTH_TOKEN, "");
-		String secret = preferences.getString(OAuth.OAUTH_TOKEN_SECRET, "");
-		OAuthConsumer consumer = new CommonsHttpOAuthConsumer(CONSUMER_KEY, CONSUMER_SECRET);
-		consumer.setTokenWithSecret(token, secret);
-		return consumer;
-	}
 }
