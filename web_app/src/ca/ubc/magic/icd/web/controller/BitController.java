@@ -155,11 +155,18 @@ public class BitController {
     }
     
     @RequestMapping("magic/connectBits")
-    public ModelAndView getConnectPage(@RequestParam("bitID") int id){
+    public ModelAndView getConnectPage(@RequestParam("bitID") int id, @RequestParam("page") int page){
     	Map<String, Object> model = UserService.initUserContext(linkManager);
     	List<Bit> search = magicService.searchBits("");
-    	model.put("bits", search);
+    	List<Bit> toReturn = new ArrayList<Bit>();
     	Bit origBit = new Bit(magicService.showBit(id));
+    	
+    	for (int i = (page-1) * 6; i < search.size() && i < (page-1)*6 + 6; i++)
+    		toReturn.add(search.get(i));
+    	System.out.println(search.size()/6 + 1);
+    	model.put("bits", toReturn);
+    	model.put("page", page);
+    	model.put("numPages", search.size()/6 + 1);
     	model.put("origBit", origBit);
     	return new ModelAndView("connectBits", model);
     }
