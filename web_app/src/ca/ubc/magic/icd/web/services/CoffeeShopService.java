@@ -36,10 +36,10 @@ public class CoffeeShopService implements MagicService {
 	
 	/**
 	 * Creates the bit in the MAGIC Broker database and returns a JsonItem containing its info.
-	 * @param type the type ID (see MagicService constants).
-	 * @param name the name for this bit.
-	 * @param description the description for the new bit.
-	 * @param place the place ID (see getPlacesID())
+	 * @param type - the type ID (see MagicService constants).
+	 * @param name - the name for this bit.
+	 * @param description - the description for the new bit.
+	 * @param place - the place ID (see getPlacesID())
 	 * @return a JsonItem containing "bit", "place", and "bit_types" objects
 	 * @see MagicService
 	 */

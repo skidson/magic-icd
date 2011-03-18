@@ -15,6 +15,12 @@ import ca.ubc.magic.icd.web.model.User;
 import ca.ubc.magic.icd.web.services.MagicService;
 import ca.ubc.magic.icd.web.services.UserService;
  
+/**
+ * The Spring Controller that intercepts all URL patterns related to account.
+ * Each function passes the specified jsp page name through the View Resolver to render it for the user
+ * @author Jeffrey Payan
+ *@author Stephen Kidson
+ */
 @Controller
 public class AccountController {
 	@Autowired
@@ -23,12 +29,20 @@ public class AccountController {
 	@Autowired
 	LinkManager linkManager;
 	
+	/**
+	 * 
+	 * 
+	 */
 	@RequestMapping("/basic/account")
 	public ModelAndView basicAccount() {
 		Map<String, Object> model = UserService.initUserContext(linkManager);
 		return new ModelAndView("account", model);
 	}
 	
+	/**
+	 * 
+	 * 
+	 */
     @RequestMapping("/magic/account")
     public ModelAndView magicAccount() {
     	Map<String, Object> model = UserService.initUserContext(linkManager);
@@ -42,11 +56,26 @@ public class AccountController {
 		return new ModelAndView("account", model);
     }
     
+    /**
+     * 
+     * 
+     */
     @RequestMapping(value = "/basic/register", method = RequestMethod.GET)
 	public ModelAndView showForm() {
 		return new ModelAndView("register");
 	}
     
+    /**
+     * 
+     * @param firstName - Request Parameter : in_firstName
+     * @param lastName - Request Parameter : in_lastName
+     * @param email - Request Parameter : in_email
+     * @param username - Request Parameter : in_username
+     * @param password - Request Parameter : in_password
+     * @param confirmPassword - Request Parameter : in_confirmPassword
+     * @param country - Request Parameter : in_country
+     * 
+     */
     @RequestMapping(value = "/basic/register", method = RequestMethod.POST)
 	public ModelAndView registerUser(@RequestParam("in_firstName") String firstName,
 			@RequestParam("in_lastName") String lastName,
@@ -76,6 +105,10 @@ public class AccountController {
 		return new ModelAndView("register");
 	}
     
+    /**
+     * 
+     * 
+     */
     @RequestMapping("/basic/forgotPassword")
     public ModelAndView forgottenPassword(){
     	Map<String, Object> model = UserService.initUserContext(linkManager);
@@ -83,6 +116,13 @@ public class AccountController {
     	return new ModelAndView("changePassword", model);
     }
     
+    /**
+     * 
+     * @param oldPW - Request Parameter : oldPassword
+     * @param newPW - Request Parameter : newPassword
+     * @param confirmPW - Request Parameter : confirmPassword
+     * @return
+     */
     @RequestMapping("/basic/changePassword")
     public ModelAndView changePassword(@RequestParam("oldPassword") String oldPW,
     									@RequestParam("newPassword") String newPW,

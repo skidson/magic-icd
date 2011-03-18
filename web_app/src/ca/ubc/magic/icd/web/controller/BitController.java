@@ -20,6 +20,13 @@ import ca.ubc.magic.icd.web.model.User;
 import ca.ubc.magic.icd.web.services.MagicService;
 import ca.ubc.magic.icd.web.services.UserService;
  
+
+/**
+ * The Spring Controller that intercepts all the URL patterns related to Bits.
+ * Each function passes the specified jsp page name through the View Resolver to render it for the user
+ * @author Jeffrey Payan
+ * @author Stephen Kidson
+ */
 @Controller
 public class BitController {
 	private static final int BITS_PER_PAGE = 15;
@@ -30,12 +37,20 @@ public class BitController {
 	@Autowired 
 	private LinkManager linkManager;
 	
+	/**
+	 * 
+	 * 
+	 */
     @RequestMapping("/basic/bits")
     public ModelAndView basicBits() {
     	Map<String, Object> model = UserService.initUserContext(linkManager);
     	return new ModelAndView("bits", model);
     }
     
+    /**
+     * 
+     *
+     */
     @RequestMapping("/magic/bits")
     public ModelAndView magicBits() {
     	Map<String, Object> model = UserService.initUserContext(linkManager);
@@ -47,19 +62,22 @@ public class BitController {
     	return new ModelAndView("bits", model);
     }
     
+    /**
+     * 
+     * @param id - Request Parameter : bitID
+     *
+     */
     @RequestMapping("/magic/bit")
     public ModelAndView showBit(@RequestParam("bitID") int id) {
     	Map<String, Object> model = UserService.initUserContext(linkManager);
     	Bit bit = new Bit(magicService.showBit(id));
-    	model.put("bit", bit);
     	
-		JsonItem profile = magicService.showUser();
-		User magicUser = new User(profile);
+		User magicUser = new User(magicService.showUser());
 		magicUser.setBits(magicService.showBitLinksOfUser(magicUser.getId()));
 		List<User> userLinks = magicService.showUserLinkedToBit(id);
     	List<Bit> bitTies = magicService.showTies(id);
-    	System.out.println(bitTies.toString());
     	
+    	model.put("bit", bit);
     	model.put("magicUser", magicUser);
     	model.put("userLinks", userLinks);
     	model.put("bitLinks", bitTies);
@@ -67,6 +85,11 @@ public class BitController {
     	return new ModelAndView("bit", model);
     }
     
+    /**
+     * 
+     * @param id - Request Parameter : bitID
+     * 
+     */
     @RequestMapping("/magic/checkinBit")
     public ModelAndView checkIn(@RequestParam("bitID") int id){
     	Map<String, Object> model = UserService.initUserContext(linkManager);
@@ -76,6 +99,14 @@ public class BitController {
     	return new ModelAndView("home", model);
     }
     
+    /**
+     * 
+     * @param name - Request Parameter : in_name
+     * @param type - Request Parameter : in_type
+     * @param description - Request Parameter : in_description
+     * @param place - Request Parameter : in_place
+     * 
+     */
     @RequestMapping(value = "/magic/createBit", method = RequestMethod.POST)
     public ModelAndView createBit(  @RequestParam("in_name") String name, 
     								@RequestParam("in_type") int type, 
@@ -94,12 +125,21 @@ public class BitController {
     	return new ModelAndView("bit", model);
     }
     
+    /**
+     * 
+     *
+     */
     @RequestMapping(value = "/magic/createBit", method = RequestMethod.GET)
     public ModelAndView createBit() {
     	Map<String, Object> model = UserService.initUserContext(linkManager);
     	return new ModelAndView("bit_create", model);
     }
     
+    /**
+     * 
+     * @param id - Request Parameter : bitID
+     *
+     */
     @RequestMapping("magic/linkBit")
     public ModelAndView linkToBit(@RequestParam("bitID") int id){
     	Map<String, Object> model = UserService.initUserContext(linkManager);
@@ -108,6 +148,11 @@ public class BitController {
     	return new ModelAndView("redirect:/magic/bits", model);
     }
     
+    /**
+     * 
+     * @param id - Request Parameter : bitID
+     * 
+     */
     @RequestMapping("magic/destroyLink")
     public ModelAndView destoyLink(@RequestParam("bitID") int id){
     	Map<String, Object> model = UserService.initUserContext(linkManager);
@@ -116,7 +161,11 @@ public class BitController {
     	return new ModelAndView("redirect:/magic/bits", model);
     }
     
-    
+    /**
+     * 
+     * @param id - Request Parameter : bitID
+     *
+     */
     @RequestMapping("magic/updateBit")
     public ModelAndView updateBit(@RequestParam("bitID") int id){
     	Map<String, Object> model = UserService.initUserContext(linkManager);
@@ -126,6 +175,12 @@ public class BitController {
     	return new ModelAndView("updateBit", model);
     }
     
+    /**
+     * 
+     * @param id - Request Parameter : bitID
+     * @param description - Request Parameter :  in_description
+     * 
+     */
     @RequestMapping("magic/updateBitDescription")
     public ModelAndView updateBitDescription(	@RequestParam("bitID") int id,
     											@RequestParam("in_description") String description){
@@ -135,6 +190,12 @@ public class BitController {
     	return new ModelAndView("redirect:/magic/updateBit?bitID=" + id, model);
     }
     
+    /**
+     * 
+     * @param id - Request Parameter : bitID
+     * @param type - Request Parameter : in_type
+     * @return
+     */
     @RequestMapping("magic/updateBitType")
     public ModelAndView updateBitType(	@RequestParam("bitID") int id,
     									@RequestParam("in_type") int type){
@@ -144,6 +205,12 @@ public class BitController {
     	return new ModelAndView("redirect:/magic/updateBit?bitID=" + id, model);
     }
     
+    /**
+     * 
+     * @param id - Request Param : bitID
+     * @param name - Request Param : in_name
+     * 
+     */
     @RequestMapping("magic/updateBitName")
     public ModelAndView updateBitName(	@RequestParam("bitID") int id,
     									@RequestParam("in_name") String name){
@@ -153,22 +220,27 @@ public class BitController {
     	return new ModelAndView("redirect:/magic/updateBit?bitID=" + id, model);
     }
     
+    /**
+     * 
+     * @param id - Request Parameter : bitID
+     * @param page - Request Parameter : page
+     * @param query - Request Parameter : searchQuery
+     * 
+     */
     @RequestMapping("magic/connectBits")
-    public ModelAndView getConnectPage(@RequestParam("bitID") int id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value="searchQuery", required = false) String query){
+    public ModelAndView getConnectPage(	@RequestParam("bitID") int id, 
+    									@RequestParam(value = "page", required = false) Integer page, 
+    									@RequestParam(value="searchQuery", required = false) String query){
+    	
     	Map<String, Object> model = UserService.initUserContext(linkManager);
-    	int index;
-    	if(query == null) query = "";
     	List<Bit> search = magicService.searchBits(query);
     	List<Bit> toReturn = new ArrayList<Bit>();
     	Bit origBit = new Bit(magicService.showBit(id));
     	
-    	if(page == null) {
-    		page = 1;
-    		index = BITS_PER_PAGE;
-    	}
-    	else index = (page-1)*BITS_PER_PAGE+BITS_PER_PAGE;
+    	if(query == null) query = "";
+    	if(page == null) page = 1;
   
-    	for (int i = (page-1) * BITS_PER_PAGE; i < search.size() && i < index; i++)
+    	for (int i = (page-1) * BITS_PER_PAGE; i < search.size() && i < (page-1)*BITS_PER_PAGE+BITS_PER_PAGE; i++)
     		toReturn.add(search.get(i));
     	
     	
@@ -178,7 +250,12 @@ public class BitController {
     	model.put("origBit", origBit);
     	return new ModelAndView("connectBits", model);
     }
-    
+    /**
+     * 
+     * @param id - Request Parameter : bitID
+     * @param tieID - Request Parameter : tieID
+     * 
+     */
     @RequestMapping("magic/connectTo")
     public ModelAndView connectBits(@RequestParam("bitID") int id, @RequestParam("tieID") int tieID){
     	Map<String, Object> model = UserService.initUserContext(linkManager);
