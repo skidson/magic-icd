@@ -28,7 +28,7 @@
 					<c:set var="test" value="true"/>
 				</c:if>
 			</c:forEach>
-			<input style="float:right; margin-right:100px" class="button" type=button onClick="location.href='/web_app/magic/connectBits?bitID=${bit.id}'" value='Connect this bit to another!'/>
+			<input style="float:right; margin-right:100px" class="button" type=button onClick="location.href='/web_app/magic/connectBits?bitID=${bit.id}&page=1'" value='Connect this bit to another!'/>
 			<c:if test="${test ne 'true'}">
 				<a href="<c:url value="/magic/linkBit?bitID=${bit.id}"/>">Link to this bit!</a>
 			</c:if>

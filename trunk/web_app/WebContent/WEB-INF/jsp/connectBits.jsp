@@ -18,7 +18,7 @@
 							</form></tr></table>
 						</c:when>
 						<c:otherwise>
-							<table>
+							<table width = 95%>
 								<tr><th>Name</th><th>Type</th><th>Description</th><th>Connect!</th></tr>
 								<c:forEach var="bit" items="${bits}">
 									<c:if test="${bit.name ne origBit.name}">
@@ -26,6 +26,8 @@
 				     				</c:if>
 				     			</c:forEach>
      						</table> <br>
+     						
+     						<center> Page: <c:forEach var="i" begin="${1}" end="${numPages}" step="1"><c:if test="${i ne page}"><a href="<c:url value="/magic/connectBits?bitID=${origBit.id}&page=${i}"/>"></c:if>${i}</a></c:forEach></center>
 						</c:otherwise>
 					</c:choose>
 			</div> <!--  main --> 
