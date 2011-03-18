@@ -27,7 +27,13 @@
 				     			</c:forEach>
      						</table> <br>
      						
-     						<center> Page: <c:forEach var="i" begin="${1}" end="${numPages}" step="1"><c:if test="${i ne page}"><a href="<c:url value="/magic/connectBits?bitID=${origBit.id}&page=${i}"/>"></c:if>${i}</a></c:forEach></center>
+     						<center> Page: <c:forEach var="i" begin="1" end="${numPages}" step="1"><c:if test="${i ne page}"><a href="<c:url value="/magic/connectBits?bitID=${origBit.id}&page=${i}"/>"></c:if>${i}  </a></c:forEach></center>
+
+							<h2>Know what you are looking for? </h2>
+							<table><tr><form method="post" action="connectBits?bitID=${origBit.id}&page=1">
+									<center><b>Keyword: </b><input type="text" size="40" name="searchQuery" />
+							<input class="button" value=" Search " type="submit" /></center>
+							</form></tr></table>
 						</c:otherwise>
 					</c:choose>
 			</div> <!--  main --> 
