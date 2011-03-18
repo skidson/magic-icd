@@ -42,7 +42,6 @@ public class BitController {
     	
     	List<Bit> bitsList = new ArrayList<Bit>();
     	bitsList = magicService.showBitLinksOfUser();
-    	System.out.println(bitsList.toString());
     	
     	model.put("bitsList", bitsList);
     	return new ModelAndView("bits", model);

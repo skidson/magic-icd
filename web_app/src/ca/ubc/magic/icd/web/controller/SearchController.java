@@ -32,8 +32,7 @@ public class SearchController {
 		List<User> searchResults = magicService.searchUser(search);
 		List<User> currentFriends = magicService.showFriends();
 		List<User> alreadyFriends = new ArrayList<User>();
-		JsonItem profile = magicService.showUser();
-		User magicUser = new User(profile);
+		User magicUser = new User(magicService.showUser());
 		
 		model.put("magicUser", magicUser);
 		model.put("usersFound", searchResults);
@@ -51,11 +50,10 @@ public class SearchController {
 	@RequestMapping("/magic/bitSearch")
 	public ModelAndView bitSearch(@RequestParam("searchQuery") String search, @RequestParam(value = "page", required=false) Integer page) {
 		Map<String, Object> model = UserService.initUserContext(linkManager);
-		JsonItem profile = magicService.showUser();
 		int index;
 		List<Bit> matchedBits = magicService.searchBits(search);
 		List<Bit> toReturn = new ArrayList<Bit>();
-		User magicUser = new User(profile);
+		User magicUser = new User(magicService.showUser());
 		
 		if(page == null) {
     		page = 1;
