@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+import ca.ubc.magic.icd.android.model.Bit;
 import ca.ubc.magic.icd.android.services.AndroidCoffeeShopService;
 import ca.ubc.magic.icd.web.json.JsonItem;
 

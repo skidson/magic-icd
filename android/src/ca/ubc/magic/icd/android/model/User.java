@@ -1,4 +1,4 @@
-package ca.ubc.magic.icd.android;
+package ca.ubc.magic.icd.android.model;
 
 public class User {
 	private String name, username, description, photo;

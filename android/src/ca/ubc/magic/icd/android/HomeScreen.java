@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import ca.ubc.magic.icd.android.model.User;
 import ca.ubc.magic.icd.android.services.AndroidCoffeeShopService;
 
 public class HomeScreen extends Activity {
