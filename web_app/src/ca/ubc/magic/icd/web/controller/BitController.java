@@ -22,7 +22,7 @@ import ca.ubc.magic.icd.web.services.UserService;
  
 @Controller
 public class BitController {
-	private static final int BITS_PER_PAGE = 20;
+	private static final int BITS_PER_PAGE = 15;
 	
 	@Autowired
 	private MagicService magicService;
@@ -155,18 +155,27 @@ public class BitController {
     }
     
     @RequestMapping("magic/connectBits")
-    public ModelAndView getConnectPage(@RequestParam("bitID") int id, @RequestParam("page") int page){
+    public ModelAndView getConnectPage(@RequestParam("bitID") int id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value="searchQuery", required = false) String query){
     	Map<String, Object> model = UserService.initUserContext(linkManager);
-    	List<Bit> search = magicService.searchBits("");
+    	int index;
+    	if(query == null) query = "";
+    	List<Bit> search = magicService.searchBits(query);
     	List<Bit> toReturn = new ArrayList<Bit>();
     	Bit origBit = new Bit(magicService.showBit(id));
     	
-    	for (int i = (page-1) * 6; i < search.size() && i < (page-1)*6 + 6; i++)
+    	if(page == null) {
+    		page = 1;
+    		index = BITS_PER_PAGE;
+    	}
+    	else index = (page-1)*BITS_PER_PAGE+BITS_PER_PAGE;
+  
+    	for (int i = (page-1) * BITS_PER_PAGE; i < search.size() && i < index; i++)
     		toReturn.add(search.get(i));
-    	System.out.println(search.size()/6 + 1);
+    	
+    	
     	model.put("bits", toReturn);
     	model.put("page", page);
-    	model.put("numPages", search.size()/6 + 1);
+    	model.put("numPages", search.size()/BITS_PER_PAGE + 1);
     	model.put("origBit", origBit);
     	return new ModelAndView("connectBits", model);
     }

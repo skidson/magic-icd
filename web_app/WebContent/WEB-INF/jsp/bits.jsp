@@ -27,16 +27,6 @@
 		     			<h2>Search</h2><br>
 		     			<table><tr><form method="post" action="bitSearch">
 							<center><b>Keyword: </b><input type="text" size="40" name="searchQuery" />
-							<select name="searchFilter" size="1">
-								<option value="all">All</option>
-								<option value="place">Place</option>
-								<option value="display">Display</option>
-								<option value="content">Content</option>
-								<option value="person">Person</option>
-								<option value="drink">Drink</option>
-								<option value="food">Food</option>
-								<option value="table">Table</option>
-							</select>
 							<input class="button" value=" Search " type="submit" /></center>
 						</form></tr></table>
 						

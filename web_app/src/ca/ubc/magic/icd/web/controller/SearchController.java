@@ -21,7 +21,7 @@ import ca.ubc.magic.icd.web.services.UserService;
 public class SearchController {
 	@Autowired
 	private MagicService magicService;
-	
+	private static final int BITS_PER_PAGE = 15;
 	@Autowired
 	private LinkManager linkManager;
 
@@ -49,36 +49,29 @@ public class SearchController {
 	}
 
 	@RequestMapping("/magic/bitSearch")
-	public ModelAndView bitSearch(@RequestParam("searchQuery") String search,
-			@RequestParam("searchFilter" )String filter) {
+	public ModelAndView bitSearch(@RequestParam("searchQuery") String search, @RequestParam(value = "page", required=false) Integer page) {
 		Map<String, Object> model = UserService.initUserContext(linkManager);
-		
-		List<Bit> matchedBits = magicService.searchBits(search);
-		
-//		List<Bit> matchedType = new ArrayList<Bit>();
-//		List<Bit> matchedBits = new ArrayList<Bit>();
-//		for(int i = 1; i < 20; i++) {
-//    		try {
-//	    		JsonItem bitInfo = magicService.showBit(i);
-//	    		Bit bit = new Bit(bitInfo);
-//	    		if(filter.equals("all")) matchedType.add(bit);
-//	    		if(bit.getType().equalsIgnoreCase(filter)) matchedType.add(bit);
-//    		} catch (Exception e) {
-//    			continue;
-//    		}
-//    	}
-//		for(int i = 0; i < matchedType.size(); i++) {
-//    		try {
-//	    		if(matchedType.get(i).getName().toLowerCase().contains(search.toLowerCase())) matchedBits.add(matchedType.get(i));
-//    		} catch (Exception e) {
-//    			continue;
-//    		}
-//    	}
 		JsonItem profile = magicService.showUser();
+		int index;
+		List<Bit> matchedBits = magicService.searchBits(search);
+		List<Bit> toReturn = new ArrayList<Bit>();
 		User magicUser = new User(profile);
+		
+		if(page == null) {
+    		page = 1;
+    		index = BITS_PER_PAGE;
+    	}
+    	else index = (page-1)*BITS_PER_PAGE+BITS_PER_PAGE;
+  
+    	for (int i = (page-1) * BITS_PER_PAGE; i < matchedBits.size() && i < index; i++)
+    		toReturn.add(matchedBits.get(i));
+    	model.put("search", search);
+		model.put("page", page);
+		model.put("numPages", matchedBits.size()/BITS_PER_PAGE + 1);
 		model.put("magicUser", magicUser);
-		model.put("bitsFound", matchedBits);
+		model.put("bitsFound", toReturn);
 		return new ModelAndView("searchResult", model);
 	}
+	
 	
 }
