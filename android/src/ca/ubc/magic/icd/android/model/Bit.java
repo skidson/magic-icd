@@ -1,50 +1,24 @@
 package ca.ubc.magic.icd.android.model;
 
 import ca.ubc.magic.icd.android.services.AndroidCoffeeShopService;
+import ca.ubc.magic.icd.web.model.MagicItem;
 
-public class Bit {
-	String name, description, qrImage;
-	int id, typeID;
+public class Bit extends MagicItem {
+	private String qrImage;
+	private int typeID;
 	
 	public Bit(String name, String description, String qrImage, int id, int type) {
-		super();
-		this.name = name;
-		this.description = description;
+		super(id, name, description);
 		this.qrImage = qrImage;
-		this.id = id;
 		this.typeID = type;
 	}
 
-	public String getName() {
-		return name;
-	}
-	
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public String getDescription() {
-		return description;
-	}
-	
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
 	public String getQrImage() {
 		return qrImage;
 	}
 	
 	public void setQrImage(String qrImage) {
 		this.qrImage = qrImage;
-	}
-	
-	public int getId() {
-		return id;
-	}
-	
-	public void setId(int id) {
-		this.id = id;
 	}
 	
 	public int getTypeID() {
@@ -76,6 +50,10 @@ public class Bit {
 		default:
 			return "None";
 		}
+	}
+	
+	public String getImage() {
+		return getQrImage();
 	}
 	
 }

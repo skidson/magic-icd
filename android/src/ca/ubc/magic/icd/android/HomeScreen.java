@@ -6,6 +6,8 @@ package ca.ubc.magic.icd.android;
  * TODO touch-up graphics and icons
  * TODO compensate for different screen sizes (ScrollViews, etc.)
  * TODO settings menu
+ * TODO sanitize inputs
+ * TODO clickable lists for bits and friends
  */
 
 import java.io.IOException;
@@ -22,6 +24,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import ca.ubc.magic.icd.android.model.User;
 import ca.ubc.magic.icd.android.services.AndroidCoffeeShopService;
+import ca.ubc.magic.icd.web.json.JsonItem;
 
 public class HomeScreen extends Activity {
 	private static final String SCANNER = "com.google.zxing.client.android.SCAN";
@@ -37,7 +40,9 @@ public class HomeScreen extends Activity {
         setContentView(R.layout.home);
         magicService = AndroidCoffeeShopService.getInstance(HomeScreen.this);
         
-        User user = magicService.showUser();
+        // FIXME for some reason showUser(1) works but this fails...
+        JsonItem userInfo = magicService.showUser(2).getAsJsonItem("user");
+		updateUser(userInfo);
         
         Button btnCheckin = (Button)findViewById(R.id.home_btnCheckin);
         btnCheckin.setOnClickListener(new OnClickListener() {
@@ -51,67 +56,54 @@ public class HomeScreen extends Activity {
         Button btnFriends = (Button) findViewById(R.id.home_btnFriends);
         btnFriends.setOnClickListener(new OnClickListener() {
         	public void onClick(View view) {
-        		
+        		Intent intent = new Intent(HomeScreen.this, ListScreen.class);
+        		intent.putExtra("type", "friends");
+        		startActivity(intent);
         	}
         });
         
         Button btnBits = (Button) findViewById(R.id.home_btnBits);
         btnBits.setOnClickListener(new OnClickListener() {
         	public void onClick(View view) {
-        		Intent intent = new Intent(HomeScreen.this, BitScreen.class);
+        		Intent intent = new Intent(HomeScreen.this, ListScreen.class);
+        		intent.putExtra("type", "bits");
         		startActivity(intent);
         	}
         });
         
-        TextView txtUsername = (TextView) findViewById(R.id.home_username);
-        TextView txtPoints = (TextView) findViewById(R.id.home_points);
-        TextView txtExperience = (TextView) findViewById(R.id.home_exp);
-        ProgressBar prgExperience = (ProgressBar) findViewById(R.id.home_expBar);
-        ImageView imgPortrait = (ImageView) findViewById(R.id.home_portrait);
-        
-//        txtUsername.setText(user.getUsername());
-//        txtPoints.setText(user.getPoints() + " points");
-//        txtExperience.setText(user.getExperience() + "/100 EXP");
-//        prgExperience.setProgress(user.getExperience());
-//        
-//        try {
-//        	imgPortrait.setImageDrawable(AndroidCoffeeShopService.getImageFromURL(user.getPhoto()));
-//        } catch (IOException ignore) { /* use default portrait */ }
     }
     
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+    @Override
+	protected void onResume() {
+    	// FIXME for some reason showUser(1) works but this fails...
+        JsonItem userInfo = magicService.showUser(2).getAsJsonItem("user");
+		updateUser(userInfo);
+		super.onResume();
+	}
+
+	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
     	// If returning from scanner, forward to bit screen
     	switch (requestCode) {
     	case SCANNER_REQUEST_CODE:
             if (resultCode == RESULT_OK && intent.getStringExtra("SCAN_RESULT_FORMAT").equals("QR_CODE")) {
             	// TODO sanitize this input
             	String qrResult = intent.getStringExtra(SCAN_RESULT);
-        		if (qrResult.contains(MAGIC_QR_PATTERN)) {
-        			// Fetch and display this bit's info on the BitScreen
-        			try {
-    	    			Intent newIntent = new Intent(HomeScreen.this, BitScreen.class);
-    	    			newIntent.putExtra("bit_id", qrResult.split(":")[1]);
-    	    			startActivity(newIntent);
-        			} catch (Exception e) {
-        				e.printStackTrace(); // FIXME
-        			}
-        		}
+            	Intent newIntent = new Intent(HomeScreen.this, BitScreen.class);
+            	// Fetch and display this bit's info on the BitScreen
+            	int bit_id = 1;
+        		if (qrResult.contains(MAGIC_QR_PATTERN))
+        			bit_id = Integer.parseInt(qrResult.split(":")[1].trim());
+    			newIntent.putExtra("bit_id", bit_id);
+        		
+    			startActivity(newIntent);
             }
     		break;
     	}
     }
     
-    @Override
-	protected void onResume() {
-//		oauthCallback(this.getIntent());
-		System.out.println(">>>>>>>>>>>>>> ON RESUME <<<<<<<<<<<<<<"); // debug
-		super.onResume();
-	}
-
 	@Override
 	public void onNewIntent(Intent intent) {
 		oauthCallback(intent);
-		System.out.println(">>>>>>>>>>>>>> ON NEW INTENT <<<<<<<<<<<<<<"); // debug
 		super.onNewIntent(intent);
 	}
 	
@@ -119,6 +111,37 @@ public class HomeScreen extends Activity {
 		Uri uri = intent.getData();
 		if (uri != null && uri.toString().startsWith(AndroidCoffeeShopService.CALLBACK_URI))
 				magicService.verify(HomeScreen.this, uri);
+	}
+	
+	private void updateUser(JsonItem userInfo) {
+		String realName = userInfo.getAsString(AndroidCoffeeShopService.NAME);
+		String description = userInfo.getAsString(AndroidCoffeeShopService.DESCRIPTION);
+		String username = userInfo.getAsString(AndroidCoffeeShopService.USERNAME);
+		String photo = userInfo.getAsString(AndroidCoffeeShopService.PHOTO);
+		Integer id = userInfo.getAsInteger(AndroidCoffeeShopService.ID);
+        Integer exp, points;
+		
+		try {
+			exp = userInfo.getAsInteger(AndroidCoffeeShopService.EXPERIENCE);
+			points = userInfo.getAsInteger(AndroidCoffeeShopService.POINTS);
+		} catch (NumberFormatException e) {
+			exp = 0;
+			points = 0;
+		}
+        
+        updateFields(new User(realName, username, description, photo, id, exp, points));
+	}
+	
+	private void updateFields(User user) {
+		((TextView) findViewById(R.id.home_username)).setText(user.getName());
+        ((TextView) findViewById(R.id.home_points)).setText(user.getPoints() + " points");
+        ((TextView) findViewById(R.id.home_exp)).setText(user.getExperience() + "/100 EXP");;
+        ((ProgressBar) findViewById(R.id.home_expBar)).setProgress(user.getExperience());
+        
+        try {
+        	((ImageView) findViewById(R.id.home_portrait))
+        		.setImageDrawable(AndroidCoffeeShopService.getImageFromURL(user.getPhoto()));
+        } catch (IOException ignore) { /* use default portrait */ }
 	}
     
 }
