@@ -24,6 +24,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.util.Log;
+import ca.ubc.magic.icd.android.model.Bit;
 import ca.ubc.magic.icd.android.model.User;
 import ca.ubc.magic.icd.web.json.JsonItem;
 import ca.ubc.magic.icd.web.json.JsonParser;
@@ -37,6 +39,11 @@ public class AndroidCoffeeShopService {
 	public static final int DISPLAY = 6;
 	public static final int CONTENT = 7;
 	public static final int PERSON = 8;
+	
+	public static final String USERNAME = "username";
+	public static final String EXPERIENCE = "experience";
+	public static final String POINTS = "points";
+	public static final String PHOTO = "photo";
 	
 	public static final String ID = "id";
 	public static final String QR_IMAGE_URL = "qr_image_url";
@@ -118,21 +125,119 @@ public class AndroidCoffeeShopService {
 		return list;
 	}
 	
-	public User showUser() {
-		String request = "users/show?";
-		JsonItem userInfo = (new JsonParser(compileInputStream(request))).parse().get(0).getAsJsonItem("user");
-		return new User(userInfo.getAsString("name"), 
-				userInfo.getAsString("username"), 
-				userInfo.getAsString("description"),
-				userInfo.getAsString("photo"),
-				userInfo.getAsInteger("id"),
-				userInfo.getAsInteger("experience"),
-				userInfo.getAsInteger("points"));
+	// FIXME for some reason this returns null, from the server.... using int param method works though...
+	public JsonItem showUser() {
+		String request = "users/show";
+		return (new JsonParser(compileInputStream(request))).parse().get(0);
+	}
+	
+	public JsonItem showUser(int id) {
+		String request = "users/show?id=" + id;
+		return (new JsonParser(compileInputStream(request))).parse().get(0);
 	}
 	
 	public JsonItem checkin(int id) {
 		String request = "checkins/bit?id=" + id;
 		return (new JsonParser(compileInputStream(request))).parse().get(0);
+	}
+	
+	public List<User> searchUser(String query) {
+		String request = "users/search?q=" + query;
+		Iterator<JsonItem> iterator = (new JsonParser(compileInputStream(request))).parse().iterator();
+		List<User> list = new ArrayList<User>();
+		while (iterator.hasNext()) {
+			JsonItem match = iterator.next().getAsJsonItem("user");
+			
+			String name, username, description, photo;
+			Integer experience, points, userID;
+			try {
+				name = match.getAsString(AndroidCoffeeShopService.NAME);
+				username = match.getAsString(AndroidCoffeeShopService.USERNAME);
+				description = match.getAsString(AndroidCoffeeShopService.DESCRIPTION);
+				photo = match.getAsString(AndroidCoffeeShopService.PHOTO);
+				userID = match.getAsInteger(AndroidCoffeeShopService.ID);
+				try {
+					experience = match.getAsInteger("experience");
+					points = match.getAsInteger("points");
+				} catch (NumberFormatException e) {
+					experience = 0;
+					points = 0;
+				}
+			} catch (NullPointerException e) {
+				continue;
+			}
+			Log.d("MAGIC", name);
+			User user = new User(name, username, description, photo, userID,
+					experience, points);
+			list.add(user);
+		}
+		return list;
+	}
+	
+	public List<Bit> showBitLinksOfUser() {
+		String request = "links/show";
+		Iterator<JsonItem> iterator = (new JsonParser(compileInputStream(request))).parse().iterator();
+		List<Bit> list = new ArrayList<Bit>();
+		while (iterator.hasNext()) {
+			JsonItem match = iterator.next();
+			try {
+				Bit bit = null;
+				if (match.containsKey("bit")) {
+					String name = match.getAsString(AndroidCoffeeShopService.NAME);
+					String description = match.getAsString(AndroidCoffeeShopService.DESCRIPTION);
+					String qrImage = match.getAsString(AndroidCoffeeShopService.QR_IMAGE_URL);
+					Integer id;
+					Integer type;
+					try {
+						id = match.getAsInteger(AndroidCoffeeShopService.ID);
+						type = match.getAsInteger(AndroidCoffeeShopService.BITS_TYPES_ID);;
+					} catch (NumberFormatException e) {
+						id = 0;
+						type = 0;
+					}
+					Log.d("MAGIC", name);
+					bit = new Bit(name, description, qrImage, id, type);
+				} else
+					continue;
+				list.add(bit);
+			} catch (NullPointerException e) {
+				continue;
+			}
+		}
+		return list;
+	}
+	
+	public List<Bit> searchBits(String query){
+		String request = "bits/search?q=" + query;
+		Iterator<JsonItem> iterator = (new JsonParser(compileInputStream(request))).parse().iterator();
+		List<Bit> list = new ArrayList<Bit>();
+		while (iterator.hasNext()) {
+			JsonItem match = iterator.next();
+			try {
+				Bit bit = null;
+				if (match.containsKey("bit")) {
+					String name = match.getAsString(AndroidCoffeeShopService.NAME);
+					String description = match.getAsString(AndroidCoffeeShopService.DESCRIPTION);
+					String qrImage = match.getAsString(AndroidCoffeeShopService.QR_IMAGE_URL);
+					Integer id;
+					Integer type;
+					try {
+						id = match.getAsInteger(AndroidCoffeeShopService.ID);
+						type = match.getAsInteger(AndroidCoffeeShopService.BITS_TYPES_ID);;
+					} catch (NumberFormatException e) {
+						id = 0;
+						type = 0;
+					}
+					Log.d("MAGIC", name);
+					bit = new Bit(name, description, qrImage, id, type);
+				} else
+					continue;
+				list.add(bit);
+			} catch (NullPointerException e) {
+				continue;
+			}
+		}
+		return list;
 	}
 	
 	private InputStream compileInputStream(String path) {

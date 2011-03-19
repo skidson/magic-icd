@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	     xmlns:android="http://schemas.android.com/apk/res/android"
+	     android:layout_width="fill_parent"
+	     android:layout_height="wrap_content"
+	     android:gravity="left"
+	     android:background="#FFFFFF">
+	     
+	<ImageView android:id="@+id/list_image"
+		android:layout_width="72px"
+		android:layout_height="72px"
+		android:scaleType="centerInside"
+    	android:src="@drawable/img_portrait"/>
+	
+     <TextView android:id="@+id/list_name"
+         android:textSize="18px"
+         android:textStyle="bold"
+         android:textColor="#000000"
+         android:layout_margin="5sp"
+         android:layout_toRightOf="@id/list_image"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"/>
+	         
+	<TextView android:id="@+id/list_description"
+         android:textSize="14px"
+         android:textStyle="italic"
+         android:textColor="#000000"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_below="@id/list_name"
+         android:layout_alignLeft="@id/list_name"/>
+		         
+</RelativeLayout>

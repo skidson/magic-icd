@@ -1,26 +1,18 @@
 package ca.ubc.magic.icd.android.model;
 
-public class User {
-	private String name, username, description, photo;
-	private Integer experience, points, id;
+import ca.ubc.magic.icd.web.model.MagicItem;
+
+public class User extends MagicItem {
+	private String username, photo;
+	private Integer experience, points;
 	
 	public User(String name, String username, String description, String photo, int id,
 			int experience, int points) {
-		this.name = name;
+		super(id, name, description);
 		this.username = username;
-		this.description = description;
 		this.photo = photo;
-		this.id = id;
 		this.experience = experience;
 		this.points = points;
-	}
-	
-	public String getName() {
-		return name;
-	}
-	
-	public void setName(String name) {
-		this.name = name;
 	}
 	
 	public String getUsername() {
@@ -29,14 +21,6 @@ public class User {
 	
 	public void setUsername(String username) {
 		this.username = username;
-	}
-	
-	public String getDescription() {
-		return description;
-	}
-	
-	public void setDescription(String description) {
-		this.description = description;
 	}
 	
 	public String getPhoto() {
@@ -63,12 +47,8 @@ public class User {
 		this.points = points;
 	}
 	
-	public Integer getId() {
-		return id;
-	}
-	
-	public void setId(Integer id) {
-		this.id = id;
+	public String getImage() {
+		return getPhoto();
 	}
 	
 }

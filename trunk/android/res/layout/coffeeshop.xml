@@ -28,12 +28,4 @@
 		    android:layout_alignParentBottom="true"
 		    android:background="@drawable/img_footer_background"/>
 	    
-	    <ViewFlipper android:id="@+id/coffeeshop_viewFlipper"
-	    	android:layout_height="wrap_content"
-	    	android:layout_width="fill_parent"
-	    	android:layout_below="@id/coffeeshop_header"
-	    	android:layout_above="@id/coffeeshop_footer">
-	    	
-    	</ViewFlipper>
-	    
 </RelativeLayout>
