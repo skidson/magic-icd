@@ -14,6 +14,13 @@ import ca.ubc.magic.icd.web.model.User;
 import ca.ubc.magic.icd.web.services.MagicService;
 import ca.ubc.magic.icd.web.services.UserService;
 
+/**
+ * The Spring Controller that intercepts all URL patterns related to the home page
+ * Each function passes the specified jsp page name to the View Resolver to render it for the user
+ * @author Jeffrey Payan
+ * @author Stephen Kidson
+ */
+
 @Controller
 public class HomeController {
 	@Autowired
@@ -22,6 +29,10 @@ public class HomeController {
 	@Autowired
 	private LinkManager linkManager;
 
+	/**
+	 * 
+	 * 
+	 */
 	@RequestMapping("/magic/home")
 	public ModelAndView magicHome() {
 		Map<String, Object> model = UserService.initUserContext(linkManager);
@@ -34,7 +45,10 @@ public class HomeController {
 		model.put("friends", friends);
 		return new ModelAndView("home", model);
 	}
-	
+	/**
+	 * 
+	 * 
+	 */
 	@RequestMapping("/basic/home")
 	public ModelAndView basicHome() {
 		Map<String, Object> model = UserService.initUserContext(linkManager);
