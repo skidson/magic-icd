@@ -16,7 +16,12 @@ import ca.ubc.magic.icd.web.model.LinkManager;
 import ca.ubc.magic.icd.web.model.User;
 import ca.ubc.magic.icd.web.services.MagicService;
 import ca.ubc.magic.icd.web.services.UserService;
-
+/**
+ * The Spring Controller that intercepts all URL patterns related to searches
+ * Each function passes the specified jsp page name to the View Resolver to render it for the user
+ * @author Jeffrey Payan
+ * @author Stephen Kidson
+ */
 @Controller
 public class SearchController {
 	@Autowired
@@ -24,7 +29,12 @@ public class SearchController {
 	private static final int BITS_PER_PAGE = 15;
 	@Autowired
 	private LinkManager linkManager;
-
+	
+	/**
+	 * 
+	 * @param search - Request Parameter : searchQuery
+	 * 
+	 */
 	@RequestMapping("/magic/userSearch")
 	public ModelAndView userSearch(@RequestParam("searchQuery") String search) {
 		Map<String, Object> model = UserService.initUserContext(linkManager);
@@ -46,7 +56,13 @@ public class SearchController {
 		model.put("alreadyFriends", alreadyFriends);
 		return new ModelAndView("searchResult", model);
 	}
-
+	
+	/**
+	 * 
+	 * @param search - Request Parameter : searchQuery
+	 * @param page - Request Parameter : page
+	 * @return
+	 */
 	@RequestMapping("/magic/bitSearch")
 	public ModelAndView bitSearch(@RequestParam("searchQuery") String search, @RequestParam(value = "page", required=false) Integer page) {
 		Map<String, Object> model = UserService.initUserContext(linkManager);
