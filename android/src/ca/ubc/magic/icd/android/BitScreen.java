@@ -34,10 +34,24 @@ public class BitScreen extends Activity {
 			@Override
 			public void onClick(View v) {
 				try {
-    				System.out.println(magicService.checkin(bit.getId()).toString());
+    				magicService.checkin(bit.getId());
     				Toast.makeText(BitScreen.this, "You are now checked into this bit", Toast.LENGTH_SHORT).show();
     			} catch (Exception e) {
     				Toast.makeText(BitScreen.this, "Unable to check into this bit", Toast.LENGTH_SHORT).show();
+    				e.printStackTrace();
+    			}
+			}
+    	});
+    	
+    	Button btnLink = (Button) findViewById(R.id.bit_btnLink);
+    	btnLink.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				try {
+    				magicService.createLink(bit.getId());
+    				Toast.makeText(BitScreen.this, "You are now linked into this bit", Toast.LENGTH_SHORT).show();
+    			} catch (Exception e) {
+    				Toast.makeText(BitScreen.this, "Unable to link to this bit", Toast.LENGTH_SHORT).show();
     				e.printStackTrace();
     			}
 			}
@@ -62,7 +76,10 @@ public class BitScreen extends Activity {
         try {
         	((ImageView)findViewById(R.id.bit_qrCode)).setImageDrawable(AndroidCoffeeShopService.getImageFromURL(bit.getQrImage()));
         } catch (IOException e) {
-        	// TODO no qr image available, substitute with placeholder
+        	try {
+        		// If QR code could not be retrieved from server, use google charts api instead
+        		((ImageView)findViewById(R.id.bit_qrCode)).setImageDrawable(AndroidCoffeeShopService.getQRCode(128, "MAGIC: " + bit.getId()));
+        	} catch (IOException e2) {}
         }
     }
     

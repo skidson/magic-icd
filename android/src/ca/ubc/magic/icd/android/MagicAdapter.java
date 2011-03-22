@@ -38,10 +38,13 @@ public class MagicAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		MagicItem item = itemList.get(position);
 		View view = View.inflate(context, rowResID, null);
+		
 		TextView txtName = (TextView)view.findViewById(R.id.list_name);
 		TextView txtDescription = (TextView)view.findViewById(R.id.list_description);
 		ImageView imgPhoto = (ImageView)view.findViewById(R.id.list_image);
+		
 		view.setTag(item.getId());
+		
 		if(txtName != null) 
 			txtName.setText(item.getName());
 		if(txtDescription != null)
@@ -51,6 +54,7 @@ public class MagicAdapter extends BaseAdapter {
 				imgPhoto.setImageDrawable(AndroidCoffeeShopService.getImageFromURL(item.getImage()));
 			} catch (IOException ignore) {}
 		}
+		
 		return view;
 	}
 	

@@ -76,6 +76,7 @@
 			    	android:textStyle="italic"/>
 	    	
     		</RelativeLayout>
+    		
     	</ScrollView>
     	
     	<Button android:id="@+id/bit_btnCheckin"
@@ -84,5 +85,14 @@
 		    	android:layout_alignParentRight="true"
 		    	android:layout_above="@id/coffeeshop_footer"
 		    	android:background="@drawable/btn_checkin_selector"/>
+		    	
+		<Button android:id="@+id/bit_btnLink"
+		    	android:layout_width="wrap_content"
+		    	android:layout_height="wrap_content"
+		    	android:layout_toLeftOf="@id/bit_btnCheckin"
+		    	android:layout_alignTop="@id/bit_btnCheckin"
+		    	android:layout_marginRight="10sp"
+		    	android:layout_marginBottom="2sp"
+		    	android:background="@drawable/btn_link_selector"/>
 	    
 </RelativeLayout>

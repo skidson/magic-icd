@@ -8,6 +8,8 @@ package ca.ubc.magic.icd.android;
  * TODO settings menu
  * TODO sanitize inputs
  * TODO clickable lists for bits and friends
+ * TODO loading screens
+ * TODO reduce loading times
  */
 
 import java.io.IOException;
@@ -33,6 +35,8 @@ public class HomeScreen extends Activity {
 	private static final String MAGIC_QR_PATTERN = "MAGIC:";
 	private AndroidCoffeeShopService magicService;
 	
+	private User user;
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,9 +44,12 @@ public class HomeScreen extends Activity {
         setContentView(R.layout.home);
         magicService = AndroidCoffeeShopService.getInstance(HomeScreen.this);
         
-        // FIXME for some reason showUser(1) works but this fails...
-        JsonItem userInfo = magicService.showUser(2).getAsJsonItem("user");
-		updateUser(userInfo);
+        // FIXME for some reason showUser(#) works but this fails...
+        try {
+        	updateUser(magicService.showUser().getAsJsonItem("user"));
+        } catch (Exception e) {
+        	updateUser(magicService.showUser(2).getAsJsonItem("user"));
+        }
         
         Button btnCheckin = (Button)findViewById(R.id.home_btnCheckin);
         btnCheckin.setOnClickListener(new OnClickListener() {
@@ -71,13 +78,20 @@ public class HomeScreen extends Activity {
         	}
         });
         
+        ImageView imgPhoto = (ImageView) findViewById(R.id.home_portrait);
+        imgPhoto.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(HomeScreen.this, UserScreen.class);
+				startActivity(intent);
+			}
+        });
     }
     
     @Override
 	protected void onResume() {
     	// FIXME for some reason showUser(1) works but this fails...
-        JsonItem userInfo = magicService.showUser(2).getAsJsonItem("user");
-		updateUser(userInfo);
+		updateUser(magicService.showUser(2).getAsJsonItem("user"));
 		super.onResume();
 	}
 
@@ -100,7 +114,7 @@ public class HomeScreen extends Activity {
     		break;
     	}
     }
-    
+	
 	@Override
 	public void onNewIntent(Intent intent) {
 		oauthCallback(intent);
@@ -112,7 +126,7 @@ public class HomeScreen extends Activity {
 		if (uri != null && uri.toString().startsWith(AndroidCoffeeShopService.CALLBACK_URI))
 				magicService.verify(HomeScreen.this, uri);
 	}
-	
+    
 	private void updateUser(JsonItem userInfo) {
 		String realName = userInfo.getAsString(AndroidCoffeeShopService.NAME);
 		String description = userInfo.getAsString(AndroidCoffeeShopService.DESCRIPTION);
@@ -128,11 +142,11 @@ public class HomeScreen extends Activity {
 			exp = 0;
 			points = 0;
 		}
-        
-        updateFields(new User(realName, username, description, photo, id, exp, points));
+        user = new User(realName, username, description, photo, id, exp, points);
+        updateFields();
 	}
 	
-	private void updateFields(User user) {
+	private void updateFields() {
 		((TextView) findViewById(R.id.home_username)).setText(user.getName());
         ((TextView) findViewById(R.id.home_points)).setText(user.getPoints() + " points");
         ((TextView) findViewById(R.id.home_exp)).setText(user.getExperience() + "/100 EXP");;
