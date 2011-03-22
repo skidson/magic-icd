@@ -44,7 +44,7 @@
 		        
 		    <EditText android:id="@+id/login_txtUsername"
 		        android:layout_width="fill_parent"
-		        android:layout_height="30dip"
+		        android:layout_height="40dip"
 		        android:background="@android:drawable/editbox_background"
 		        android:layout_toRightOf="@id/login_lblUsername"
 		        android:layout_alignBaseline="@id/login_lblUsername"
@@ -60,8 +60,9 @@
 			    android:text="@string/login_lblPassword"/>
 			    
 		    <EditText android:id="@+id/login_txtPassword"
+		    	android:password="true"
 		        android:layout_width="fill_parent"
-		        android:layout_height="30dip"
+		        android:layout_height="40dip"
 		        android:background="@android:drawable/editbox_background"
 		        android:layout_below="@id/login_txtUsername"
 		        android:layout_toRightOf="@id/login_lblPassword"

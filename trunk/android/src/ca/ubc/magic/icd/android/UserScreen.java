@@ -6,7 +6,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
-import ca.ubc.magic.icd.android.model.User;
+import android.widget.Toast;
 import ca.ubc.magic.icd.android.services.AndroidCoffeeShopService;
 import ca.ubc.magic.icd.web.json.JsonItem;
 
@@ -17,32 +17,28 @@ public class UserScreen extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bit);
+        setContentView(R.layout.user);
         magicService = AndroidCoffeeShopService.getInstance(UserScreen.this);
         
         ImageView imgPhoto = (ImageView)findViewById(R.id.user_photo);
         TextView txtUsername = (TextView)findViewById(R.id.user_username);
         TextView txtName = (TextView)findViewById(R.id.user_name);
         TextView txtDescription = (TextView)findViewById(R.id.user_description);
-        
-        // FIXME
-        JsonItem userInfo = magicService.showUser(2).getAsJsonItem("user");
-        User user = new User(userInfo.getAsString("name"), 
-				userInfo.getAsString("username"), 
-				userInfo.getAsString("description"),
-				userInfo.getAsString("photo"),
-				userInfo.getAsInteger("id"),
-				userInfo.getAsInteger("experience"),
-				userInfo.getAsInteger("points"));
-        
-        txtUsername.setText(user.getName());
-        txtName.setText(user.getName());
-        txtDescription.setText(user.getDescription());
+        JsonItem userInfo = null;
         
         try {
-        	imgPhoto.setImageDrawable(AndroidCoffeeShopService.getImageFromURL(user.getPhoto()));
-        } catch (IOException ignore) { /* user default placeholder */ }
+        	userInfo = magicService.showUser((Integer)this.getIntent().getExtras().get("user_id")).getAsJsonItem("user");
+        	txtUsername.setText(userInfo.getAsString(AndroidCoffeeShopService.USERNAME));
+            txtName.setText(userInfo.getAsString(AndroidCoffeeShopService.NAME));
+            txtDescription.setText(userInfo.getAsString(AndroidCoffeeShopService.DESCRIPTION));
+        } catch (Exception e) {
+        	Toast.makeText(UserScreen.this, "Failed to load user information", Toast.LENGTH_SHORT).show();
+        	finish();
+        }
         
+        try {
+        	imgPhoto.setImageDrawable(AndroidCoffeeShopService.getImageFromURL(userInfo.getAsString(AndroidCoffeeShopService.PHOTO)));
+        } catch (IOException e) { /* use default portrait */}
     }
     
 }

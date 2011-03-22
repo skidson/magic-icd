@@ -54,7 +54,7 @@ public class AndroidCoffeeShopService {
 	public static final String OAUTH_VERIFIER = "oauth_verifier";
 	public static final String CALLBACK_URI = "x-oauthflow://callback";
 	
-	private static final String magicURLPattern = "http://kimberly.magic.ubc.ca:8080/1/";
+	private static final String magicURLPattern = "http://kimberly.magic.ubc.ca/1/";
 	private static final String CONSUMER_KEY = "766bec602a9fe2795b43501ea4f9a9c9";
 	private static final String CONSUMER_SECRET = "sad234fdsf243f4ff3f343kj43hj43g4hgf423f";
 	
@@ -63,8 +63,9 @@ public class AndroidCoffeeShopService {
 	
 	private static AndroidCoffeeShopService instance;
 	
+	// Variation on Singleton, expose this constructor so we may manually force re-authorization
 	@SuppressWarnings("static-access")
-	protected AndroidCoffeeShopService(Context context) {
+	public AndroidCoffeeShopService(Context context) {
 		this.instance = this;
 		this.provider = new CommonsHttpOAuthProvider(
 				magicURLPattern + "request_token",
@@ -92,6 +93,7 @@ public class AndroidCoffeeShopService {
 		return (new JsonParser(compileInputStream(request))).parse().get(0);
 	}
 	
+	// FIXME currently returns an empty, [], array
 	public List<User> showFriends() {
 		String request = "friends/show";
 		Iterator<JsonItem> iterator = (new JsonParser(compileInputStream(request))).parse().iterator();
@@ -116,8 +118,10 @@ public class AndroidCoffeeShopService {
 					points = 0;
 				}
 			} catch (NullPointerException e) {
+				Log.d("MAGIC", "Skipping null friend...");
 				continue;
 			}
+			Log.d("MAGIC", name);
 			User user = new User(name, username, description, photo, id,
 					experience, points);
 			list.add(user);
@@ -166,7 +170,7 @@ public class AndroidCoffeeShopService {
 			} catch (NullPointerException e) {
 				continue;
 			}
-			Log.d("MAGIC", name);
+			System.out.println(name); // debug
 			User user = new User(name, username, description, photo, userID,
 					experience, points);
 			list.add(user);
@@ -179,28 +183,21 @@ public class AndroidCoffeeShopService {
 		Iterator<JsonItem> iterator = (new JsonParser(compileInputStream(request))).parse().iterator();
 		List<Bit> list = new ArrayList<Bit>();
 		while (iterator.hasNext()) {
-			JsonItem match = iterator.next();
+			JsonItem match = iterator.next().getAsJsonItem("bit");
 			try {
-				Bit bit = null;
-				if (match.containsKey("bit")) {
-					String name = match.getAsString(AndroidCoffeeShopService.NAME);
-					String description = match.getAsString(AndroidCoffeeShopService.DESCRIPTION);
-					String qrImage = match.getAsString(AndroidCoffeeShopService.QR_IMAGE_URL);
-					Integer id;
-					Integer type;
-					try {
-						id = match.getAsInteger(AndroidCoffeeShopService.ID);
-						type = match.getAsInteger(AndroidCoffeeShopService.BITS_TYPES_ID);;
-					} catch (NumberFormatException e) {
-						id = 0;
-						type = 0;
-					}
-					Log.d("MAGIC", name);
-					bit = new Bit(name, description, qrImage, id, type);
-				} else
-					continue;
-				list.add(bit);
-			} catch (NullPointerException e) {
+				String name = match.getAsString(AndroidCoffeeShopService.NAME);
+				String description = match.getAsString(AndroidCoffeeShopService.DESCRIPTION);
+				String qrImage = match.getAsString(AndroidCoffeeShopService.QR_IMAGE_URL);
+				Integer id, type;
+				try {
+					id = match.getAsInteger(AndroidCoffeeShopService.ID);
+					type = match.getAsInteger(AndroidCoffeeShopService.BITS_TYPES_ID);;
+				} catch (NumberFormatException e) {
+					id = 0;
+					type = 0;
+				}
+				list.add(new Bit(name, description, qrImage, id, type));
+			} catch (Exception e) {
 				continue;
 			}
 		}
@@ -219,8 +216,7 @@ public class AndroidCoffeeShopService {
 					String name = match.getAsString(AndroidCoffeeShopService.NAME);
 					String description = match.getAsString(AndroidCoffeeShopService.DESCRIPTION);
 					String qrImage = match.getAsString(AndroidCoffeeShopService.QR_IMAGE_URL);
-					Integer id;
-					Integer type;
+					Integer id, type;
 					try {
 						id = match.getAsInteger(AndroidCoffeeShopService.ID);
 						type = match.getAsInteger(AndroidCoffeeShopService.BITS_TYPES_ID);;
@@ -228,7 +224,7 @@ public class AndroidCoffeeShopService {
 						id = 0;
 						type = 0;
 					}
-					Log.d("MAGIC", name);
+					System.out.println(name); // debug
 					bit = new Bit(name, description, qrImage, id, type);
 				} else
 					continue;
@@ -240,6 +236,16 @@ public class AndroidCoffeeShopService {
 		return list;
 	}
 	
+	/**
+	 * Creates a link between the identified user and a bit in the MAGIC Broker database.
+	 * @param id the identification number of the bit to link to.
+	 * @return a JsonItem representing the link, containing all the linked "bit" and "user" items.
+	 */
+	public void createLink(int id) {
+		String request = "links/create?id=" + id;
+		(new JsonParser(compileInputStream(request))).parse().get(0);
+	}
+	
 	private InputStream compileInputStream(String path) {
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpGet request = new HttpGet(magicURLPattern + path);
@@ -247,11 +253,19 @@ public class AndroidCoffeeShopService {
 		try {
 			consumer.sign(request);
 			response = httpClient.execute(request);
+			
+			/*BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+			String line;
+			while((line = reader.readLine()) != null) {
+				System.out.println(line);
+				Log.d("MAGIC", line);
+			}*/
+			
 			return response.getEntity().getContent();
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
-		return null;
 	}
 	
 	private void authorize(Context context) {
@@ -283,4 +297,8 @@ public class AndroidCoffeeShopService {
 		return Drawable.createFromStream(input, "src name");
 	}
 	
+	public static Drawable getQRCode(int size, String data) throws MalformedURLException, IOException {
+		InputStream input = (InputStream) new URL("https://chart.googleapis.com/chart?cht=qr&chs=" + size + "&chl=" + data + "&choe=" + "UTF-8").getContent();
+		return Drawable.createFromStream(input, "src name");
+	}
 }
