@@ -492,7 +492,7 @@ public class CoffeeShopService implements MagicService {
 		for (int i = 0; i < PLACES.length; i++)
 			if ((PLACES[i].contains(place)))
 				return i+1;
-		return 0;
+		return 1;
 	}
 	
 	private static String encode(String parameter) {

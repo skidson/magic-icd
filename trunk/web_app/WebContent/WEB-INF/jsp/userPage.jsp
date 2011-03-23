@@ -22,7 +22,7 @@
 							</tr>
 							<tr>
 								<td align="center"> <b>EXP: </b>${friend.exp}</td>
-								<td> <b>Points: </b>${friend.points}</td>	
+								<td> <b>Points: </b>${friend.points}</td>
 							</tr>
 						</table>
 					</c:when>

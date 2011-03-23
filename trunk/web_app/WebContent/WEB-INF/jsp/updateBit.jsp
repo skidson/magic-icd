@@ -31,7 +31,7 @@
 						</form>
 						<form method="post" action="/web_app/magic/updateBitDescription?bitID=${bit.id}">
 							<tr>
-							<td><b>Current Description: ${bit.description}</b></td><td> New Description </td>
+							<td><b>Current Description:</b> ${bit.description}</td><td> New Description </td>
 							<td><input type="text" size="30" name="in_description"/></td>
 							<td><input class="button" value="Update" type="submit"/></td></tr>
 						</form>
