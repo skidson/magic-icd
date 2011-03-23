@@ -6,7 +6,7 @@ import java.util.List;
 import ca.ubc.magic.icd.web.json.JsonItem;
 import ca.ubc.magic.icd.web.services.MagicService;
 /**
- * 
+ * A class to store information related to users. Contains username, exp, points, imageURL, a list of friends and a list of bits
  * @author Jeffrey Payan
  * @author Stephen Kidson
  */
