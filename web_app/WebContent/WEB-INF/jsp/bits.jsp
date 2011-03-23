@@ -25,7 +25,7 @@
 				     		</c:otherwise>
 				     	</c:choose>
 		     			<h2>Search</h2><br>
-		     			<table><tr><form method="post" action="bitSearch">
+		     			<table><tr><form method="post" action="/web_app/magic/bitSearch">
 							<center><b>Keyword: </b><input type="text" size="40" name="searchQuery" />
 							<input class="button" value=" Search " type="submit" /></center>
 						</form></tr></table>

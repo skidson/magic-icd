@@ -11,16 +11,14 @@
 			<h2>${bit.name}</h2><br>
 			<table>
 				<tr>
-					<td><b>Type: </b> ${bit.type}</td>
-					<td><c:if test="${!empty bit.imageURL}"> <img src="${bit.imageURL}" /> </c:if></td>
+					<td rowspan="2"><c:if test="${!empty bit.imageURL}"> <img width="125px" height="125px" src="${bit.imageURL}" /> </c:if></td>
+					<td><b>Type: </b> ${bit.type}</td>	
+					
 				</tr>
 				<tr>
-					<td colSpan="2"><b>Description: </b> <p>${bit.description}</p></td>
+					<td><b>Description: </b> <p>${bit.description}</p></td>
 				</tr>
 			</table>
-			<c:if test="${empty magicUser.bits}">
-				<a href="<c:url value="/magic/linkBit?bitID=${bit.id}"/>">Link to this bit!</a>
-			</c:if>
 			
 			<c:set var="test" value="false"/>
 			<c:forEach items="${magicUser.bits}" var="userBit">
@@ -60,7 +58,7 @@
 						<table>
 							<tr><th>Name</th><th>Type</th><th>Description</th></tr>
 							<c:forEach var="linkedBit" items="${bitLinks}">
-			        			<tr><td><a href="<c:url value ="/magic/bit?id=${linkedBit.id}"/>">${linkedBit.name}</a></td><td>${linkedBit.type}</td><td>${linkedBit.description}</td></tr>
+			        			<tr><td><a href="<c:url value ="/magic/bit?bitID=${linkedBit.id}"/>">${linkedBit.name}</a></td><td>${linkedBit.type}</td><td>${linkedBit.description}</td></tr>
 			     			</c:forEach>
 		     			</table>
 		     	</c:when>

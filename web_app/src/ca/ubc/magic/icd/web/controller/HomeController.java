@@ -1,5 +1,6 @@
 package ca.ubc.magic.icd.web.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import ca.ubc.magic.icd.web.model.Bit;
+import ca.ubc.magic.icd.web.model.Event;
 import ca.ubc.magic.icd.web.model.LinkManager;
 import ca.ubc.magic.icd.web.model.User;
 import ca.ubc.magic.icd.web.services.MagicService;
@@ -37,12 +39,16 @@ public class HomeController {
 	public ModelAndView magicHome() {
 		Map<String, Object> model = UserService.initUserContext(linkManager);
 		List<User> friends = magicService.showFriends();
-
+		List<Event> events = new ArrayList<Event>();
+		
 		for(User user : friends){
 			user.setBits(magicService.showBitLinksOfUser(user.getId()));
+			for(Bit bit : user.getBits()){
+				events.add(new Event(user, bit));
+			}
 		}
-
-		model.put("friends", friends);
+		
+		model.put("events", events);
 		return new ModelAndView("home", model);
 	}
 	/**

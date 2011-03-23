@@ -13,24 +13,16 @@
 				<c:choose>
 					<c:when test="${linked.magic}">
 						<c:choose>
-							<c:when test="${not empty friends}">
+							<c:when test="${not empty events}">
+								<h3>Recent Events :</h3>
 								<table>
-									<c:set var="bitCheck" value="fail"/>
-									<c:forEach var="friend" items="${friends}">
-										<c:if test="${not empty friend.bits}">
-											<c:set var="bitCheck" value="pass"/>
-											<c:forEach var="friendLink" items="${friend.bits}">
-												<tr><td><a href="<c:url value="/magic/userPage?userID=${friend.id}"/>">${friend.name}</a> is linked to <a href="<c:url value ="/magic/bit?bitID=${friendLink.id}"/>">${friendLink.name}</a> </td></tr>
-											</c:forEach>
-										</c:if>
+									<c:forEach var="event" items="${events}">
+											<tr><td><a href="<c:url value="/magic/userPage?userID=${event.user.id}"/>">${event.user.name}</a> is linked to <a href="<c:url value ="/magic/bit?bitID=${event.bit.id}"/>">${event.bit.name}</a> </td></tr>
 									</c:forEach>
-									<c:if test="${bitCheck eq 'fail'}">
-										Sorry, all your friends are rather boring and are not connected to anything!
-									</c:if>
 								</table>
 							</c:when>
 							<c:otherwise>
-								Sorry you have no friends, go to the friends page to search for some people you may know!
+								Sorry, all your friends are rather boring and are not connected to anything!							
 							</c:otherwise>
 						</c:choose>
 					</c:when>

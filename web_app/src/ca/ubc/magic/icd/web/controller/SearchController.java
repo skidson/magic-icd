@@ -67,6 +67,7 @@ public class SearchController {
 	public ModelAndView bitSearch(@RequestParam("searchQuery") String search, @RequestParam(value = "page", required=false) Integer page) {
 		Map<String, Object> model = UserService.initUserContext(linkManager);
 		int index;
+		if (search == null) search = "";
 		List<Bit> matchedBits = magicService.searchBits(search);
 		List<Bit> toReturn = new ArrayList<Bit>();
 		User magicUser = new User(magicService.showUser());
