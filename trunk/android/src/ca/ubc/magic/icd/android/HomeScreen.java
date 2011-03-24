@@ -15,6 +15,7 @@ package ca.ubc.magic.icd.android;
 import java.io.IOException;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -28,12 +29,20 @@ import ca.ubc.magic.icd.android.model.User;
 import ca.ubc.magic.icd.android.services.AndroidCoffeeShopService;
 import ca.ubc.magic.icd.web.json.JsonItem;
 
+/**
+ * The default Activity for the CoffeeShop application. Presents a View displaying
+ * the current user's information, and buttons for "Checkin", "Friends", and "Bits".
+ * Upon resuming, this activity will update user data.
+ * @author Stephen Kidson
+ * @author Jeffrey Payan
+ */
 public class HomeScreen extends Activity {
 	private static final String SCANNER = "com.google.zxing.client.android.SCAN";
 	private static final int SCANNER_REQUEST_CODE = 0;
 	private static final String SCAN_RESULT = "SCAN_RESULT";
 	private static final String MAGIC_QR_PATTERN = "MAGIC:";
 	private AndroidCoffeeShopService magicService;
+	private static Context instance;
 	
 	private User user;
 	
@@ -42,14 +51,8 @@ public class HomeScreen extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
+        instance = HomeScreen.this;
         magicService = AndroidCoffeeShopService.getInstance(HomeScreen.this);
-        
-        // FIXME for some reason showUser(#) works but this fails...
-        try {
-        	updateUser(magicService.showUser().getAsJsonItem("user"));
-        } catch (Exception e) {
-        	updateUser(magicService.showUser(2).getAsJsonItem("user"));
-        }
         
         Button btnCheckin = (Button)findViewById(R.id.home_btnCheckin);
         btnCheckin.setOnClickListener(new OnClickListener() {
@@ -90,8 +93,12 @@ public class HomeScreen extends Activity {
     
     @Override
 	protected void onResume() {
-    	// FIXME for some reason showUser(1) works but this fails...
-		updateUser(magicService.showUser(2).getAsJsonItem("user"));
+    	// FIXME for some reason showUser(#) works but this fails...
+        try {
+        	updateUser(magicService.showUser().getAsJsonItem("user"));
+        } catch (Exception e) {
+        	updateUser(magicService.showUser(2).getAsJsonItem("user"));
+        }
 		super.onResume();
 	}
 
@@ -121,12 +128,21 @@ public class HomeScreen extends Activity {
 		super.onNewIntent(intent);
 	}
 	
+	/**
+	 * Checks if the URI that called this Activity matches the oauth scheme. If so,
+	 * verifies the authorized oauth token and verifier.
+	 * @param intent
+	 */
 	private void oauthCallback(Intent intent) {
 		Uri uri = intent.getData();
 		if (uri != null && uri.toString().startsWith(AndroidCoffeeShopService.CALLBACK_URI))
 				magicService.verify(HomeScreen.this, uri);
 	}
     
+	/**
+	 * Updates the user information associated with this Activity.
+	 * @param userInfo
+	 */
 	private void updateUser(JsonItem userInfo) {
 		String realName = userInfo.getAsString(AndroidCoffeeShopService.NAME);
 		String description = userInfo.getAsString(AndroidCoffeeShopService.DESCRIPTION);
@@ -143,10 +159,14 @@ public class HomeScreen extends Activity {
 			points = 0;
 		}
         user = new User(realName, username, description, photo, id, exp, points);
-        updateFields();
+        updateFields(user);
 	}
 	
-	private void updateFields() {
+	/**
+     * Writes the passed user's values into this Activity's text and image views.
+     * @param bit the bit whose info to display.
+     */
+	private void updateFields(User user) {
 		((TextView) findViewById(R.id.home_username)).setText(user.getName());
         ((TextView) findViewById(R.id.home_points)).setText(user.getPoints() + " points");
         ((TextView) findViewById(R.id.home_exp)).setText(user.getExperience() + "/100 EXP");;
@@ -156,6 +176,15 @@ public class HomeScreen extends Activity {
         	((ImageView) findViewById(R.id.home_portrait))
         		.setImageDrawable(AndroidCoffeeShopService.getImageFromURL(user.getPhoto()));
         } catch (IOException ignore) { /* use default portrait */ }
+	}
+	
+	/**
+	 * Singleton reference to this activity, used to generate error messages after
+	 * returning from failed tasks.
+	 * @return
+	 */
+	public static Context getContext() {
+		return instance;
 	}
     
 }

@@ -7,6 +7,14 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import ca.ubc.magic.icd.android.services.AndroidCoffeeShopService;
 
+/**
+ * The launcher activity for the CoffeeShop application. Verifies the user. Currently does
+ * not use CoffeeShop web-application's login form. The login button initializes
+ * the OAuth Web Flow and directs the user to enter their Magic Broker credentials via
+ * a Web View.
+ * @author Stephen Kidson
+ * @author Jeffrey Payan
+ */
 public class LoginScreen extends Activity {
 	private static final String LOGIN_URL = "http://192.168.0.100:8010/web_app/mobile/android";
 	private static final int TIMEOUT = 3000; // timeout duration in milliseconds
@@ -51,6 +59,7 @@ public class LoginScreen extends Activity {
         			Log.d("MAGIC", "IOEXCEPTION", e);
         			Toast.makeText(LoginScreen.this, "Error contacting server", Toast.LENGTH_SHORT).show();
         		}*/
+        		
         		new AndroidCoffeeShopService(LoginScreen.this); // initialize the service singleton (user prompted to authorize)
         		finish();
         	}

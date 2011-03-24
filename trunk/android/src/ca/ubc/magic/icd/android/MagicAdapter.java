@@ -12,6 +12,13 @@ import android.widget.TextView;
 import ca.ubc.magic.icd.android.services.AndroidCoffeeShopService;
 import ca.ubc.magic.icd.web.model.MagicItem;
 
+/**
+ * Specifies the elements used to adapt MagicItems into a ListActivity. Items in the
+ * list show their image, name, and description. The item's ID is stored in that
+ * item's View's tag object. To determine the identity of a list item, use getTag().
+ * @author Stephen Kidson
+ * @author Jeffrey Payan
+ */
 public class MagicAdapter extends BaseAdapter {
 	private Context context;
 	private List<MagicItem> itemList;

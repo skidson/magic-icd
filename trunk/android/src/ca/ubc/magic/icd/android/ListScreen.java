@@ -14,6 +14,12 @@ import ca.ubc.magic.icd.android.model.User;
 import ca.ubc.magic.icd.android.services.AndroidCoffeeShopService;
 import ca.ubc.magic.icd.web.model.MagicItem;
 
+/**
+ * Presents a ListView of the current user's bits or friends. Looks for a "type" extra
+ * in its Intent, set to either "bits" or "friends", to determine which.
+ * @author Stephen Kidson
+ * @see MagicAdapter
+ */
 public class ListScreen extends ListActivity {
 	private List<MagicItem> items;
 	private AndroidCoffeeShopService magicService;
@@ -27,26 +33,10 @@ public class ListScreen extends ListActivity {
         	System.out.println("Showing bit list"); // debug
 	        for(Bit bit : magicService.showBitLinksOfUser())
 	    		items.add(bit);
-	        /*getListView().setOnItemClickListener(new OnItemClickListener() {
-    			@Override
-    			public void onItemClick(AdapterView<?> magicAdapter, View listItem, int index,
-    					long rowID) {
-    				Intent intent = new Intent(ListScreen.this, BitScreen.class);
-    				intent.putExtra("bit_id", (Integer)listItem.getTag());
-    			}
-            });*/
         } else if (this.getIntent().getExtras().getString("type").equals("friends")){
         	System.out.println("Showing friend list"); // debug
         	for(User user : magicService.showFriends())
         		items.add(user);
-        	/*getListView().setOnItemClickListener(new OnItemClickListener() {
-    			@Override
-    			public void onItemClick(AdapterView<?> magicAdapter, View listItem, int index,
-    					long rowID) {
-    				Intent intent = new Intent(ListScreen.this, UserScreen.class);
-    				intent.putExtra("user_id", (Integer)listItem.getTag());
-    			}
-            });*/
         }
         this.getListView().setBackgroundColor(Color.parseColor("#f76301"));
         setListAdapter(new MagicAdapter(this, R.layout.list_item, items));
