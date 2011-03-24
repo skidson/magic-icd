@@ -17,7 +17,7 @@ import ca.ubc.magic.icd.web.model.Bit;
 import ca.ubc.magic.icd.web.model.User;
 
 /**
- * Implementation of the Magic Service interface. Provides access to protected MAGIC resources provided
+ * Implementation of the Magic Service interface. Provides easy access to protected MAGIC resources provided
  * the user has an access token for the MAGIC broker.
  * @author Jeffrey Payan
  * @author Stephen Kidson
@@ -459,35 +459,74 @@ public class CoffeeShopService implements MagicService {
 		return list;
 	}
 	
+	/**
+	 * Set the MagicRestTemplate, a formatted http template for REST protocol
+	 * @param magicRestTemplate - the new MagicRestTemplate
+	 */
 	public void setMagicRestTemplate(OAuthRestTemplate magicRestTemplate) {
 		this.magicRestTemplate = magicRestTemplate;
 	}
-
+	
+	/**
+	 * Get the MagicRestTemplate, a formatted http template for REST protocol 
+	 * @return The MagicRestTemplate
+	 */
 	public OAuthRestTemplate getMagicRestTemplate() {
 		return magicRestTemplate;
 	}
-
+	
+	/**
+	 * Set the MAGIC URL pattern for QR codes
+	 * @param magicQRCodeURLPattern
+	 */
 	public void setMagicQRCodeURLPattern(String magicQRCodeURLPattern) {
 		this.magicQRCodeURLPattern = magicQRCodeURLPattern;
 	}
 
+	/**
+	 * Get the url for the QR codes stored in the MAGIC database
+	 * @return - Returns the MAGIC URL pattern for QR codes
+	 */
 	public String getMagicQRCodeURLPattern() {
 		return magicQRCodeURLPattern;
 	}
 	
+	/**
+	 * Returns the base MAGIC URL pattern
+	 * @return Returns the MAGIC URL pattern
+	 */
 	public String getMagicURLPattern() {
 		return magicURLPattern;
 	}
-
+	
+	/**
+	 * Set the base MAGIC URL pattern
+	 * @param magicURLPattern - the new MAGIC URL pattern
+	 */
 	public void setMagicURLPattern(String magicURLPattern) {
 		this.magicURLPattern = magicURLPattern;
 	}
 	
+	/**
+	 * Starts a connection with the MAGIC broken concatenating the base MAGIC URL and the 
+	 * passed request parameter. If the user does not have a access token for the MAGIC
+	 * broker protected resource, the user will be asked to sign in with their magic profile
+	 * and acquire a access token. Returns the Input Stream from which the user can get the desired data
+	 * from the MAGIC broker.
+	 * @param request - the query to attach to the base MAGIC URL
+	 * @return
+	 */
 	private InputStream compileInputStream(String request) {
 		return new ByteArrayInputStream(getMagicRestTemplate()
 				.getForObject(URI.create(getMagicURLPattern() + request), byte[].class));
 	}
 	
+	/**
+	 * Convert a place from a string to a places_id
+	 * @param place - the string to be converted to a places_id
+	 * @return A integer representing the string given.
+	 */
+	//FIXME Currently not finished
 	private static int getPlaceID(String place) {
 		for (int i = 0; i < PLACES.length; i++)
 			if ((PLACES[i].contains(place)))

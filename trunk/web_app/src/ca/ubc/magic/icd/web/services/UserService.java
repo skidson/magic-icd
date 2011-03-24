@@ -8,15 +8,17 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import ca.ubc.magic.icd.web.model.LinkManager;
 import ca.ubc.magic.icd.web.model.User;
 /**
- * 
+ * A class for getting the user from the SecurityContextHolder and getting the status
+ * of the link to a MAGIC account
  * @author Jeffrey Payan
- *@author Stephen Kidson
+ * @author Stephen Kidson
  */
 public class UserService {
 
 	/**
 	 * Create a new user based on the current user logged into the application
-	 * and add it to the model for the current page being viewed.
+	 * and add it to the model for the current page being viewed. This method gets the username
+	 * from the SecurityContextHolder.
 	 * @param model - the model to add the user to
 	 * @return A model with the new user added to it.
 	 */
@@ -29,7 +31,8 @@ public class UserService {
 	/**
 	 * Create a new user based on the current user logged into the application
 	 * and add it to the model for the current page being viewed. Also adds the current "Linked" status
-	 * to the model
+	 * to the model.This method gets the username
+	 * from the SecurityContextHolder.	 
 	 * @param model - the model to add the user to
 	 * @return A model with the new user and linked object added to it.
 	 * @see ca.ubc.magic.icd.web.model.Linked
