@@ -14,7 +14,7 @@ import com.google.gson.stream.JsonReader;
 /**
  * An implementation of Parser designed to fetch JSON encoded data, as per <code>RFC4627</code>.
  * @author Stephen Kidson
- *
+ * @author Jeffrey Payan
  */
 public class JsonParser extends BaseParser {
 	private FeedItem.Type type;

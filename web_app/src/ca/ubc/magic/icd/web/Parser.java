@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Interface for a standard web parser. Implementations must implement the parse() method.
  * @author Stephen Kidson
- *
+ * @author Jeffrey Payan
  */
 public interface Parser {
 	/**

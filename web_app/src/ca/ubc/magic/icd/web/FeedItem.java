@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 /**
  * A simple container for building parsed objects.
  * @author Stephen Kidson
+ * @author Jeffrey Payan
  */
 public class FeedItem {
 	protected static SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z");
