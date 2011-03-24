@@ -17,8 +17,8 @@ import ca.ubc.magic.icd.web.model.Bit;
 import ca.ubc.magic.icd.web.model.User;
 
 /**
- * Implementation of Magic Service. Provides access to protected MAGIC resources provided
- * the user has a access token for the MAGIC broker.
+ * Implementation of the Magic Service interface. Provides access to protected MAGIC resources provided
+ * the user has an access token for the MAGIC broker.
  * @author Jeffrey Payan
  * @author Stephen Kidson
  */
