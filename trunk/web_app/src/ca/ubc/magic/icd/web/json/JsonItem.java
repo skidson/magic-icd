@@ -12,7 +12,7 @@ import ca.ubc.magic.icd.web.FeedItem;
 /**
  * Container for parsed JSON items.
  * @author Stephen Kidson
- *
+ * @author Jeffrey Payan
  */
 public class JsonItem extends FeedItem {
 	private Map<String, Object> attributes;
