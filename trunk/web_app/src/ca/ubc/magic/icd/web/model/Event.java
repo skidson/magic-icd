@@ -1,7 +1,7 @@
 package ca.ubc.magic.icd.web.model;
 
 /**
- * Used to store a event (User linked to a bit, for example)
+ * A basic object to store a event (User linked to a bit, for example)
  * @author Jeffrey Payan
  * @author Stephen Kidson
  */

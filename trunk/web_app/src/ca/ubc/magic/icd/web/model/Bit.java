@@ -5,7 +5,8 @@ import ca.ubc.magic.icd.web.services.CoffeeShopService;
 import ca.ubc.magic.icd.web.services.MagicService;
 
 /**
- * This class implements ---______________________________________---
+ * A basic object that extends MagicItem which stores information pertaining to bits.
+ * Adds placeID, typeID and imageURL, which are specific to bits.
  * @author Jeffrey Payan
  * @author Stephen Kidson
  */
