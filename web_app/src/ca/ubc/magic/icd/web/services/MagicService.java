@@ -7,7 +7,7 @@ import ca.ubc.magic.icd.web.model.Bit;
 import ca.ubc.magic.icd.web.model.User;
 /**
  * 
- * An interface providing the user with 
+ * An interface defining the 
  * @author Jeffrey Payan
  * @author Stephen Kidson
  *

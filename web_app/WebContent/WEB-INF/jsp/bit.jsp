@@ -11,9 +11,8 @@
 			<h2>${bit.name}</h2><br>
 			<table>
 				<tr>
-					<td rowspan="2"><c:if test="${!empty bit.imageURL}"> <img width="125px" height="125px" src="${bit.imageURL}" /> </c:if></td>
-					<td><b>Type: </b> ${bit.type}</td>	
-					
+					<td rowspan="2"><c:if test="${!empty bit.imageURL}"> <img src="${bit.imageURL}" width="125" height="125"/> </c:if></td>
+					<td><b>Type: </b> ${bit.type}</td>
 				</tr>
 				<tr>
 					<td><b>Description: </b> <p>${bit.description}</p></td>
