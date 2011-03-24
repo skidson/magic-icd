@@ -43,4 +43,13 @@ public class UserService {
 		return model;
 	}
 	
+	public static boolean authenticate(String username, String password) {
+		// TODO implement database user checking here! These are just temporary:
+		if (username.equals("admin") && password.equals("secret"))
+			return true;
+		else if (username.equals("user1") && password.equals("1111"))
+			return true;
+		return false;
+	}
+	
 }

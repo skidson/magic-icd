@@ -11,7 +11,7 @@ import ca.ubc.magic.icd.web.FeedItem;
 
 /**
  * Container for parsed JSON items.
- * @author skidson
+ * @author Stephen Kidson
  *
  */
 public class JsonItem extends FeedItem {
