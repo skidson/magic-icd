@@ -7,7 +7,7 @@ import java.net.URL;
 
 /**
  * Parser with basic functionality for registering request URL's.
- * @author skidson
+ * @author Stephen Kidson
  *
  */
 public abstract class BaseParser implements Parser {

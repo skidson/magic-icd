@@ -11,25 +11,48 @@ import ca.ubc.magic.icd.web.FeedItem;
 
 import com.google.gson.stream.JsonReader;
 
+/**
+ * An implementation of Parser designed to fetch JSON encoded data, as per <code>RFC4627</code>.
+ * @author Stephen Kidson
+ *
+ */
 public class JsonParser extends BaseParser {
 	private FeedItem.Type type;
 	
+	/**
+	 * Instantiates a JSON Parser for the indicated URL.
+	 * @param feedUrl the URL from which to parse data.
+	 */
 	public JsonParser(String feedUrl) {
 		super(feedUrl);
 		this.type = FeedItem.Type.OTHER;
 	}
 	
+	/**
+	 * Instantiates a JSON Parser around the provided InputStream.
+	 * @param stream the input stream to parse data from.
+	 */
 	public JsonParser(InputStream stream) {
 		super(stream);
 		this.type = FeedItem.Type.OTHER;
 	}
 	
+	/**
+	 * Instantiates a JSON Parser for the indicated URL, and setup for the indicated
+	 * format, chosen from {@link FeedItem.Type}.
+	 * @param feedUrl
+	 * @param type
+	 */
 	public JsonParser(String feedUrl, FeedItem.Type type) {
 		super(feedUrl);
 		this.type = type;
 	}
 	
-	/** Parses all items available at this parser's URL. Foreknowledge of 
+	/** 
+	 * Parses all items available at this parser's URL. Top level items will be stored in the
+	 * returned list. <p><p> 
+	 * Note: It may be necessary for some web services to parse the top level item as a JsonItem
+	 * and further items as JsonItems from it.
 	 * @return a List containing JSON items fetched from this parser's URL.
 	 */
 	public List<JsonItem> parse() {
@@ -51,6 +74,12 @@ public class JsonParser extends BaseParser {
 		}
 	}
 	
+	/**
+	 * Parses a JSON Array into a List of JsonItems.
+	 * @param reader
+	 * @return a List of JsonItems.
+	 * @throws IOException
+	 */
 	public List<JsonItem> parseArray(JsonReader reader) throws IOException {
 		List<JsonItem> items = new ArrayList<JsonItem>();
 		reader.beginArray();
@@ -60,6 +89,12 @@ public class JsonParser extends BaseParser {
 		return items;
 	}
 	
+	/**
+	 * Parses a single JsonItem.
+	 * @param reader
+	 * @return a JsonItem.
+	 * @throws IOException
+	 */
 	public JsonItem parseItem(JsonReader reader) throws IOException {
 		JsonItem item = new JsonItem();
 		String key;

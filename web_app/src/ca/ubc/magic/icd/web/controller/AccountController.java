@@ -1,5 +1,6 @@
 package ca.ubc.magic.icd.web.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -130,6 +131,19 @@ public class AccountController {
     	Map<String, Object> model = UserService.initUserContext(linkManager);
     	//check and change PW
     	return new ModelAndView("changePassword", model);
+    }
+    
+    @RequestMapping("/mobile/android")
+    public ModelAndView mobileAuthenticate(	@RequestParam("username") String username,
+    										@RequestParam("password") String password) {
+    	Map<String, Object> model = new HashMap<String, Object>();
+    	if (UserService.authenticate(username, password)) {
+    		User user = new User();
+    		user.setUsername(username);
+    		model.put("user", user);
+    	}
+    	// TODO populate model with CoffeeShop-specific user information here
+    	return new ModelAndView("mobile", model);
     }
     
 }

@@ -32,6 +32,4 @@ public abstract class MagicItem {
 		this.name = name;
 	}
 	
-	
-	
 }
