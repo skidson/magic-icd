@@ -5,7 +5,13 @@ import java.util.List;
 import ca.ubc.magic.icd.web.json.JsonItem;
 import ca.ubc.magic.icd.web.model.Bit;
 import ca.ubc.magic.icd.web.model.User;
-
+/**
+ * 
+ * An interface providing the user with 
+ * @author Jeffrey Payan
+ * @author Stephen Kidson
+ *
+ */
 public interface MagicService {
 	public static final int BIT = 1;
 	public static final int PLACE = 2;

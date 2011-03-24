@@ -27,7 +27,7 @@ import ca.ubc.magic.icd.web.services.UserService;
 public class HomeController {
 	@Autowired
 	private MagicService magicService;
-	
+
 	@Autowired
 	private LinkManager linkManager;
 
@@ -40,14 +40,14 @@ public class HomeController {
 		Map<String, Object> model = UserService.initUserContext(linkManager);
 		List<User> friends = magicService.showFriends();
 		List<Event> events = new ArrayList<Event>();
-		
+
 		for(User user : friends){
 			user.setBits(magicService.showBitLinksOfUser(user.getId()));
 			for(Bit bit : user.getBits()){
 				events.add(new Event(user, bit));
 			}
 		}
-		
+
 		model.put("events", events);
 		return new ModelAndView("home", model);
 	}
@@ -59,6 +59,12 @@ public class HomeController {
 	public ModelAndView basicHome() {
 		Map<String, Object> model = UserService.initUserContext(linkManager);
 		return new ModelAndView("home", model);
+	}
+
+	@RequestMapping("/basic/FAQ")
+	public ModelAndView getFAQ(){
+		Map<String, Object> model = UserService.initUserContext(linkManager);
+		return new ModelAndView("FAQ", model);
 	}
 
 }
