@@ -79,7 +79,7 @@
 			    <TextView android:id="@+id/user_lblLinkedBits"
 			    	android:layout_height="wrap_content"
 			    	android:layout_width="wrap_content"
-			    	android:layout_marginTop="20sp"
+			    	android:layout_marginTop="25sp"
 			    	android:layout_marginLeft="10sp"
 			    	android:layout_below="@id/user_description"
 			    	android:text="@string/user_lblLinkedBits"
