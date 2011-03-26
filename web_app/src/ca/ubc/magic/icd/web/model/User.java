@@ -137,7 +137,7 @@ public class User extends MagicItem {
 	
 	/**
 	 * Get this users imageURL
-	 * @return Returns this users imageURL
+	 * @return Returns this user's imageURL
 	 */
 	public String getImageURL() {
 		return imageURL;

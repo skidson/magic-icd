@@ -19,6 +19,7 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 
 /**
+ * @deprecated
  * Provides Base64 encoding and decoding as defined by RFC 2045.
  * 
  * <p>

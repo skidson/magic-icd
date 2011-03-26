@@ -20,7 +20,7 @@
 						<c:otherwise>
 							<c:choose>
 								<c:when test="${not empty usersFound}">
-									<table>
+									<table width = 95%>
 									<c:forEach items="${usersFound}" var="result">
 										<tr>
 											<td rowSpan="2" align="center"> <img src="${result.imageURL}" alt="${result.name}'s picture" /> </td>

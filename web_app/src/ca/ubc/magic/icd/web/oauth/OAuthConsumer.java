@@ -1,5 +1,10 @@
 package ca.ubc.magic.icd.web.oauth;
 
+/**
+ * @deprecated
+ * @author Stephen Kidson
+ *
+ */
 public class OAuthConsumer {
 	protected String baseURL;
 	protected String requestTokenURL;
@@ -13,6 +18,7 @@ public class OAuthConsumer {
 	protected String httpMethod = "POST";
 	
 	/**
+	 * @deprecated
 	 * OAuth1.0 consumer client. Implementations should extend this class to provide
 	 * customized access to their application. Use this client's convenience methods to build
 	 * an OAuthRequest object, sign it with OAuth.sign(OAuthRequest request), then send. This

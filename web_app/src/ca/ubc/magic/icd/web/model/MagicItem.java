@@ -78,4 +78,10 @@ public abstract class MagicItem {
 		this.name = name;
 	}
 	
+	/**
+	 * Returns the URL of this item's associated image.
+	 * @return The URL of this item's image.
+	 */
+	public abstract String getImageURL();
+	
 }

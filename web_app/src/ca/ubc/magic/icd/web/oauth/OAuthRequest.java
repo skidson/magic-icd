@@ -1,10 +1,8 @@
 package ca.ubc.magic.icd.web.oauth;
 
-import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -16,6 +14,11 @@ import java.util.Map;
 
 import ca.ubc.magic.icd.web.oauth.OAuth.Encoding;
 
+/**
+ * @deprecated
+ * @author Stephen Kidson
+ *
+ */
 public class OAuthRequest {
 	private LinkedHashMap<String, String> parameters;
 	private String url;
@@ -24,6 +27,13 @@ public class OAuthRequest {
 	private String httpMethod = "POST";
 	private Encoding encoding = Encoding.HMAC_SHA1;
 	
+	/**
+	 * @deprecated
+	 * @param url
+	 * @param consumerKey
+	 * @param consumerSecret
+	 * @param tokenSecret
+	 */
 	public OAuthRequest(String url, String consumerKey, 
 			String consumerSecret, String tokenSecret) {
 		this.url = url;
@@ -35,6 +45,12 @@ public class OAuthRequest {
 		parameters.put(OAuth.OAUTH_SIGNATURE_METHOD, encoding.toString().replace("_", "-"));
 	}
 	
+	/**
+	 * @deprecated
+	 * @param url
+	 * @param consumerKey
+	 * @param consumerSecret
+	 */
 	public OAuthRequest(String url, String consumerKey, String consumerSecret) {
 		this(url, consumerKey, consumerSecret, "");
 	}
