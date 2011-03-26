@@ -19,8 +19,9 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
+ * @deprecated
  * Provides an abstract interface to OAuth 1.0 protocols as per RFC5849.
- * @author skidson
+ * @author Stephen Kidson
  *
  */
 @Deprecated
