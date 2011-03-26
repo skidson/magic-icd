@@ -7,8 +7,10 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 import ca.ubc.magic.icd.android.model.Bit;
 import ca.ubc.magic.icd.android.model.User;
 import ca.ubc.magic.icd.android.services.AndroidCoffeeShopService;
@@ -30,13 +32,16 @@ public class ListScreen extends ListActivity {
         this.magicService = AndroidCoffeeShopService.getInstance(ListScreen.this);
         items = new ArrayList<MagicItem>();
         if (this.getIntent().getExtras().getString("type").equals("bits")) {
-        	System.out.println("Showing bit list"); // debug
-	        for(Bit bit : magicService.showBitLinksOfUser())
+	        for(Bit bit : magicService.showBitLinksOfUser(0))
 	    		items.add(bit);
         } else if (this.getIntent().getExtras().getString("type").equals("friends")){
-        	System.out.println("Showing friend list"); // debug
-        	for(User user : magicService.showFriends())
-        		items.add(user);
+        	try {
+        		for(User user : magicService.showFriends())
+        			items.add(user);
+        	} catch (Exception e) {
+        		HomeScreen.queueToast("Error loading friends list");
+        		finish();
+        	}
         }
         this.getListView().setBackgroundColor(Color.parseColor("#f76301"));
         setListAdapter(new MagicAdapter(this, R.layout.list_item, items));

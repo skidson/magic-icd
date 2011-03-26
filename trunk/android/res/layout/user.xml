@@ -13,7 +13,7 @@
 		    android:gravity="left"
 		    android:background="@drawable/img_header_background">
 		    	
-		    <ImageView
+		    <ImageView android:id="@+id/coffeeshop_image"
 		    	android:layout_height="wrap_content"
 		    	android:layout_width="wrap_content"
 		    	android:layout_centerVertical="true"
@@ -31,60 +31,79 @@
 		    android:background="@drawable/img_footer_background"/>
 	    
 	    <!-- Body -->
-	    <RelativeLayout
-	    	android:layout_height="wrap_content"
+	    <ScrollView
 	    	android:layout_width="fill_parent"
+	    	android:layout_height="wrap_content"
 	    	android:layout_below="@id/coffeeshop_header"
+	    	android:layout_marginBottom="120px"
 	    	android:gravity="top">
 	    	
-	    	<TextView android:id="@+id/user_username"
+		    <RelativeLayout
 		    	android:layout_height="wrap_content"
-		    	android:layout_width="wrap_content"
-		    	android:layout_marginTop="10sp"
-		    	android:layout_marginLeft="10sp"
-		    	android:textSize="18px"
-		    	android:textStyle="bold"/>
+		    	android:layout_width="fill_parent"
+		    	android:gravity="top">
 	    	
-	    	<ImageView android:id="@+id/user_photo"
-		    	android:layout_height="wrap_content"
-		    	android:layout_width="wrap_content"
-		    	android:layout_below="@id/user_username"
-		    	android:layout_centerHorizontal="true"
-		    	android:layout_margin="10sp"
-		    	android:scaleType="centerInside"
-		    	android:src="@drawable/img_portrait"/>
+		    	<TextView android:id="@+id/user_username"
+			    	android:layout_height="wrap_content"
+			    	android:layout_width="wrap_content"
+			    	android:layout_marginTop="10sp"
+			    	android:layout_marginLeft="10sp"
+			    	android:textSize="20px"
+			    	android:textStyle="bold"/>
 		    	
-		    <TextView android:id="@+id/user_name"
-		    	android:layout_height="wrap_content"
-		    	android:layout_width="wrap_content"
-		    	android:layout_marginTop="10sp"
-		    	android:layout_marginLeft="10sp"
-		    	android:layout_below="@id/user_photo"
-		    	android:textStyle="bold"/>
+		    	<ImageView android:id="@+id/user_photo"
+			    	android:layout_height="wrap_content"
+			    	android:layout_width="wrap_content"
+			    	android:layout_below="@id/user_username"
+			    	android:layout_centerHorizontal="true"
+			    	android:layout_margin="10sp"
+			    	android:scaleType="centerInside"
+			    	android:src="@drawable/img_portrait"/>
+			    	
+			    <TextView android:id="@+id/user_name"
+			    	android:layout_height="wrap_content"
+			    	android:layout_width="wrap_content"
+			    	android:layout_marginTop="10sp"
+			    	android:layout_marginLeft="10sp"
+			    	android:layout_below="@id/user_photo"
+			    	android:textStyle="bold"/>
+			    	
+			    <TextView android:id="@+id/user_description"
+			    	android:layout_height="wrap_content"
+			    	android:layout_width="wrap_content"
+			    	android:layout_marginTop="10sp"
+			    	android:layout_below="@id/user_name"
+			    	android:layout_alignLeft="@id/user_name"
+			    	android:textStyle="italic"/>
+			    	
+			    <TextView android:id="@+id/user_lblLinkedBits"
+			    	android:layout_height="wrap_content"
+			    	android:layout_width="wrap_content"
+			    	android:layout_marginTop="20sp"
+			    	android:layout_marginLeft="10sp"
+			    	android:layout_below="@id/user_description"
+			    	android:text="@string/user_lblLinkedBits"
+			    	android:textSize="18px"
+			    	android:textStyle="bold"
+			    	android:visibility="invisible"/>
+			    	
+			    <ListView android:id="@+id/user_linkedBits"
+			    	android:layout_width="fill_parent"
+			    	android:layout_height="wrap_content" 
+			    	android:layout_below="@id/user_lblLinkedBits"
+			    	android:layout_marginTop="10sp"
+			    	android:layout_marginLeft="15sp"
+			    	android:layout_marginRight="15sp"/>
 		    	
-		    <TextView android:id="@+id/user_description"
-		    	android:layout_height="wrap_content"
-		    	android:layout_width="wrap_content"
-		    	android:layout_marginTop="10sp"
-		    	android:layout_below="@id/user_name"
-		    	android:layout_alignLeft="@id/user_name"
-		    	android:textStyle="italic"/>
+	    	</RelativeLayout>
 	    	
-    	</RelativeLayout>
+    	</ScrollView>
     	
-    	<Button android:id="@+id/user_btnCheckin"
+		<Button android:id="@+id/user_btnBefriend"
 		    	android:layout_width="wrap_content"
 		    	android:layout_height="wrap_content"
 		    	android:layout_alignParentRight="true"
 		    	android:layout_above="@id/coffeeshop_footer"
-		    	android:background="@drawable/btn_checkin_selector"/>
-		    	
-		<Button android:id="@+id/user_btnBefriend"
-		    	android:layout_width="wrap_content"
-		    	android:layout_height="wrap_content"
-		    	android:layout_toLeftOf="@id/user_btnCheckin"
-		    	android:layout_alignTop="@id/user_btnCheckin"
-		    	android:layout_marginRight="10sp"
 		    	android:background="@drawable/btn_befriend_selector"/>
 	    
 </RelativeLayout>

@@ -1,7 +1,10 @@
 package ca.ubc.magic.icd.android.services;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -20,10 +23,18 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ImageView;
+import ca.ubc.magic.icd.android.HomeScreen;
+import ca.ubc.magic.icd.android.R;
+import ca.ubc.magic.icd.android.UserScreen;
 import ca.ubc.magic.icd.android.model.Bit;
 import ca.ubc.magic.icd.android.model.User;
 import ca.ubc.magic.icd.web.json.JsonItem;
@@ -147,7 +158,7 @@ public class AndroidCoffeeShopService {
 	 */
 	// FIXME for some reason this returns null, from the server.... using int param method works though...
 	public JsonItem showUser() {
-		String request = "users/show";
+		String request = "users/show?id=0";
 		return (new JsonParser(compileInputStream(request))).parse().get(0);
 	}
 	
@@ -213,8 +224,8 @@ public class AndroidCoffeeShopService {
 	 * Invokes the Magic Broker's <code>/links/show</code> method.
 	 * @return a List of Bits linked to the current user.
 	 */
-	public List<Bit> showBitLinksOfUser() {
-		String request = "links/show";
+	public List<Bit> showBitLinksOfUser(int id) {
+		String request = "links/show?id=" + id;
 		Iterator<JsonItem> iterator = (new JsonParser(compileInputStream(request))).parse().iterator();
 		List<Bit> list = new ArrayList<Bit>();
 		while (iterator.hasNext()) {
@@ -223,15 +234,15 @@ public class AndroidCoffeeShopService {
 				String name = bit.getAsString(AndroidCoffeeShopService.NAME);
 				String description = bit.getAsString(AndroidCoffeeShopService.DESCRIPTION);
 				String qrImage = bit.getAsString(AndroidCoffeeShopService.QR_IMAGE_URL);
-				Integer id, type;
+				Integer bitID, type;
 				try {
-					id = bit.getAsInteger(AndroidCoffeeShopService.ID);
+					bitID = bit.getAsInteger(AndroidCoffeeShopService.ID);
 					type = bit.getAsInteger(AndroidCoffeeShopService.BITS_TYPES_ID);;
 				} catch (NumberFormatException e) {
-					id = 0;
+					bitID = 0;
 					type = 0;
 				}
-				list.add(new Bit(name, description, qrImage, id, type));
+				list.add(new Bit(name, description, qrImage, bitID, type));
 			} catch (Exception e) {
 				continue;
 			}
@@ -287,6 +298,16 @@ public class AndroidCoffeeShopService {
 	}
 	
 	/**
+	 * Creates a friend between the authenticated user and the specified user
+	 * @param id - the userID of the person to befriend
+	 * 
+	 */
+	public void createFriend(int id) {
+		String request = "friends/create?id=" + id;
+		(new JsonParser(compileInputStream(request))).parse();
+	}
+	
+	/**
 	 * Compiles and executes the request's Http methods and returns the response's
 	 * associated InputStream.
 	 * @param query the specific query to append to this service's URL pattern.
@@ -294,23 +315,13 @@ public class AndroidCoffeeShopService {
 	 */
 	private InputStream compileInputStream(String query) {
 		HttpClient httpClient = new DefaultHttpClient();
-		
 		HttpGet request = new HttpGet(MAGIC_URL_PATTERN + query);
-		
 		HttpResponse response = null;
 		try {
 			consumer.sign(request);
 			
-			/*
-			// Ensure the signpost libraries do not implement the "id" parameter
-			if (!path.contains("id=")) {
-				Log.d("MAGIC", "id removed: " + request.getParams().removeParameter("id"));
-				Log.d("MAGIC", "request URI: " + request.getURI().toString());
-			}
-			*/
 			response = httpClient.execute(request);
 			
-			/*
 			// Debug - intercepts the received content and logs it before returning
 			BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 			StringBuilder builder = new StringBuilder();
@@ -320,13 +331,49 @@ public class AndroidCoffeeShopService {
 			Log.d("MAGIC", builder.toString());
 			System.out.println(builder.toString());
 			return(new ByteArrayInputStream(builder.toString().getBytes()));
-			*/
 			
-			return response.getEntity().getContent();
+//			return response.getEntity().getContent();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	/**
+	 * Returns a list of users containing all the users linked to the bit
+	 * @param id the bitID of the bit whose links are to be fetched from the database
+	 * @return A list of users containing all the users linked to this bit 
+	 */
+	public List<User> showUserLinkedToBit(int id) {
+		String request = "links/users?id=" + id;
+		Iterator<JsonItem> iterator = (new JsonParser(compileInputStream(request))).parse().iterator();
+		List<User> list = new ArrayList<User>();
+		while (iterator.hasNext()) {
+			JsonItem userInfo = iterator.next().getAsJsonItem("user");
+			
+			String name, username, description, photo;
+			Integer experience, points, userID;
+			try {
+				name = userInfo.getAsString("name");
+				username = userInfo.getAsString("username");
+				description = userInfo.getAsString("description");
+				photo = userInfo.getAsString("photo");
+				userID = userInfo.getAsInteger("id");
+				try {
+					experience = userInfo.getAsInteger("experience");
+					points = userInfo.getAsInteger("points");
+				} catch (NumberFormatException e) {
+					experience = 0;
+					points = 0;
+				}
+			} catch (NullPointerException e) {
+				continue;
+			}
+			User user = new User(name, username, description, photo, userID,
+					experience, points);
+			list.add(user);
+		}
+		return list;
 	}
 	
 	/**
@@ -393,4 +440,5 @@ public class AndroidCoffeeShopService {
 		InputStream input = (InputStream) new URL("https://chart.googleapis.com/chart?cht=qr&chs=" + size + "&chl=" + data + "&choe=" + "UTF-8").getContent();
 		return Drawable.createFromStream(input, "src name");
 	}
+	
 }

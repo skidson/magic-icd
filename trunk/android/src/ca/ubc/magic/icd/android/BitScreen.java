@@ -1,18 +1,26 @@
 package ca.ubc.magic.icd.android;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import ca.ubc.magic.icd.android.model.Bit;
+import ca.ubc.magic.icd.android.model.User;
 import ca.ubc.magic.icd.android.services.AndroidCoffeeShopService;
 import ca.ubc.magic.icd.web.json.JsonItem;
+import ca.ubc.magic.icd.web.model.MagicItem;
 
 /**
  * Presents a View displaying information on a specified bit. This activity
@@ -22,6 +30,7 @@ import ca.ubc.magic.icd.web.json.JsonItem;
  */
 public class BitScreen extends Activity {
 	private AndroidCoffeeShopService magicService;
+	private int bit_id;
 	
     /** Called when the activity is first created. */
     @Override
@@ -30,15 +39,17 @@ public class BitScreen extends Activity {
         setContentView(R.layout.bit);
         magicService = AndroidCoffeeShopService.getInstance(BitScreen.this);
         
-        int bit_id = this.getIntent().getExtras().getInt("bit_id");
+        bit_id = this.getIntent().getExtras().getInt("bit_id");
         JsonItem bitInfo = null;
+        Bit protoBit = null;
         try {
 	        bitInfo = magicService.showBit(bit_id).getAsJsonItem("bit");
+	        protoBit = updateBit(bitInfo);
         } catch (Exception e) {
-        	Toast.makeText(HomeScreen.getContext(), "Invalid QR code", Toast.LENGTH_SHORT);
+        	HomeScreen.queueToast("Invalid QR code");
         	finish();
         }
-        final Bit bit = updateBit(bitInfo);
+        final Bit bit = protoBit;
         Button btnCheckin = (Button) findViewById(R.id.bit_btnCheckin);
     	btnCheckin.setOnClickListener(new OnClickListener() {
 			@Override
@@ -48,8 +59,10 @@ public class BitScreen extends Activity {
     				Toast.makeText(BitScreen.this, "You are now checked into this bit", Toast.LENGTH_SHORT).show();
     			} catch (Exception e) {
     				Toast.makeText(BitScreen.this, "Unable to check into this bit", Toast.LENGTH_SHORT).show();
-    				e.printStackTrace();
     			}
+    			try {
+					showLinkedUsers();
+				} catch (Exception ignore) { ignore.printStackTrace(); }
 			}
     	});
     	
@@ -62,10 +75,18 @@ public class BitScreen extends Activity {
     				Toast.makeText(BitScreen.this, "You are now linked into this bit", Toast.LENGTH_SHORT).show();
     			} catch (Exception e) {
     				Toast.makeText(BitScreen.this, "Unable to link to this bit", Toast.LENGTH_SHORT).show();
-    				e.printStackTrace();
     			}
 			}
     	});
+    	
+    	ImageView header = ((ImageView)findViewById(R.id.coffeeshop_image));
+        header.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(BitScreen.this, HomeScreen.class));
+			}
+        });
+        
     }
     
     /**
@@ -100,6 +121,24 @@ public class BitScreen extends Activity {
         		((ImageView)findViewById(R.id.bit_qrCode)).setImageDrawable(AndroidCoffeeShopService.getGoogleQR(128, "MAGIC: " + bit.getId()));
         	} catch (IOException e2) {}
         }
+    }
+    
+    private void showLinkedUsers() {
+    	ListView listLinkedUsers = (ListView)findViewById(R.id.bit_linkedUsers);
+    	List<MagicItem> linkedUsers = new ArrayList<MagicItem>();
+    	for (User user : magicService.showUserLinkedToBit(bit_id))
+    		linkedUsers.add(user);
+    	listLinkedUsers.setAdapter(new MagicAdapter(BitScreen.this, R.layout.list_item, linkedUsers));
+    	listLinkedUsers.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				Intent intent = new Intent(BitScreen.this, UserScreen.class);
+				intent.putExtra("user_id", (Integer)arg1.getTag());
+				startActivity(intent);
+			}
+    	});
+    	((TextView)findViewById(R.id.bit_lblLinkedUsers)).setVisibility(TextView.VISIBLE);
     }
     
 }

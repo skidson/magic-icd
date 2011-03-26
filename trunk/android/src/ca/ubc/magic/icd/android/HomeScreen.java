@@ -25,6 +25,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import ca.ubc.magic.icd.android.model.User;
 import ca.ubc.magic.icd.android.services.AndroidCoffeeShopService;
 import ca.ubc.magic.icd.web.json.JsonItem;
@@ -43,6 +44,7 @@ public class HomeScreen extends Activity {
 	private static final String MAGIC_QR_PATTERN = "MAGIC:";
 	private AndroidCoffeeShopService magicService;
 	private static Context instance;
+	private static Toast queuedMsg;
 	
 	private User user;
 	
@@ -86,6 +88,7 @@ public class HomeScreen extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(HomeScreen.this, UserScreen.class);
+				intent.putExtra("user_id", user.getId());
 				startActivity(intent);
 			}
         });
@@ -94,12 +97,12 @@ public class HomeScreen extends Activity {
     @Override
 	protected void onResume() {
     	// FIXME for some reason showUser(#) works but this fails...
-        try {
-        	updateUser(magicService.showUser().getAsJsonItem("user"));
-        } catch (Exception e) {
-        	updateUser(magicService.showUser(2).getAsJsonItem("user"));
-        }
+    	updateUser(magicService.showUser().getAsJsonItem("user"));
 		super.onResume();
+		if (queuedMsg != null) {
+			queuedMsg.show();
+			queuedMsg = null;
+		}
 	}
 
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -183,8 +186,8 @@ public class HomeScreen extends Activity {
 	 * returning from failed tasks.
 	 * @return
 	 */
-	public static Context getContext() {
-		return instance;
+	public static void queueToast(String message) {
+		queuedMsg = Toast.makeText(instance, message, Toast.LENGTH_SHORT);
 	}
     
 }

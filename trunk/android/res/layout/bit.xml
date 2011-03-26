@@ -13,7 +13,7 @@
 		    android:gravity="left"
 		    android:background="@drawable/img_header_background">
 		    	
-		    <ImageView
+		    <ImageView android:id="@+id/coffeeshop_image"
 		    	android:layout_height="wrap_content"
 		    	android:layout_width="wrap_content"
 		    	android:layout_centerVertical="true"
@@ -48,7 +48,7 @@
 			    	android:layout_width="wrap_content"
 			    	android:layout_marginTop="10sp"
 			    	android:layout_marginLeft="10sp"
-			    	android:textSize="18px"
+			    	android:textSize="20px"
 			    	android:textStyle="bold"/>
 		    	
 		    	<ImageView android:id="@+id/bit_qrCode"
@@ -74,6 +74,25 @@
 			    	android:layout_below="@id/bit_type"
 			    	android:layout_alignLeft="@id/bit_type"
 			    	android:textStyle="italic"/>
+			    	
+		    	<TextView android:id="@+id/bit_lblLinkedUsers"
+			    	android:layout_height="wrap_content"
+			    	android:layout_width="wrap_content"
+			    	android:layout_marginTop="20sp"
+			    	android:layout_marginLeft="10sp"
+			    	android:layout_below="@id/bit_description"
+			    	android:text="@string/bit_lblLinkedUsers"
+			    	android:textSize="18px"
+			    	android:textStyle="bold"
+			    	android:visibility="invisible"/>
+			    	
+			    <ListView android:id="@+id/bit_linkedUsers"
+			    	android:layout_width="fill_parent"
+			    	android:layout_height="wrap_content" 
+			    	android:layout_below="@id/bit_lblLinkedUsers"
+			    	android:layout_marginTop="10sp"
+			    	android:layout_marginLeft="15sp"
+			    	android:layout_marginRight="15sp"/>
 	    	
     		</RelativeLayout>
     		

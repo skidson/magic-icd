@@ -99,7 +99,7 @@ public class Bit extends MagicItem {
 		}
 	}
 	
-	public String getImage() {
+	public String getImageURL() {
 		return getQrImage();
 	}
 	

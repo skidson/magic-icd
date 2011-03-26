@@ -58,7 +58,7 @@ public class MagicAdapter extends BaseAdapter {
 			txtDescription.setText(item.getDescription());
 		if (imgPhoto != null) {
 			try {
-				imgPhoto.setImageDrawable(AndroidCoffeeShopService.getImageFromURL(item.getImage()));
+				imgPhoto.setImageDrawable(AndroidCoffeeShopService.getImageFromURL(item.getImageURL()));
 			} catch (IOException ignore) {}
 		}
 		
