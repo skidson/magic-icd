@@ -94,7 +94,7 @@ public class User extends MagicItem {
 		this.points = points;
 	}
 	
-	public String getImage() {
+	public String getImageURL() {
 		return getPhoto();
 	}
 	
