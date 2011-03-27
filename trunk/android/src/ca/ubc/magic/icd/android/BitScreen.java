@@ -57,6 +57,7 @@ public class BitScreen extends Activity {
 				try {
     				magicService.checkin(bit.getId());
     				Toast.makeText(BitScreen.this, "You are now checked into this bit", Toast.LENGTH_SHORT).show();
+    				HomeScreen.queueRefresh();
     			} catch (Exception e) {
     				Toast.makeText(BitScreen.this, "Unable to check into this bit", Toast.LENGTH_SHORT).show();
     			}
