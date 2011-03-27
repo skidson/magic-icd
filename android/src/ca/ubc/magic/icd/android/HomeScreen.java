@@ -44,7 +44,8 @@ public class HomeScreen extends Activity {
 	private static final String MAGIC_QR_PATTERN = "MAGIC:";
 	private AndroidCoffeeShopService magicService;
 	private static Context instance;
-	private static Toast queuedMsg;
+	private static Toast queuedMsg = null;
+	private static boolean queuedRefresh = true;
 	
 	private User user;
 	
@@ -96,9 +97,13 @@ public class HomeScreen extends Activity {
     
     @Override
 	protected void onResume() {
-    	// FIXME for some reason showUser(#) works but this fails...
-    	updateUser(magicService.showUser().getAsJsonItem("user"));
+    	if (queuedRefresh) {
+    		updateUser(magicService.showUser().getAsJsonItem("user"));
+    		queuedRefresh = false;
+    	}
+    	
 		super.onResume();
+		
 		if (queuedMsg != null) {
 			queuedMsg.show();
 			queuedMsg = null;
@@ -188,6 +193,10 @@ public class HomeScreen extends Activity {
 	 */
 	public static void queueToast(String message) {
 		queuedMsg = Toast.makeText(instance, message, Toast.LENGTH_SHORT);
+	}
+	
+	public static void queueRefresh() {
+		queuedRefresh = true;
 	}
     
 }
