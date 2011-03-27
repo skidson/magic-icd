@@ -1,5 +1,9 @@
 ca.ubc.magic.icd.android
+ca.ubc.magic.icd.android.model
+ca.ubc.magic.icd.android.services
 ca.ubc.magic.icd.web
 ca.ubc.magic.icd.web.controller
+ca.ubc.magic.icd.web.json
 ca.ubc.magic.icd.web.model
 ca.ubc.magic.icd.web.oauth
+ca.ubc.magic.icd.web.services
