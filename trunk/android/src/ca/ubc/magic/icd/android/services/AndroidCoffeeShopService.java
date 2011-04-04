@@ -100,9 +100,18 @@ public class AndroidCoffeeShopService {
 	 */
 	public static AndroidCoffeeShopService getInstance(Context context) {
 		if (instance == null)
-			return new AndroidCoffeeShopService(context);
-		else
-			return instance;
+			instance = new AndroidCoffeeShopService(context);
+		return instance;
+	}
+	
+	/**
+	 * Returns the singleton instance of the CoffeeShop Service. If the service has not been constructed yet 
+	 * this will return null. This should only be called if the service is guaranteed to exist.
+	 * @param context the context to register this instance with. May be null for subsequent calls.
+	 * @return the singleton instance of this service.
+	 */
+	protected static AndroidCoffeeShopService getInstance() {
+		return instance;
 	}
 	
 	/**
@@ -159,7 +168,7 @@ public class AndroidCoffeeShopService {
 	// FIXME for some reason this returns null, from the server.... using int param method works though...
 	public JsonItem showUser() {
 		String request = "users/show?id=0";
-		return (new JsonParser(compileInputStream(request))).parse().get(0);
+		return new JsonParser(compileInputStream(request)).parse().get(0).getAsJsonItem("user");
 	}
 	
 	/**
@@ -224,8 +233,10 @@ public class AndroidCoffeeShopService {
 	 * Invokes the Magic Broker's <code>/links/show</code> method.
 	 * @return a List of Bits linked to the current user.
 	 */
-	public List<Bit> showBitLinksOfUser(int id) {
-		String request = "links/show?id=" + id;
+	public List<Bit> showBitLinksOfUser(Integer id) {
+		String request = "links/show";
+		if (id != null)
+			request += "?id=" + id;
 		Iterator<JsonItem> iterator = (new JsonParser(compileInputStream(request))).parse().iterator();
 		List<Bit> list = new ArrayList<Bit>();
 		while (iterator.hasNext()) {
@@ -249,6 +260,11 @@ public class AndroidCoffeeShopService {
 		}
 		return list;
 	}
+	
+	public List<Bit> showBitLinksOfUser() {
+		return showBitLinksOfUser(null);
+	}
+	
 	
 	/**
 	 * Invokes the Magic Broker's <code>/bits/search?q=</code> method.

@@ -27,57 +27,65 @@
 		    android:layout_height="wrap_content"
 		    android:layout_alignParentBottom="true"
 		    android:background="@drawable/img_footer_background"/>
-	    
-		<RelativeLayout android:id="@+id/login_layout"
-		    android:layout_height="wrap_content"
+		    
+	     <ScrollView
 	    	android:layout_width="fill_parent"
+	    	android:layout_height="wrap_content"
 	    	android:layout_below="@id/coffeeshop_header"
-	    	android:layout_above="@id/coffeeshop_footer"
-		    android:gravity="center">
-		
-			<TextView android:id="@+id/login_lblUsername"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:textSize="18px"
-		        android:text="@string/login_lblUsername"
-		        android:layout_marginLeft="10sp"/>
-		        
-		    <EditText android:id="@+id/login_txtUsername"
-		        android:layout_width="fill_parent"
-		        android:layout_height="40dip"
-		        android:background="@android:drawable/editbox_background"
-		        android:layout_toRightOf="@id/login_lblUsername"
-		        android:layout_alignBaseline="@id/login_lblUsername"
-		        android:layout_margin="10sp"/>
-		        
-		    <TextView android:id="@+id/login_lblPassword"
-			    android:layout_width="wrap_content"
+	    	android:layout_marginBottom="130dip"
+	    	android:gravity="top">
+	    
+			<RelativeLayout android:id="@+id/login_layout"
 			    android:layout_height="wrap_content"
-			    android:layout_below="@id/login_lblUsername"
-			    android:layout_alignLeft="@id/login_lblUsername"
-			    android:layout_marginTop="20dip"
-			    android:textSize="18px"
-			    android:text="@string/login_lblPassword"/>
+		    	android:layout_width="fill_parent"
+		    	android:layout_below="@id/coffeeshop_header"
+		    	android:layout_above="@id/coffeeshop_footer"
+		    	android:gravity="top">
 			    
-		    <EditText android:id="@+id/login_txtPassword"
-		    	android:password="true"
-		        android:layout_width="fill_parent"
-		        android:layout_height="40dip"
-		        android:background="@android:drawable/editbox_background"
-		        android:layout_below="@id/login_txtUsername"
-		        android:layout_toRightOf="@id/login_lblPassword"
-		        android:layout_alignTop="@id/login_lblPassword"
-		        android:layout_alignLeft="@id/login_txtUsername"
-		        android:layout_alignRight="@id/login_txtUsername"/>
-		        
-		    <Button android:id="@+id/login_btnLogin"
-		        android:layout_width="100dip"
-		        android:layout_height="45dip"
-		        android:layout_marginTop="20dip"
-		        android:layout_below="@id/login_lblPassword"
-		        android:layout_centerHorizontal="true"
-		        android:text="@string/login_btnLogin" />
+			    <TextView android:id="@+id/login_lblWelcome"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_margin="15dp"
+					android:layout_centerHorizontal="true"
+					android:textSize="20px"
+					android:textStyle="bold"
+					android:text="@string/welcome" />
+					
+				<ImageView android:id="@+id/login_imgCoffeeCup"
+					android:layout_width="200dp"
+					android:layout_height="200dp"
+					android:layout_centerHorizontal="true" 
+					android:layout_below="@id/login_lblWelcome"
+					android:scaleType="centerInside"
+					android:src="@drawable/img_coffee_cup"/>
+			    
+			    <TextView android:id="@+id/login_lblIntro"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_below="@id/login_imgCoffeeCup"
+					android:layout_margin="10dp"
+					android:textSize="18px"
+					android:text="@string/welcome_intro" />
+			
+			        
+			</RelativeLayout>
 		
-		</RelativeLayout>
+		</ScrollView>
+		
+		<Button android:id="@+id/login_btnLink"
+	        android:layout_width="100dip"
+	        android:layout_height="45dip"
+	        android:layout_margin="20dip"
+	        android:layout_alignParentLeft="true"
+	    	android:layout_above="@id/coffeeshop_footer"
+	        android:text="@string/login_btnLink" />
+		        
+	    <Button android:id="@+id/login_btnRegister"
+	        android:layout_width="100dip"
+	        android:layout_height="45dip"
+	        android:layout_margin="20dip"
+	        android:layout_alignParentRight="true"
+	    	android:layout_above="@id/coffeeshop_footer"
+	        android:text="@string/login_btnRegister" />	
 	    
 </RelativeLayout>

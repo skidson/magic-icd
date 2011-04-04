@@ -8,10 +8,17 @@
     
 	<string name="login_lblUsername">Username:</string>
     <string name="login_lblPassword">Password:</string>
-    <string name="login_btnLogin">Login</string>
+    <string name="login_btnLink">Link</string>
+    <string name="login_btnRegister">Register</string>
     
     <string name="bit_lblLinkedUsers">Linked users:</string>
     <string name="user_lblLinkedBits">Linked to:</string>
     <string name="coffeeshop_header">CoffeeShop</string>
+    
+    <string name="welcome">Welcome to the CoffeeShop!</string>
+    <string name="welcome_intro">
+    	CoffeeShop is a new way to link you and your friends. To get started, link this
+    	application to you MAGIC account. Don\'t have a MAGIC account? Register below!
+    </string>
     
 </resources>
