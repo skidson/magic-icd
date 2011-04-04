@@ -45,7 +45,7 @@ public class UserScreen extends Activity {
         User protoUser = null;
         
         try {
-        	JsonItem userInfo = magicService.showUser(user_id).getAsJsonItem("user");
+        	JsonItem userInfo = magicService.showUser(user_id);
         	protoUser = new User(userInfo.getAsString(AndroidCoffeeShopService.NAME),
         			userInfo.getAsString(AndroidCoffeeShopService.USERNAME),
         			userInfo.getAsString(AndroidCoffeeShopService.DESCRIPTION),

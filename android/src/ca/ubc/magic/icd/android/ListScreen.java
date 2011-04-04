@@ -32,8 +32,13 @@ public class ListScreen extends ListActivity {
         this.magicService = AndroidCoffeeShopService.getInstance(ListScreen.this);
         items = new ArrayList<MagicItem>();
         if (this.getIntent().getExtras().getString("type").equals("bits")) {
-	        for(Bit bit : magicService.showBitLinksOfUser(0))
-	    		items.add(bit);
+        	try {
+		        for(Bit bit : magicService.showBitLinksOfUser())
+		    		items.add(bit);
+        	} catch (Exception e) {
+        		HomeScreen.queueToast("Error loading bits list");
+        		finish();
+        	}
         } else if (this.getIntent().getExtras().getString("type").equals("friends")){
         	try {
         		for(User user : magicService.showFriends())

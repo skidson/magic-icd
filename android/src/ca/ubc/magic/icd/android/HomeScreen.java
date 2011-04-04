@@ -41,7 +41,7 @@ public class HomeScreen extends Activity {
 	private static final String SCANNER = "com.google.zxing.client.android.SCAN";
 	private static final int SCANNER_REQUEST_CODE = 0;
 	private static final String SCAN_RESULT = "SCAN_RESULT";
-	private static final String MAGIC_QR_PATTERN = "MAGIC:";
+	private static final String MAGIC_QR_PATTERN = "http://kimberly.magic.ubc.ca/1/qr/";
 	private AndroidCoffeeShopService magicService;
 	private static Context instance;
 	private static Toast queuedMsg = null;
@@ -98,7 +98,7 @@ public class HomeScreen extends Activity {
     @Override
 	protected void onResume() {
     	if (queuedRefresh) {
-    		updateUser(magicService.showUser().getAsJsonItem("user"));
+    		updateUser(magicService.showUser());
     		queuedRefresh = false;
     	}
     	
@@ -119,14 +119,14 @@ public class HomeScreen extends Activity {
             	String qrResult = intent.getStringExtra(SCAN_RESULT);
             	Intent newIntent = new Intent(HomeScreen.this, BitScreen.class);
             	// Fetch and display this bit's info on the BitScreen
-            	int bit_id = 1;
-        		if (qrResult.contains(MAGIC_QR_PATTERN))
-        			bit_id = Integer.parseInt(qrResult.split(":")[1].trim());
-    			newIntent.putExtra("bit_id", bit_id);
-        		
-    			startActivity(newIntent);
+            	int bit_id = 0;
+        		if (qrResult.contains(MAGIC_QR_PATTERN)) {
+        			bit_id = Integer.parseInt(qrResult.split(MAGIC_QR_PATTERN)[1].trim());
+        			newIntent.putExtra("bit_id", bit_id);
+        			startActivity(newIntent);
+        		} else
+        			Toast.makeText(HomeScreen.this, "Unrecognizable QR format", Toast.LENGTH_SHORT).show();
             }
-    		break;
     	}
     }
 	
