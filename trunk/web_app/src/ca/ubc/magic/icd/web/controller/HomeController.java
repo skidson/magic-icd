@@ -51,6 +51,7 @@ public class HomeController {
 		model.put("events", events);
 		return new ModelAndView("home", model);
 	}
+	
 	/**
 	 * 
 	 * 
